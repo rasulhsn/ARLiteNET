@@ -1,4 +1,5 @@
 # ActiveRecordNET
+<strong>This project violates some design principles.</strong>
 
 The main purpose of this library represents the RD table as an object via the Active-Record pattern.
 
