@@ -17,23 +17,27 @@ public class User : AdoObjectProxy
         public bool IsActive { get; set; }
 
         // Internals
-        private readonly AdoConnectionStringBuilder _connectionStringBuilder;
+        private readonly string _connectionString;
+        private readonly string _providerName;
 
         public TestProxy(string connectionString, string providerName)
         {
-            _connectionStringBuilder = new AdoConnectionStringBuilder()
-                        .ConnectionString(connectionString)
-                        .ProviderName(providerName);
+           _connectionString = connectionString;
+           _providerName = providerName;
         }
 
         public IEnumerable<User> GetAll()
         {
-            return this.ReadRecords<User>(() =>
+            return this.ReadRecords<User>((builder) =>
             {
-                return _connectionStringBuilder
-                        .CreateCommand()
-                        .SetCommand("SELECT * FROM Users");
+                builder.SetCommand("SELECT * FROM Users");
             });
+        }
+        
+        protected override void Configure(AdoConnectionStringBuilder builder)
+        {
+            builder.ConnectionString(_connectionString)
+                   .ProviderName(_providerName);
         }
 }
 
