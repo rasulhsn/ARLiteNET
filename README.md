@@ -18,12 +18,10 @@ public class User : AdoObjectProxy
 
         // Internals
         private readonly string _connectionString;
-        private readonly string _providerName;
 
-        public User(string connectionString, string providerName)
+        public User(string connectionString)
         {
            _connectionString = connectionString;
-           _providerName = providerName;
         }
 
         public IEnumerable<User> GetAll()
@@ -37,7 +35,7 @@ public class User : AdoObjectProxy
         protected override void Configure(AdoConnectionStringBuilder builder)
         {
             builder.ConnectionString(_connectionString)
-                   .ProviderName(_providerName);
+                   .MSSQL();
         }
 }
 
