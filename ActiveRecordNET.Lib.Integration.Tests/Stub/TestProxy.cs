@@ -7,26 +7,21 @@ namespace ActiveRecordNET.Integration.Tests
 {
     public class TestProxy : AdoObjectProxy
     {
-        private readonly AdoConnectionStringBuilder _connectionStringBuilder;
+        public IEnumerable<TestObject> GetAll()
+        {
+            return this.ReadRecords<TestObject>((builder) =>
+            {
+                builder.SetCommand("SELECT * FROM Users");
+            });
+        }
 
-        public TestProxy()
+        protected override void Configure(AdoConnectionStringBuilder builder)
         {
             // For test -> sqllite
             string pathSqlLite = Path.Combine(PathUtils.TryGetRootPath(), "Data", "ARNetDb.db");
-            
-            _connectionStringBuilder = new AdoConnectionStringBuilder()
-                        .ConnectionString($"Data Source={pathSqlLite};Version=3;")
-                        .SQLLite();
-        }
 
-        public IEnumerable<TestObject> GetAll()
-        {
-            return this.ReadRecords<TestObject>(() =>
-            {
-                return _connectionStringBuilder
-                        .CreateCommand()
-                        .SetCommand("SELECT * FROM Users");
-            });
+            builder.ConnectionString($"Data Source={pathSqlLite};Version=3;")
+                   .SQLLite();
         }
     }
 }

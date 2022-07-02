@@ -5,16 +5,21 @@ namespace ActiveRecordNET
 {
     public abstract class AdoObjectProxy
     {
-        private AdoCommandExecuter _commandExecuter;
+        private readonly AdoCommandExecuter _commandExecuter;
+        private readonly AdoConnectionStringBuilder _connectionStringBuilder;
 
         protected AdoObjectProxy()
         {
             _commandExecuter = new AdoCommandExecuter();
+            _connectionStringBuilder = new AdoConnectionStringBuilder();
+
+            Configure(_connectionStringBuilder);
         }
 
-        protected IEnumerable<T> ReadRecords<T>(Func<AdoCommandBuilder> builder) where T : new()
+        protected IEnumerable<T> ReadRecords<T>(Action<AdoCommandBuilder> builderCallback) where T : new()
         {
-            var dbCommandBuilder = builder();
+            var dbCommandBuilder = _connectionStringBuilder.CreateCommand();
+            builderCallback(dbCommandBuilder);
             var dbCommand = dbCommandBuilder.Build();
             
             var result = _commandExecuter.Array<T>(dbCommand);
@@ -27,9 +32,10 @@ namespace ActiveRecordNET
             return result.Object;
         }
 
-        protected T ReadRecord<T>(Func<AdoCommandBuilder> builder) where T : new()
+        protected T ReadRecord<T>(Action<AdoCommandBuilder> builderCallback) where T : new()
         {
-            var dbCommandBuilder = builder();
+            var dbCommandBuilder = _connectionStringBuilder.CreateCommand();
+            builderCallback(dbCommandBuilder);
             var dbCommand = dbCommandBuilder.Build();
 
             var result = _commandExecuter.Single(dbCommand);
@@ -41,5 +47,7 @@ namespace ActiveRecordNET
 
             return (T)result.Object;
         }
+
+        protected abstract void Configure(AdoConnectionStringBuilder builder);
     }
 }
