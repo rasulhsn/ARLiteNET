@@ -20,7 +20,7 @@ public class User : AdoObjectProxy
         private readonly string _connectionString;
         private readonly string _providerName;
 
-        public TestProxy(string connectionString, string providerName)
+        public User(string connectionString, string providerName)
         {
            _connectionString = connectionString;
            _providerName = providerName;
