@@ -12,7 +12,7 @@ Note: if you want to overcome the SRP problem, you can apply some design princip
 ```csharp
 public class DefaultConfigurationFactory : AdoConfigurationFactory
 {
-		public override AdoConnectionString CreateConnectionString()
+	public override AdoConnectionString CreateConnectionString()
         {
 			// Sample connection string.
 			string connStr = "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;"
