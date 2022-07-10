@@ -14,10 +14,9 @@ public class DefaultConfigurationFactory : AdoConfigurationFactory
 {
 	public override AdoConnectionString CreateConnectionString()
         {
-			// Sample connection string.
-			string connStr = "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;"
-			
-            return AdoConnectionStringBuilder.ConnectionString(connStr)
+		// Sample connection string.
+		string connStr = "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;";			
+            	return AdoConnectionStringBuilder.ConnectionString(connStr)
                    .MSSQL();
         }
 }
