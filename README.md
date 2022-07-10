@@ -5,7 +5,7 @@ The main purpose of this library represents the RD table as an object via the Ac
 
 - Relation between objects is not supported.
 - Complex type completely not supported.
-- Nested array is not supported.
+- Property array is not supported.
 
 Note: if you want to overcome the SRP problem, you can apply some design principles.
 
