@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using ActiveRecordNET.Lib.Core;
 
 namespace ActiveRecordNET
 {
     public abstract class AdoObjectProxy
     {
         private readonly AdoCommandExecuter _commandExecuter;
-        private readonly AdoConnectionStringBuilder _connectionStringBuilder;
 
         protected AdoObjectProxy()
         {
             _commandExecuter = new AdoCommandExecuter();
-            _connectionStringBuilder = new AdoConnectionStringBuilder();
-
-            Configure(_connectionStringBuilder);
         }
 
         protected IEnumerable<T> ReadRecords<T>(Action<AdoCommandBuilder> builderCallback) where T : new()
         {
-            var dbCommandBuilder = _connectionStringBuilder.CreateCommand();
+            var dbCommandBuilder = CreateAdoCommandBuilder();
             builderCallback(dbCommandBuilder);
             var dbCommand = dbCommandBuilder.Build();
             
@@ -34,7 +31,7 @@ namespace ActiveRecordNET
 
         protected T ReadRecord<T>(Action<AdoCommandBuilder> builderCallback) where T : new()
         {
-            var dbCommandBuilder = _connectionStringBuilder.CreateCommand();
+            var dbCommandBuilder = CreateAdoCommandBuilder();
             builderCallback(dbCommandBuilder);
             var dbCommand = dbCommandBuilder.Build();
 
@@ -48,6 +45,12 @@ namespace ActiveRecordNET
             return (T)result.Object;
         }
 
-        protected abstract void Configure(AdoConnectionStringBuilder builder);
+        private AdoCommandBuilder CreateAdoCommandBuilder()
+        {
+            var factory = AdoConfigurationResolver.GetConfigurationFactory(this.GetType());
+            var adoConnectionString = factory.CreateConnectionString();
+
+            return new AdoCommandBuilder(adoConnectionString);
+        }
     }
 }

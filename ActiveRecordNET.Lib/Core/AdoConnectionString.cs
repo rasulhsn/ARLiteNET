@@ -6,13 +6,13 @@ namespace ActiveRecordNET
 {
     public sealed class AdoConnectionString
     {
-        public AdoConnectionString(string connectionString)
+        internal AdoConnectionString(string connectionString)
             : this(connectionString, string.Empty)
         {
             ConnectionString = connectionString;
         }
 
-        public AdoConnectionString(string connectionString, string providerName)
+        internal AdoConnectionString(string connectionString, string providerName)
         {
             ConnectionString = connectionString;
             ProviderName = providerName;
@@ -27,8 +27,6 @@ namespace ActiveRecordNET
         {
             get;
         }
-
-        //public string InvariantProviderName => Convert.ToString(,)
 
         public bool HasProviderName => !string.IsNullOrEmpty(ProviderName);
 

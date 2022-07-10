@@ -16,30 +16,36 @@ namespace ActiveRecordNET
             return this;
         }
 
-        public AdoConnectionStringBuilder ProviderName(string providerName)
+        public AdoConnectionStringBuilder SetProvider(string providerInvariantName, DbProviderFactory factory)
         {
-            _providerName = providerName;
+            DbProviderFactories.RegisterFactory(providerInvariantName, factory);
+            _providerName = providerInvariantName;
+            return this;
+        }
+
+        public AdoConnectionStringBuilder SetProvider(string providerInvariantName, Type providerFactoryClass)
+        {
+            DbProviderFactories.RegisterFactory(providerInvariantName, providerFactoryClass);
+            _providerName = providerInvariantName;
             return this;
         }
 
         public AdoConnectionStringBuilder MSSQL()
         {
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
-            return this.ProviderName("System.Data.SqlClient");
+            return this.SetProvider("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
         }
 
         public AdoConnectionStringBuilder SQLLite()
         {
-            DbProviderFactories.RegisterFactory("System.Data.SQLite", System.Data.SQLite.SQLiteFactory.Instance);
-            return this.ProviderName("System.Data.SQLite");
+            return this.SetProvider("System.Data.SQLite", System.Data.SQLite.SQLiteFactory.Instance);
         }
 
-        public AdoCommandBuilder CreateCommand()
+        public AdoConnectionString Build()
         {
             if (string.IsNullOrEmpty(_connectionString)) throw new Exception("Connection string is empty!");
             if (string.IsNullOrEmpty(_providerName)) throw new Exception("Provider name is empty!");
 
-            return new AdoCommandBuilder(new AdoConnectionString(this._connectionString, this._providerName));
+            return new AdoConnectionString(this._connectionString, this._providerName);
         }
     }
 }

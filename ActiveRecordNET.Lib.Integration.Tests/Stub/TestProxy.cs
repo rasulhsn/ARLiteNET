@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using ActiveRecordNET.Integration.Tests.Helper;
+using ActiveRecordNET.Lib.Integration.Tests.Helper;
 
-namespace ActiveRecordNET.Integration.Tests
+namespace ActiveRecordNET.Lib.Integration.Tests
 {
+    [AdoConfiguration(typeof(TestAdoConfigurationFactory))]
     public class TestProxy : AdoObjectProxy
     {
         public IEnumerable<TestObject> GetAll()
@@ -13,15 +14,6 @@ namespace ActiveRecordNET.Integration.Tests
             {
                 builder.SetCommand("SELECT * FROM Users");
             });
-        }
-
-        protected override void Configure(AdoConnectionStringBuilder builder)
-        {
-            // For test -> sqllite
-            string pathSqlLite = Path.Combine(PathUtils.TryGetRootPath(), "Data", "ARNetDb.db");
-
-            builder.ConnectionString($"Data Source={pathSqlLite};Version=3;")
-                   .SQLLite();
         }
     }
 }
