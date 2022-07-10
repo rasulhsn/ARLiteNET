@@ -1,6 +1,4 @@
 # ActiveRecordNET
-<strong>This project violates some design principles.</strong>
-
 The main purpose of this library represents the RD table as an object via the Active-Record pattern.
 
 - Relation between objects is not supported.
@@ -17,7 +15,8 @@ public class DefaultConfigurationFactory : AdoConfigurationFactory
 		// Sample connection string.
 		string connStr = "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;";			
             	return AdoConnectionStringBuilder.ConnectionString(connStr)
-                   .MSSQL();
+                   	.MSSQL()
+			.Build();
         }
 }
 
