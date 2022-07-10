@@ -1,4 +1,4 @@
-﻿namespace ActiveRecordNET.Integration.Tests
+﻿namespace ActiveRecordNET.Lib.Integration.Tests
 {
     public class TestObject
     {

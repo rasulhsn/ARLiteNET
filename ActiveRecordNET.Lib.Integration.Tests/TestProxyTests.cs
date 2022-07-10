@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ActiveRecordNET.Integration.Tests
+namespace ActiveRecordNET.Lib.Integration.Tests
 {
     [TestClass]
     public class TestProxyTests
