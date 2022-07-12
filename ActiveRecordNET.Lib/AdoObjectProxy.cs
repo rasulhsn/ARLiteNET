@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using ActiveRecordNET.Lib.Core;
 
-namespace ActiveRecordNET
+namespace ActiveRecordNET.Lib
 {
     public abstract class AdoObjectProxy
     {
@@ -13,13 +12,13 @@ namespace ActiveRecordNET
             _commandExecuter = new AdoCommandExecuter();
         }
 
-        protected IEnumerable<T> ReadRecords<T>(Action<AdoCommandBuilder> builderCallback) where T : new()
+        protected IEnumerable<T> RunEnumerable<T>(Action<AdoCommandBuilder> builderCallback) where T : new()
         {
             var dbCommandBuilder = CreateAdoCommandBuilder();
             builderCallback(dbCommandBuilder);
             var dbCommand = dbCommandBuilder.Build();
             
-            var result = _commandExecuter.Array<T>(dbCommand);
+            var result = _commandExecuter.Reader<T>(dbCommand);
             
             if (!result.IsSuccess)
             {
@@ -29,13 +28,13 @@ namespace ActiveRecordNET
             return result.Object;
         }
 
-        protected T ReadRecord<T>(Action<AdoCommandBuilder> builderCallback) where T : new()
+        protected T Run<T>(Action<AdoCommandBuilder> builderCallback) where T : new()
         {
             var dbCommandBuilder = CreateAdoCommandBuilder();
             builderCallback(dbCommandBuilder);
             var dbCommand = dbCommandBuilder.Build();
 
-            var result = _commandExecuter.Single(dbCommand);
+            var result = _commandExecuter.Scalar(dbCommand);
 
             if (!result.IsSuccess)
             {
@@ -43,6 +42,20 @@ namespace ActiveRecordNET
             }
 
             return (T)result.Object;
+        }
+
+        protected void Run(Action<AdoCommandBuilder> builderCallback)
+        {
+            var dbCommandBuilder = CreateAdoCommandBuilder();
+            builderCallback(dbCommandBuilder);
+            var dbCommand = dbCommandBuilder.Build();
+
+            var result = _commandExecuter.Query(dbCommand);
+
+            if (!result.IsSuccess)
+            {
+                throw new AdoObjectProxyException("Occur error!", result.Errors);
+            }
         }
 
         private AdoCommandBuilder CreateAdoCommandBuilder()

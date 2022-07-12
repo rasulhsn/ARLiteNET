@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ActiveRecordNET
+namespace ActiveRecordNET.Lib
 {
     public class AdoExecuterResult
     {

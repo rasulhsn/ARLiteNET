@@ -1,5 +1,5 @@
-using System;
-using ActiveRecordNET.Lib.Core;
+﻿using System;
+using ActiveRecordNET.Lib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ActiveRecordNET.Lib.Unit.Tests
