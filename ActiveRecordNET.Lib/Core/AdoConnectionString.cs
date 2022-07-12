@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ActiveRecordNET
+namespace ActiveRecordNET.Lib
 {
     public sealed class AdoConnectionString
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 
-namespace ActiveRecordNET
+namespace ActiveRecordNET.Lib
 {
     public class AdoConnectionStringBuilder
     {

@@ -29,9 +29,26 @@ public class User : AdoObjectProxy
 
         public IEnumerable<User> GetAll()
         {
-            return this.ReadRecords<User>((builder) =>
+            return this.RunEnumerable<User>((builder) =>
             {
                 builder.SetCommand("SELECT * FROM Users");
+            });
+        }
+		
+	public void Add(User userObject)
+        {
+            this.Run((builder) =>
+            {
+                builder.SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")
+                    .AddParam((param) =>
+                    {
+                        param.ParameterName = "@name";
+                        param.DbType = System.Data.DbType.String;
+                        param.Value = userObject.Name;
+                    }).AddParam((param) => {
+                        param.ParameterName = "@isActive";
+                        param.Value = userObject.IsActive;
+                    });
             });
         }
 }

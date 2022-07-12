@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace ActiveRecordNET
+namespace ActiveRecordNET.Lib
 {
     public class AdoCommandBuilder
     {
-        private AdoConnectionString _connectionString;
+        private readonly AdoConnectionString _connectionString;
 
         private List<IDbDataParameter> _parameters;
         private string _commandText;
@@ -31,12 +31,13 @@ namespace ActiveRecordNET
             return this;
         }
 
-        public AdoCommandBuilder AddParam(Func<IDbDataParameter, IDbDataParameter> newParam)
+        public AdoCommandBuilder AddParam(Action<IDbDataParameter> newParam)
         {
             if (newParam == null)
                 throw new ArgumentNullException(nameof(newParam));
 
-            var dbParam = newParam(AdoObjectFactory.CreateParameter(_connectionString));
+            var dbParam = AdoObjectFactory.CreateParameter(_connectionString);
+            newParam(dbParam);
 
             return this.AddParam(dbParam);
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ActiveRecordNET
+namespace ActiveRecordNET.Lib
 {
     [Serializable]
     public class AdoObjectProxyException : System.Exception

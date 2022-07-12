@@ -2,9 +2,9 @@
 using System.Collections.Concurrent;
 using System.Reflection;
 
-namespace ActiveRecordNET.Lib.Core
+namespace ActiveRecordNET.Lib
 {
-    public static class AdoConfigurationResolver
+    internal static class AdoConfigurationResolver
     {
         private static ConcurrentDictionary<Type, AdoConfigurationFactory> ConfigurationFactories;
 

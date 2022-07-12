@@ -10,9 +10,27 @@ namespace ActiveRecordNET.Lib.Integration.Tests
     {
         public IEnumerable<TestObject> GetAll()
         {
-            return this.ReadRecords<TestObject>((builder) =>
+            return this.RunEnumerable<TestObject>((builder) =>
             {
                 builder.SetCommand("SELECT * FROM Users");
+            });
+        }
+
+        public void Add(TestObject newObject)
+        {
+            this.Run((builder) =>
+            {
+                builder.SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")
+                    .AddParam((param) =>
+                    {
+                        param.ParameterName = "@name";
+                        param.DbType = System.Data.DbType.String;
+                        param.Value = newObject.Name;
+                    }).AddParam((param) => {
+                        param.ParameterName = "@isActive";
+                        //param.DbType = System.Data.DbType.Boolean;
+                        param.Value = newObject.IsActive;
+                    });
             });
         }
     }
