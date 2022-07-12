@@ -12,8 +12,8 @@ public class DefaultConfigurationFactory : AdoConfigurationFactory
 {
 	public override AdoConnectionString CreateConnectionString()
         {
-			// Sample connection string.
-			string connStr = "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;";			
+		// Sample connection string.
+		string connStr = "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;";			
             	return AdoConnectionStringBuilder.ConnectionString(connStr)
                    	.MSSQL()
 			.Build();
@@ -35,7 +35,7 @@ public class User : AdoObjectProxy
             });
         }
 		
-		public void Add(User userObject)
+	public void Add(User userObject)
         {
             this.Run((builder) =>
             {
@@ -47,7 +47,6 @@ public class User : AdoObjectProxy
                         param.Value = userObject.Name;
                     }).AddParam((param) => {
                         param.ParameterName = "@isActive";
-                        //param.DbType = System.Data.DbType.Boolean;
                         param.Value = userObject.IsActive;
                     });
             });
