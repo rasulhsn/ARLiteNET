@@ -9,9 +9,9 @@ namespace ARLiteNET.Lib.Integration.Tests
     public class ARLiteObjectTests
     {
         [TestMethod]
-        public void Sample()
+        public void GetAllObjects()
         {
-            TestAdoObject adoObject = new TestAdoObject();
+            TestARLiteObject adoObject = new TestARLiteObject();
 
             IEnumerable<TestUserObject> objects = adoObject.GetAll();
 
@@ -19,9 +19,9 @@ namespace ARLiteNET.Lib.Integration.Tests
         }
 
         [TestMethod]
-        public void Sample2()
+        public void AddObject()
         {
-            TestAdoObject adoObject = new TestAdoObject();
+            TestARLiteObject adoObject = new TestARLiteObject();
 
             adoObject.Add(new TestUserObject() { IsActive = true, Name = $"Test - {DateTime.Now}" });
         }

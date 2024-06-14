@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
-    [SQLiteConfiguration(typeof(TestSQLLiteConfigurationFactory))]
-    public class TestSQLLiteDeclarativeAdoObject : BaseARLiteObject
+    [SQLiteConfiguration(typeof(TestSQLiteConfigurationFactory))]
+    public class TestSQLiteDeclarativeAdoObject : ARLiteObject
     {
         public IEnumerable<TestUserObject> GetAll()
         {

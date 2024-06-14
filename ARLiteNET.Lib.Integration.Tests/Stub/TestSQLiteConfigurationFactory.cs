@@ -4,7 +4,7 @@ using System.IO;
 
 namespace ARLiteNET.Lib.Integration.Tests.Stub
 {
-    public sealed class TestSQLLiteConfigurationFactory : SQLiteConfigurationFactory
+    public sealed class TestSQLiteConfigurationFactory : SQLiteConfigurationFactory
     {
         const string SQL_FILE_NAME = "ARNetDb.db";
 
