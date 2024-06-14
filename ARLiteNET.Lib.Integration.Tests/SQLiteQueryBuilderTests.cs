@@ -59,15 +59,15 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void Sample4()
         {
-            const string nameRaw = "Rasul"; const bool isActiveRaw = true; const string isActiveStr = "1";
-            const string expectedQuery = $"INSERT INTO {nameof(TestUserObject)} ({nameof(TestUserObject.Name)},{nameof(TestUserObject.IsActive)}) VALUES ('{nameRaw}',{isActiveStr}), ('{nameRaw}',{isActiveStr})";
+            const string nameRaw = "Rasul"; const string isActiveRaw = "1";
+            const string expectedQuery = $"INSERT INTO {nameof(TestUserObject)} ({nameof(TestUserObject.Name)},{nameof(TestUserObject.IsActive)}) VALUES ('{nameRaw}',{isActiveRaw}), ('{nameRaw}',{isActiveRaw})";
             SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
             string generatedQuery = queryBuilder.Insert(nameof(TestUserObject))
                                                 .Value(new InsertValueObject(nameof(TestUserObject.Name), nameRaw, InsertDataType.TEXT)
-                                                       ,new InsertValueObject(nameof(TestUserObject.IsActive), isActiveRaw, InsertDataType.BOOLEAN))
+                                                       ,new InsertValueObject(nameof(TestUserObject.IsActive), isActiveRaw, InsertDataType.INTEGER))
                                                 .Value(new InsertValueObject(nameof(TestUserObject.Name), nameRaw, InsertDataType.TEXT)
-                                                       ,new InsertValueObject(nameof(TestUserObject.IsActive), isActiveRaw, InsertDataType.BOOLEAN))
+                                                       ,new InsertValueObject(nameof(TestUserObject.IsActive), isActiveRaw, InsertDataType.INTEGER))
                                                 .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);

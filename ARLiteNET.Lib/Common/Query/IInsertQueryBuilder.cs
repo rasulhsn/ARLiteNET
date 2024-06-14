@@ -2,7 +2,7 @@
 {
     public enum InsertDataType: byte
     {
-        TEXT, INTEGER, BOOLEAN
+        NULL, INTEGER, REAL, TEXT, BLOB
     }
 
     public struct InsertValueObject

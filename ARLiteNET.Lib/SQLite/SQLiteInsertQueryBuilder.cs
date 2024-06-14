@@ -61,15 +61,6 @@ namespace ARLiteNET.Lib
                         else
                             builder.Append($"'{valueArray[j].Value}',");
                     }
-                    else if (valueArray[j].DataType == InsertDataType.BOOLEAN)
-                    {
-                        byte rawValue = (byte)(valueArray[j].Value.ToString() == "True" ? 1 : 0);
-
-                        if (j == (valueArray.Length - 1))
-                            builder.Append($"{rawValue}");
-                        else
-                            builder.Append($"{rawValue},");
-                    }
                     else
                     {
                         if (j == (valueArray.Length - 1))
