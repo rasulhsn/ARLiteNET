@@ -1,6 +1,6 @@
 # ARLiteNET
 
-ARLiteNet is a .NET Standard library designed to simplify access to any SQLite database. Through its declarative approach, it provides maximum abstraction that simplifies access to any SQLite database. The main purpose of the library is to provide a simple CRUD operation through the Active Record Pattern.
+ARLiteNet is a .NET Standard library designed to access to any SQLite database with Micro-ORM features. Through its declarative approach, it provides maximum abstraction that simplifies access to any SQLite database. The main purpose of the library is to provide a simple CRUD operation through the Active Record Pattern.
 
 ```csharp
  [ARLiteConfiguration(typeof(SQLiteConfigurationFactory))]
