@@ -1,7 +1,6 @@
 ﻿using ARLiteNET.Lib.Core;
 using ARLiteNET.Lib.Integration.Tests.Helper;
 using ARLiteNET.Lib.Integration.Tests.Stub;
-using System.Collections.Generic;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {

@@ -1,6 +1,5 @@
 ﻿using ARLiteNET.Lib.Core;
 using ARLiteNET.Lib.Integration.Tests.Helper;
-using System.IO;
 using ARLiteNET.Lib.SQLite;
 
 namespace ARLiteNET.Lib.Integration.Tests.Stub
