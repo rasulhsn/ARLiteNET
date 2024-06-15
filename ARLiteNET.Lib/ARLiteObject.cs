@@ -1,21 +1,11 @@
 ﻿using ARLiteNET.Lib.Core;
-using ARLiteNET.Lib.SQLite;
+using ARLiteNET.Lib.Exceptions;
 using System.Collections.Generic;
 
 namespace ARLiteNET.Lib
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public abstract class ARLiteObject
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="commandBuilder"></param>
-        /// <returns></returns>
-        /// <exception cref="ARLiteObjectException"></exception>
         protected IEnumerable<T> RunEnumerable<T>(IDbCommandBuilder commandBuilder) where T : new()
         {
             var dbCommand = commandBuilder.Build();
@@ -30,18 +20,11 @@ namespace ARLiteNET.Lib
             return result.Object;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="commandBuilder"></param>
-        /// <returns></returns>
-        /// <exception cref="ARLiteObjectException"></exception>
-        protected T Run<T>(IDbCommandBuilder commandBuilder) where T : new()
-        {      
+        protected T RunScalar<T>(IDbCommandBuilder commandBuilder)
+        {
             var dbCommand = commandBuilder.Build();
 
-            var result = AdoCommandExecuter.Scalar(dbCommand);
+            var result = AdoCommandExecuter.PrimitiveScalar(dbCommand);
 
             if (!result.IsSuccess)
             {
@@ -51,11 +34,20 @@ namespace ARLiteNET.Lib
             return (T)result.Object;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="commandBuilder"></param>
-        /// <exception cref="ARLiteObjectException"></exception>
+        protected T Run<T>(IDbCommandBuilder commandBuilder) where T : new()
+        {      
+            var dbCommand = commandBuilder.Build();
+
+            var result = AdoCommandExecuter.Scalar<T>(dbCommand);
+
+            if (!result.IsSuccess)
+            {
+                throw new ARLiteObjectException("Occur error!", result.Errors);
+            }
+
+            return result.Object;
+        }
+
         protected void Run(IDbCommandBuilder commandBuilder)
         {
             var dbCommand = commandBuilder.Build();
@@ -68,13 +60,9 @@ namespace ARLiteNET.Lib
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         protected AdoCommandBuilder Query()
         {
-            var factory = SQLiteConfigurationResolver.GetConfigurationFactory(this.GetType());
+            var factory = ARLiteConfigurationResolver.GetConfigurationFactory(this.GetType());
             var adoConnectionString = factory.CreateConnectionString();
 
             var commandBuilder = new AdoCommandBuilder(adoConnectionString);

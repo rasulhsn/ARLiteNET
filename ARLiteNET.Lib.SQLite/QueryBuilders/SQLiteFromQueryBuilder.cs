@@ -1,7 +1,8 @@
 ﻿using ARLiteNET.Lib.Common;
+using System;
 using System.Text;
 
-namespace ARLiteNET.Lib
+namespace ARLiteNET.Lib.SQLite
 {
     public class SQLiteFromQueryBuilder : ChainQueryBuilder, IFromQueryBuilder
     {
@@ -32,7 +33,7 @@ namespace ARLiteNET.Lib
 
         public IOrderByQueryBuilder OrderBy(string column)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         protected override string Build(QueryBuilderContext? context = null)
@@ -51,13 +52,13 @@ namespace ARLiteNET.Lib
             {
                 builder.Append($"{FROM} {_tableName} ");
             }
-            
+
             return builder.ToString();
         }
 
         public string Build()
         {
-            return this.Build(null);
+            return Build(null);
         }
     }
 }

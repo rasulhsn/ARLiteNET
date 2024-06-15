@@ -1,5 +1,5 @@
 ﻿using System;
-using ARLiteNET.Lib.SQLite;
+using ARLiteNET.Lib.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ARLiteNET.Lib.Unit.Tests
@@ -10,13 +10,13 @@ namespace ARLiteNET.Lib.Unit.Tests
         [TestMethod]
         public void GetConfigurationFactory_InvalidType_ThrowException()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => SQLiteConfigurationResolver.GetConfigurationFactory(null));
+            Assert.ThrowsException<ArgumentNullException>(() => ARLiteConfigurationResolver.GetConfigurationFactory(null));
         }
 
         [TestMethod]
         public void GetConfigurationFactory_UndeclaredType_ThrowException()
         {
-            Assert.ThrowsException<Exception>(() => SQLiteConfigurationResolver.GetConfigurationFactory(typeof(SQLiteConfigurationResolverTests)));
+            Assert.ThrowsException<Exception>(() => ARLiteConfigurationResolver.GetConfigurationFactory(typeof(SQLiteConfigurationResolverTests)));
         }
     }
 }

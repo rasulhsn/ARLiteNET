@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ARLiteNET.Lib
+namespace ARLiteNET.Lib.SQLite
 {
     public class SQLiteWhereQueryBuilder : ChainQueryBuilder,
                                             IWhereQueryBuilder,
@@ -12,7 +12,7 @@ namespace ARLiteNET.Lib
     {
         const string WHERE = "WHERE";
 
-        private static Dictionary<string, string> Symbols = new Dictionary<string, string>()
+        readonly Dictionary<string, string> Symbols = new Dictionary<string, string>()
         {
             {nameof(IWhereQueryBuilder.EqualTo), "="},
             {nameof(IWhereQueryBuilder.GreaterThan), ">"},
@@ -71,7 +71,7 @@ namespace ARLiteNET.Lib
 
         public IOrderByQueryBuilder OrderBy(string column)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public IWhereQueryBuilder And(string column)
@@ -104,7 +104,7 @@ namespace ARLiteNET.Lib
 
         string IQueryBuilder.Build()
         {
-            return this.Build(null);
+            return Build(null);
         }
 
         private string GetColumnName(string column)

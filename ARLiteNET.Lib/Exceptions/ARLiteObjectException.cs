@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ARLiteNET.Lib
+namespace ARLiteNET.Lib.Exceptions
 {
     [Serializable]
-    public class ARLiteObjectException : System.Exception
+    public class ARLiteObjectException : Exception
     {
         public IEnumerable<Exception> InnerExceptions { get; }
 
-        public ARLiteObjectException(string message, IEnumerable<Exception> innerExceptions) : base(message)
+        public ARLiteObjectException(string message,
+            IEnumerable<Exception> innerExceptions) : base(message)
         {
             this.InnerExceptions = innerExceptions;
         }

@@ -1,7 +1,7 @@
 ﻿namespace ARLiteNET.Lib.Core
 {
     /// <summary>
-    /// Connection string for the related provider.
+    /// Connection string object.
     /// </summary>
     public sealed class AdoConnectionString
     {

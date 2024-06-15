@@ -1,17 +1,14 @@
-using System;
-using System.Collections.Generic;
 using ARLiteNET.Lib.Integration.Tests.Helper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
     [TestClass]
-    public class ARLiteObjectTests
+    public class SQLiteObjectTests
     {
         [TestMethod]
         public void GetAllObjects()
         {
-            TestARLiteObject adoObject = new TestARLiteObject();
+            TestSQLiteObject adoObject = new TestSQLiteObject();
 
             IEnumerable<TestUserObject> objects = adoObject.GetAll();
 
@@ -21,7 +18,7 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void AddObject()
         {
-            TestARLiteObject adoObject = new TestARLiteObject();
+            TestSQLiteObject adoObject = new TestSQLiteObject();
 
             adoObject.Add(new TestUserObject() { IsActive = true, Name = $"Test - {DateTime.Now}" });
         }

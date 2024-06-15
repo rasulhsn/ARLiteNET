@@ -1,21 +1,21 @@
 ﻿using ARLiteNET.Lib.Core;
 
-namespace ARLiteNET.Lib
+namespace ARLiteNET.Lib.SQLite
 {
-    public static class AdoCommandExtensions
+    public static class SQLiteAdoCommandExtensions
     {
         public static SelectCommandBuilder Select(this
             AdoCommandBuilder builder, string tableName)
         {
-            var selectQueryBuilder = new SQLiteQueryBuilder().Select();
-
+            var selectQueryBuilder = SQLiteQueryFactory.Select();
             return new SelectCommandBuilder(tableName, builder, selectQueryBuilder);
         }
 
         public static InsertCommandBuilder<T> Insert<T>(this
-           AdoCommandBuilder builder, string sourceName, T instance)
+           AdoCommandBuilder builder, string tableName, T instance)
         {
-            return null;
+            var insertQueryBuilder = SQLiteQueryFactory.Insert(tableName);
+            return new InsertCommandBuilder<T>(instance, builder, insertQueryBuilder);
         }
 
         public static UpdateCommandBuilder<T> Update<T>(this

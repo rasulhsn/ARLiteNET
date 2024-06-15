@@ -1,4 +1,5 @@
 ﻿using ARLiteNET.Lib.Common;
+using ARLiteNET.Lib.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +14,9 @@ namespace ARLiteNET.Lib.Core
         private readonly ISelectQueryBuilder _selectQueryBuilder;
         private readonly List<SelectColumnQuery> _columnQueryInfos;
 
-        public SelectCommandBuilder(string tableName, AdoCommandBuilder adoCommandBuilder, ISelectQueryBuilder selectQueryBuilder)
+        public SelectCommandBuilder(string tableName,
+                            AdoCommandBuilder adoCommandBuilder,
+                            ISelectQueryBuilder selectQueryBuilder)
         {
             _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
             _selectQueryBuilder = selectQueryBuilder ?? throw new ArgumentNullException(nameof(selectQueryBuilder));
@@ -128,6 +131,10 @@ namespace ARLiteNET.Lib.Core
 
             internal SelectColumnQuery(string columnName)
             {
+                if (columnName == null)
+                    throw new ARLiteException(nameof(SelectColumnQuery),
+                            new ArgumentNullException(nameof(columnName)));
+
                 _columnName = columnName;
             }
 
@@ -137,12 +144,14 @@ namespace ARLiteNET.Lib.Core
                 _value = value;
                 _and = and;
             }
+
             public void Len(int value, bool and = true)
             {
                 _operationName = nameof(Len);
                 _value = value;
                 _and = and;
             }
+
             public void Only()
             {
                 _operationName = nameof(Only);

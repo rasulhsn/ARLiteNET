@@ -1,5 +1,6 @@
 ﻿using ARLiteNET.Lib.Common;
 using ARLiteNET.Lib.Integration.Tests.Helper;
+using ARLiteNET.Lib.SQLite;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ARLiteNET.Lib.Integration.Tests
@@ -11,9 +12,8 @@ namespace ARLiteNET.Lib.Integration.Tests
         public void Sample()
         {
             const string expectedQuery = $"SELECT * FROM {nameof(TestUserObject)} ";
-            SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
-            string generatedQuery = queryBuilder.Select()
+            string generatedQuery = SQLiteQueryFactory.Select()
                                 .From(nameof(TestUserObject))
                                 .Build();
 
@@ -24,9 +24,8 @@ namespace ARLiteNET.Lib.Integration.Tests
         public void Sample2()
         {
             const string expectedQuery = $"SELECT * FROM {nameof(TestUserObject)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
-            SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
-            string generatedQuery = queryBuilder.Select()
+            string generatedQuery = SQLiteQueryFactory.Select()
                                 .From(nameof(TestUserObject))
                                 .Alias("T")
                                 .Where(nameof(TestUserObject.Name))
@@ -42,9 +41,8 @@ namespace ARLiteNET.Lib.Integration.Tests
         public void Sample3()
         {
             const string expectedQuery = $"SELECT T.Id,T.Name FROM {nameof(TestUserObject)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
-            SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
-            string generatedQuery = queryBuilder.Select("Id","Name")
+            string generatedQuery = SQLiteQueryFactory.Select("Id","Name")
                                 .From(nameof(TestUserObject))
                                 .Alias("T")
                                 .Where(nameof(TestUserObject.Name))
@@ -61,9 +59,8 @@ namespace ARLiteNET.Lib.Integration.Tests
         {
             const string nameRaw = "Rasul"; const string isActiveRaw = "1";
             const string expectedQuery = $"INSERT INTO {nameof(TestUserObject)} ({nameof(TestUserObject.Name)},{nameof(TestUserObject.IsActive)}) VALUES ('{nameRaw}',{isActiveRaw}), ('{nameRaw}',{isActiveRaw})";
-            SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
-            string generatedQuery = queryBuilder.Insert(nameof(TestUserObject))
+            string generatedQuery = SQLiteQueryFactory.Insert(nameof(TestUserObject))
                                                 .Value(new InsertValueObject(nameof(TestUserObject.Name), nameRaw, InsertDataType.TEXT)
                                                        ,new InsertValueObject(nameof(TestUserObject.IsActive), isActiveRaw, InsertDataType.INTEGER))
                                                 .Value(new InsertValueObject(nameof(TestUserObject.Name), nameRaw, InsertDataType.TEXT)

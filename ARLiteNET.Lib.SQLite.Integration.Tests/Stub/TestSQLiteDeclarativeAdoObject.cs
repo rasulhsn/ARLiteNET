@@ -1,11 +1,12 @@
-﻿using ARLiteNET.Lib.Integration.Tests.Helper;
+﻿using ARLiteNET.Lib.Core;
+using ARLiteNET.Lib.Integration.Tests.Helper;
 using ARLiteNET.Lib.Integration.Tests.Stub;
-using ARLiteNET.Lib.SQLite;
 using System.Collections.Generic;
+using ARLiteNET.Lib.SQLite;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
-    [SQLiteConfiguration(typeof(TestSQLiteConfigurationFactory))]
+    [ARLiteConfiguration(typeof(TestSQLiteConfigurationFactory))]
     public class TestSQLiteDeclarativeAdoObject : ARLiteObject
     {
         public IEnumerable<TestUserObject> GetAll()
@@ -20,10 +21,10 @@ namespace ARLiteNET.Lib.Integration.Tests
         public void Add(TestUserObject newObject)
         {
             // Declarative approach
-            var insertQuery = this.Query().Insert("Users", newObject);
+            var insertQuery = this.Query()
+                                    .Insert("Users", newObject);
 
-            //insertQuery.Column(nameof(TestUserObject.Name)).Only();
-            //insertQuery.Column(nameof(TestUserObject.IsActive)).Only();
+            insertQuery.Column(nameof(TestUserObject.IsActive)).Ignore();
 
             this.Run(insertQuery);
         }
@@ -31,7 +32,8 @@ namespace ARLiteNET.Lib.Integration.Tests
         public void Update(TestUserObject newObject)
         {
             // Declarative approach
-            var updateQuery = this.Query().Update("Users", newObject);
+            var updateQuery = this.Query()
+                                    .Update("Users", newObject);
 
             //updateQuery.Column(nameof(TestUserObject.Id)).EqualTo(newObject.Id);
             //updateQuery.Column(nameof(TestUserObject.Name)).Only();
@@ -43,7 +45,8 @@ namespace ARLiteNET.Lib.Integration.Tests
         public void Delete(int id)
         {
             // Declarative approach
-            var deleteQuery = this.Query().Delete<TestUserObject>("Users");
+            var deleteQuery = this.Query()
+                                    .Delete<TestUserObject>("Users");
 
             //deleteQuery.Column(nameof(TestUserObject.Id)).EqualTo(id);
 

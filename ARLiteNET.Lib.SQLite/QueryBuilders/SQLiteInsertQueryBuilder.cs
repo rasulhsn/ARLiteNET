@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ARLiteNET.Lib
+namespace ARLiteNET.Lib.SQLite
 {
     public class SQLiteInsertQueryBuilder : IInsertQueryBuilder
     {
@@ -38,14 +38,14 @@ namespace ARLiteNET.Lib
 
             var columns = _values.SelectMany(x => x)
                                     .Select(x => x.Column)
-                                    .Distinct();                               
+                                    .Distinct();
 
             builder.AppendJoin(',', columns);
-            
+
             builder.Append(")");
 
             builder.Append($" {VALUES}");
-  
+
             for (int i = 0; i < _values.Count; i++)
             {
                 builder.Append(" (");
@@ -56,21 +56,21 @@ namespace ARLiteNET.Lib
                 {
                     if (valueArray[j].DataType == InsertDataType.TEXT)
                     {
-                        if (j == (valueArray.Length - 1))
+                        if (j == valueArray.Length - 1)
                             builder.Append($"'{valueArray[j].Value}'");
                         else
                             builder.Append($"'{valueArray[j].Value}',");
                     }
                     else
                     {
-                        if (j == (valueArray.Length - 1))
+                        if (j == valueArray.Length - 1)
                             builder.Append($"{valueArray[j].Value}");
                         else
                             builder.Append($"{valueArray[j].Value},");
                     }
                 }
 
-                if (i == (_values.Count - 1))
+                if (i == _values.Count - 1)
                     builder.Append(")");
                 else
                     builder.Append("),");

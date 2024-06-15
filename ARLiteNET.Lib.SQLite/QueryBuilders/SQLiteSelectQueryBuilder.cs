@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ARLiteNET.Lib
+namespace ARLiteNET.Lib.SQLite
 {
     public class SQLiteSelectQueryBuilder : ChainQueryBuilder, ISelectQueryBuilder
     {
@@ -58,7 +58,7 @@ namespace ARLiteNET.Lib
 
         public string Build()
         {
-            return this.Build(null);
+            return Build(null);
         }
     }
 }

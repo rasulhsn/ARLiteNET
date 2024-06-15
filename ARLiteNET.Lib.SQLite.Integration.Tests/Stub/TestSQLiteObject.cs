@@ -1,12 +1,12 @@
-﻿using ARLiteNET.Lib.Integration.Tests.Helper;
+﻿using ARLiteNET.Lib.Core;
+using ARLiteNET.Lib.Integration.Tests.Helper;
 using ARLiteNET.Lib.Integration.Tests.Stub;
-using ARLiteNET.Lib.SQLite;
 using System.Collections.Generic;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
-    [SQLiteConfiguration(typeof(TestSQLiteConfigurationFactory))]
-    public class TestARLiteObject : ARLiteObject
+    [ARLiteConfiguration(typeof(TestSQLiteConfigurationFactory))]
+    public class TestSQLiteObject : ARLiteObject
     {
         public IEnumerable<TestUserObject> GetAll()
         {
