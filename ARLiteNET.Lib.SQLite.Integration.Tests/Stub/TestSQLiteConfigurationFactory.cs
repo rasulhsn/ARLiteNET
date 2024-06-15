@@ -13,7 +13,7 @@ namespace ARLiteNET.Lib.Integration.Tests.Stub
         {
             string pathSqlite = Path.Combine(PathUtils.TryGetRootPath(), FOLDER, SQL_FILE_NAME);
 
-            sqliteConnectionStringBuilder.SQLite(pathSqlite);
+            sqliteConnectionStringBuilder.SQLite3(pathSqlite);
         }
     }
 }

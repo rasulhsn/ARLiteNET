@@ -193,29 +193,36 @@ namespace ARLiteNET.Lib.Core
 
                 object newInstance = Activator.CreateInstance(resultType);
 
-                foreach (var item in properties)
+                foreach (var propertyItem in properties)
                 {
                     object value;
-                    if (_IsPrimitive(item))
+                    if (_IsPrimitive(propertyItem))
                     {
-                        object tempValue = adoReader.GetValue(adoReader.GetOrdinal(item.Name));
+                        int ordinalNo = adoReader.GetOrdinal(propertyItem.Name);
+                        
+                        if (ordinalNo == -1)
+                            continue; // ignore non-available item!
+
+                        object tempValue = adoReader.GetValue(ordinalNo);
+                        
                         if (tempValue is DBNull)
                         {
-                            if (item.PropertyType.IsPrimitive)
-                                value = Activator.CreateInstance(item.PropertyType);
+                            if (propertyItem.PropertyType.IsPrimitive)
+                                value = Activator.CreateInstance(propertyItem.PropertyType);
                             else
                                 value = null;
                         }
                         else
                         {
-                            value = Convert.ChangeType(tempValue, item.PropertyType);
+                            value = Convert.ChangeType(tempValue, propertyItem.PropertyType);
                         }
                     }
                     else
                     {
-                        value = ConstructObject(item.PropertyType, adoReader);
+                        value = ConstructObject(propertyItem.PropertyType, adoReader);
                     }
-                    item.SetValue(newInstance, value);
+
+                    propertyItem.SetValue(newInstance, value);
                 }
                 return newInstance;
             }

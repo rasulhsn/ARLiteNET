@@ -15,6 +15,24 @@ namespace ARLiteNET.Lib.Integration.Tests
             var selectQuery = this.Query()
                                    .Select<TestUserObjectDto>("Users");
 
+            selectQuery.Column(x => x.Id).Only();
+            selectQuery.Column(x => x.Name).Only();
+            selectQuery.Column(x => x.IsActive).Only();
+
+            return this.RunEnumerable<TestUserObjectDto>(selectQuery);
+        }
+
+        public IEnumerable<TestUserObjectDto> GetByName(string name)
+        {
+            // Declarative approach
+            var selectQuery = this.Query()
+                                   .Select<TestUserObjectDto>("Users");
+
+            selectQuery.Column(x => x.Id).Only();
+            selectQuery.Column(x => x.Name).Only();
+            selectQuery.Column(x => x.IsActive).Only();
+            selectQuery.Column(x => x.Name).EqualTo(name);
+
             return this.RunEnumerable<TestUserObjectDto>(selectQuery);
         }
 

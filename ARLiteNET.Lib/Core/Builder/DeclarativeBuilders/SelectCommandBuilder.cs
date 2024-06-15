@@ -51,10 +51,10 @@ namespace ARLiteNET.Lib.Core
                 return ((IDbCommandBuilder)_adoCommandBuilder).Build();
             }
 
-            IFromQueryBuilder fromQueryBuilder = null;
-
             var selectColumns = _columnQueryInfos.Where(x => x.OperationName == nameof(SelectColumnQuery.Only))
-                            .Select(x => x.ColumnName);
+                                                    .Select(x => x.ColumnName);
+
+            IFromQueryBuilder fromQueryBuilder = null;
 
             if (selectColumns != null && selectColumns.Any())
             {
