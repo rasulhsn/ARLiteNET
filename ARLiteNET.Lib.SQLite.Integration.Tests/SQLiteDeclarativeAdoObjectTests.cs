@@ -1,4 +1,4 @@
-using ARLiteNET.Lib.Integration.Tests.Helper;
+using ARLiteNET.Lib.SQLite.Integration.Tests.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
@@ -10,7 +10,7 @@ namespace ARLiteNET.Lib.Integration.Tests
         {
             TestSQLiteDeclarativeAdoObject adoObject = new TestSQLiteDeclarativeAdoObject();
 
-            IEnumerable<TestUserObject> objects = adoObject.GetAll();
+            IEnumerable<TestUserObjectDto> objects = adoObject.GetAll();
 
             Assert.IsNotNull(objects);
         }

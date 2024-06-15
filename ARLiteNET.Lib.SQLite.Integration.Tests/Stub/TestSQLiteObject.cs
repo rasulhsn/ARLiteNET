@@ -1,21 +1,21 @@
 ﻿using ARLiteNET.Lib.Core;
-using ARLiteNET.Lib.Integration.Tests.Helper;
 using ARLiteNET.Lib.Integration.Tests.Stub;
+using ARLiteNET.Lib.SQLite.Integration.Tests.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
     [ARLiteConfiguration(typeof(TestSQLiteConfigurationFactory))]
     public class TestSQLiteObject : ARLiteObject
     {
-        public IEnumerable<TestUserObject> GetAll()
+        public IEnumerable<TestUserObjectDto> GetAll()
         {
             var queryBuilder = this.Query()
                               .SetCommand("SELECT * FROM Users");
 
-            return this.RunEnumerable<TestUserObject>(queryBuilder);
+            return this.RunEnumerable<TestUserObjectDto>(queryBuilder);
         }
 
-        public void Add(TestUserObject newObject)
+        public void Add(TestUserObjectDto newObject)
         {
             var queryBuilder = this.Query()
                 .SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")

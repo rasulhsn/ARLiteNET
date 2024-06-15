@@ -1,4 +1,4 @@
-using ARLiteNET.Lib.Integration.Tests.Helper;
+using ARLiteNET.Lib.SQLite.Integration.Tests.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
@@ -10,7 +10,7 @@ namespace ARLiteNET.Lib.Integration.Tests
         {
             TestSQLiteObject adoObject = new TestSQLiteObject();
 
-            IEnumerable<TestUserObject> objects = adoObject.GetAll();
+            IEnumerable<TestUserObjectDto> objects = adoObject.GetAll();
 
             Assert.IsNotNull(objects);
         }
@@ -20,7 +20,7 @@ namespace ARLiteNET.Lib.Integration.Tests
         {
             TestSQLiteObject adoObject = new TestSQLiteObject();
 
-            adoObject.Add(new TestUserObject() { IsActive = true, Name = $"Test - {DateTime.Now}" });
+            adoObject.Add(new TestUserObjectDto() { IsActive = true, Name = $"Test - {DateTime.Now}" });
         }
     }
 }

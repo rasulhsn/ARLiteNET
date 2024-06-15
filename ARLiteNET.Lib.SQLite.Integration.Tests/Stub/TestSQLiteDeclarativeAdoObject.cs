@@ -1,35 +1,35 @@
 ﻿using ARLiteNET.Lib.Core;
-using ARLiteNET.Lib.Integration.Tests.Helper;
 using ARLiteNET.Lib.Integration.Tests.Stub;
 using System.Collections.Generic;
 using ARLiteNET.Lib.SQLite;
+using ARLiteNET.Lib.SQLite.Integration.Tests.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
     [ARLiteConfiguration(typeof(TestSQLiteConfigurationFactory))]
     public class TestSQLiteDeclarativeAdoObject : ARLiteObject
     {
-        public IEnumerable<TestUserObject> GetAll()
+        public IEnumerable<TestUserObjectDto> GetAll()
         {
             // Declarative approach
             var selectQuery = this.Query()
-                                   .Select<TestUserObject>("Users");
+                                   .Select<TestUserObjectDto>("Users");
 
-            return this.RunEnumerable<TestUserObject>(selectQuery);
+            return this.RunEnumerable<TestUserObjectDto>(selectQuery);
         }
 
-        public void Add(TestUserObject newObject)
+        public void Add(TestUserObjectDto newObject)
         {
             // Declarative approach
             var insertQuery = this.Query()
                                     .Insert("Users", newObject);
 
-            insertQuery.Column(x => x.IsActive).Ignore();
+            //insertQuery.Column(x => x.IsActive).Ignore();
 
             this.Run(insertQuery);
         }
 
-        public void Update(TestUserObject newObject)
+        public void Update(TestUserObjectDto newObject)
         {
             // Declarative approach
             var updateQuery = this.Query()
@@ -46,7 +46,7 @@ namespace ARLiteNET.Lib.Integration.Tests
         {
             // Declarative approach
             var deleteQuery = this.Query()
-                                    .Delete<TestUserObject>("Users");
+                                    .Delete<TestUserObjectDto>("Users");
 
             //deleteQuery.Column(nameof(TestUserObject.Id)).EqualTo(id);
 
