@@ -69,4 +69,4 @@ ARLiteNet is a .NET Standard library designed to access to any SQLite database w
 
 ### License & Copyright
 
-[ARLiteNET](https://github.com/rasulhsn/ARLiteNET) is Copyright © 2022-2024 Rasul Huseynov and lincensed under the [MIT license](https://github.com/rasulhsn/ARLiteNET/blob/main/LICENSE).
+[ARLiteNET](https://github.com/rasulhsn/ARLiteNET) is Copyright © 2024 Rasul Huseynov and lincensed under the [MIT license](https://github.com/rasulhsn/ARLiteNET/blob/main/LICENSE).
