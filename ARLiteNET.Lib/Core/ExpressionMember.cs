@@ -1,28 +1,37 @@
-﻿using System;
+﻿using ARLiteNET.Lib.Exceptions;
+using System;
 using System.Linq.Expressions;
 
-namespace ARLiteNET.Lib.Core.ExpressionHelpers
+namespace ARLiteNET.Lib.Core
 {
-    public class ExpressionMember 
+    internal class ExpressionMember
     {
         private readonly Type _parentType;
         private readonly LambdaExpression _memberExpression;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExpressionMember"/> class.
-        /// </summary>
-        internal ExpressionMember(LambdaExpression expression, Type parent, Type member)
+        public static ExpressionMember Create<T, TMember>(Expression<Func<T, TMember>> expression)
         {
-            this._parentType = parent;
-            this.Type = member ?? throw new ArgumentNullException(nameof(member));
-            this._memberExpression = expression ?? throw new ArgumentNullException(nameof(expression));
+            if (expression == null)
+                throw new ARLiteException(nameof(ExpressionMember),
+                                            new ArgumentNullException(nameof(expression)));
 
-            this.Initialize();
+            ExpressionMember createExpMember() => new ExpressionMember(expression, typeof(T), typeof(TMember));
+
+            return createExpMember();
         }
 
-        /// <summary>
-        /// Gets a value indicating whether this instance is nullable.
-        /// </summary>
+        private ExpressionMember(LambdaExpression expression,
+                                        Type parent, Type member)
+        {
+            _parentType = parent;
+            Type = member ?? throw new ARLiteException(nameof(ExpressionMember),
+                                                                    new ArgumentNullException(nameof(member)));
+            _memberExpression = expression ?? throw new ARLiteException(nameof(ExpressionMember),
+                                                                    new ArgumentNullException(nameof(expression)));
+
+            Initialize();
+        }
+
         public bool IsNullable
         {
             get
@@ -35,24 +44,11 @@ namespace ARLiteNET.Lib.Core.ExpressionHelpers
                     return Nullable.GetUnderlyingType(Type) != null;
             }
         }
-        /// <summary>
-        /// Gets the end name of the point.
-        /// </summary>
+
         public string EndPointName { get; private set; }
-
-        /// <summary>
-        /// Gets the type.
-        /// </summary>
         public Type Type { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is field or property.
-        /// </summary>
         public bool IsFieldOrProperty { get; private set; }
 
-        /// <summary>
-        /// Resolves the member value.
-        /// </summary>
         public object ResolveValue(object instance)
         {
             try
@@ -66,28 +62,26 @@ namespace ARLiteNET.Lib.Core.ExpressionHelpers
                 throw;
             }
         }
-
         private void Initialize()
         {
-            if (this._memberExpression.Body.NodeType != ExpressionType.Parameter)
+            if (_memberExpression.Body.NodeType != ExpressionType.Parameter)
             {
                 if (IsDefinedAs(Defination.Class) || IsDefinedAs(Defination.Struct))
                 {
-                    TrySetDesriptorInfo(this._memberExpression);
+                    TrySetDesriptorInfo(_memberExpression);
                 }
             }
 
-            this.EndPointName = string.IsNullOrEmpty(this.EndPointName) ? "" : this.EndPointName;
+            EndPointName = string.IsNullOrEmpty(EndPointName) ? "" : EndPointName;
         }
-
         private bool TrySetDesriptorInfo(LambdaExpression memberExpression)
         {
             if (IsMember(memberExpression.Body, out MemberExpression operand))
             {
                 if (operand.NodeType != ExpressionType.Parameter)
                 {
-                    this.EndPointName = operand.Member.Name;
-                    this.IsFieldOrProperty = true;
+                    EndPointName = operand.Member.Name;
+                    IsFieldOrProperty = true;
                     return true;
                 }
             }
@@ -95,15 +89,14 @@ namespace ARLiteNET.Lib.Core.ExpressionHelpers
             {
                 if (callOperand.NodeType != ExpressionType.Parameter)
                 {
-                    this.EndPointName = callOperand.Method.Name;
-                    this.IsFieldOrProperty = false;
+                    EndPointName = callOperand.Method.Name;
+                    IsFieldOrProperty = false;
                     return true;
                 }
             }
 
             return false;
         }
-
         private bool IsMethod(Expression toUp, out MethodCallExpression methodCallExpression)
         {
             if (toUp is MethodCallExpression)
@@ -112,28 +105,26 @@ namespace ARLiteNET.Lib.Core.ExpressionHelpers
                 return true;
             }
 
-            methodCallExpression = default(MethodCallExpression);
+            methodCallExpression = default;
             return false;
         }
-
         private bool IsMember(Expression toUp, out MemberExpression memberExpression)
         {
             if (toUp is UnaryExpression upOperand)
             {
-                if ((memberExpression = (upOperand.Operand as MemberExpression)) != null)
+                if ((memberExpression = upOperand.Operand as MemberExpression) != null)
                 {
                     return true;
                 }
             }
-            else if ((memberExpression = (toUp as MemberExpression)) != null)
+            else if ((memberExpression = toUp as MemberExpression) != null)
             {
                 return true;
             }
 
-            memberExpression = default(MemberExpression);
+            memberExpression = default;
             return false;
         }
-
         private bool IsDefinedAs(Defination defination)
         {
             if (_parentType == typeof(string) && defination == Defination.String)
@@ -147,7 +138,6 @@ namespace ARLiteNET.Lib.Core.ExpressionHelpers
 
             return false;
         }
-
         enum Defination : byte
         {
             Class = 1, Struct = 2, String = 3, Primitive = 4, Other = 5

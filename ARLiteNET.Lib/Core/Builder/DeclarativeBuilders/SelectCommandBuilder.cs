@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ARLiteNET.Lib.Core
 {
-    public class SelectCommandBuilder : IDbCommandBuilder
+    public class SelectCommandBuilder<T> : IDbCommandBuilder
     {
         private readonly string _tableName;
         private readonly AdoCommandBuilder _adoCommandBuilder;
@@ -31,6 +32,13 @@ namespace ARLiteNET.Lib.Core
             _columnQueryInfos.Add(columnInfo);
 
             return columnInfo;
+        }
+
+        public SelectColumnQuery Column<TMember>(Expression<Func<T, TMember>> member)
+        {
+            ExpressionMember expMember = ExpressionMember.Create(member);
+
+            return Column(expMember.EndPointName);
         }
 
         IDbCommand IDbCommandBuilder.Build()

@@ -1,5 +1,4 @@
 ﻿using ARLiteNET.Lib.Common;
-using ARLiteNET.Lib.Core.ExpressionHelpers;
 using ARLiteNET.Lib.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -37,12 +36,9 @@ namespace ARLiteNET.Lib.Core
 
         public InsertColumnQuery Column<TMember>(Expression<Func<T, TMember>> member)
         {
-            ExpressionMember expMember = ExpressionMemberFactory.Create(member);
+            ExpressionMember expMember = ExpressionMember.Create(member);
 
-            InsertColumnQuery columnInfo = new InsertColumnQuery(expMember.EndPointName);
-            _columnQueryInfos.Add(columnInfo);
-
-            return columnInfo;
+            return Column(expMember.EndPointName);
         }
 
         IDbCommand IDbCommandBuilder.Build()

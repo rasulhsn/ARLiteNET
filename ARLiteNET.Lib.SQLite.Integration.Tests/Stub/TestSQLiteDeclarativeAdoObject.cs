@@ -13,7 +13,7 @@ namespace ARLiteNET.Lib.Integration.Tests
         {
             // Declarative approach
             var selectQuery = this.Query()
-                                   .Select("Users");
+                                   .Select<TestUserObject>("Users");
 
             return this.RunEnumerable<TestUserObject>(selectQuery);
         }
