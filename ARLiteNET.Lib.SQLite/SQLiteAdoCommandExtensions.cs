@@ -1,4 +1,5 @@
 ﻿using ARLiteNET.Lib.Core;
+using System;
 
 namespace ARLiteNET.Lib.SQLite
 {
@@ -19,15 +20,15 @@ namespace ARLiteNET.Lib.SQLite
         }
 
         public static UpdateCommandBuilder<T> Update<T>(this
-           AdoCommandBuilder builder, string sourceName, T instance)
+           AdoCommandBuilder builder, string tableName, T instance)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
         public static DeleteCommandBuilder<T> Delete<T>(this
-           AdoCommandBuilder builder, string sourceName)
+           AdoCommandBuilder builder, string tableName)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

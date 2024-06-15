@@ -1,8 +1,10 @@
 ﻿using ARLiteNET.Lib.Common;
+using ARLiteNET.Lib.Core.ExpressionHelpers;
 using ARLiteNET.Lib.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq.Expressions;
 
 namespace ARLiteNET.Lib.Core
 {
@@ -11,15 +13,15 @@ namespace ARLiteNET.Lib.Core
         private bool _hasColumnQueryInfos => _columnQueryInfos.Count > 0;
         private readonly List<InsertColumnQuery> _columnQueryInfos;
 
-        private readonly AdoCommandBuilder _builder;
         private readonly T _instance;
+        private readonly AdoCommandBuilder _adoCommandbuilder;
         private readonly IInsertQueryBuilder _insertQueryBuilder;
 
-        public InsertCommandBuilder(T instance, AdoCommandBuilder builder,
+        public InsertCommandBuilder(T instance, AdoCommandBuilder adoBuilder,
                                                 IInsertQueryBuilder insertQueryBuilder)
         {
             this._instance = instance ?? throw new ArgumentNullException(nameof(instance));
-            this._builder = builder ?? throw new ArgumentNullException(nameof(builder));     
+            this._adoCommandbuilder = adoBuilder ?? throw new ArgumentNullException(nameof(adoBuilder));     
             this._insertQueryBuilder = insertQueryBuilder ?? throw new ArgumentNullException(nameof(insertQueryBuilder)); ;
 
             _columnQueryInfos = new List<InsertColumnQuery>();
@@ -33,6 +35,16 @@ namespace ARLiteNET.Lib.Core
             return columnInfo;
         }
 
+        public InsertColumnQuery Column<TMember>(Expression<Func<T, TMember>> member)
+        {
+            ExpressionMember expMember = ExpressionMemberFactory.Create(member);
+
+            InsertColumnQuery columnInfo = new InsertColumnQuery(expMember.EndPointName);
+            _columnQueryInfos.Add(columnInfo);
+
+            return columnInfo;
+        }
+
         IDbCommand IDbCommandBuilder.Build()
         {
             //if (_hasColumnQueryInfos)
@@ -40,7 +52,12 @@ namespace ARLiteNET.Lib.Core
 
             //}
 
-            throw new System.NotImplementedException();
+            //_insertQueryBuilder.Value()
+
+             string queryStr = _insertQueryBuilder.Build();
+            _adoCommandbuilder.SetCommand(queryStr);
+
+            return ((IDbCommandBuilder)_adoCommandbuilder).Build();
         }
 
         public class InsertColumnQuery

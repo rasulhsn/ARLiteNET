@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ARLiteNET.Lib.Unit.Tests
 {
     [TestClass]
-    public class SQLiteConfigurationResolverTests
+    public class ARLiteConfigurationResolverTests
     {
         [TestMethod]
         public void GetConfigurationFactory_InvalidType_ThrowException()
@@ -16,7 +16,7 @@ namespace ARLiteNET.Lib.Unit.Tests
         [TestMethod]
         public void GetConfigurationFactory_UndeclaredType_ThrowException()
         {
-            Assert.ThrowsException<Exception>(() => ARLiteConfigurationResolver.GetConfigurationFactory(typeof(SQLiteConfigurationResolverTests)));
+            Assert.ThrowsException<Exception>(() => ARLiteConfigurationResolver.GetConfigurationFactory(typeof(ARLiteConfigurationResolverTests)));
         }
     }
 }

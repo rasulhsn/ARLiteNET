@@ -24,7 +24,7 @@ namespace ARLiteNET.Lib.Integration.Tests
             var insertQuery = this.Query()
                                     .Insert("Users", newObject);
 
-            insertQuery.Column(nameof(TestUserObject.IsActive)).Ignore();
+            insertQuery.Column(x => x.IsActive).Ignore();
 
             this.Run(insertQuery);
         }

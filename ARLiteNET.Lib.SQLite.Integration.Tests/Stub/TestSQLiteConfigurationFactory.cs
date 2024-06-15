@@ -11,10 +11,9 @@ namespace ARLiteNET.Lib.Integration.Tests.Stub
 
         protected override void Configure(ARLiteConnectionStringBuilder sqliteConnectionStringBuilder)
         {
-            string pathSqlLite = Path.Combine(PathUtils.TryGetRootPath(), FOLDER, SQL_FILE_NAME);
+            string pathSqlite = Path.Combine(PathUtils.TryGetRootPath(), FOLDER, SQL_FILE_NAME);
 
-            sqliteConnectionStringBuilder.ConnectionString($"Data Source={pathSqlLite};Version=3;")
-                                         .SQLite();
+            sqliteConnectionStringBuilder.SQLite(pathSqlite);
         }
     }
 }
