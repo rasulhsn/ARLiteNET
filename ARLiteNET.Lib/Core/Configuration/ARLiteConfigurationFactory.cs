@@ -10,7 +10,7 @@ namespace ARLiteNET.Lib.Core
 
             Configure(connectionStringBuilder);
 
-            return sqliteConnectionStringBuilder.Build();
+            return connectionStringBuilder.Build();
         }
 
         protected abstract void Configure(ARLiteConnectionStringBuilder connectionStringBuilder);
