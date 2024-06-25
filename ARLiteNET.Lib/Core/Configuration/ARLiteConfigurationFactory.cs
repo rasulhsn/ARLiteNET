@@ -1,18 +1,18 @@
-﻿
+
 namespace ARLiteNET.Lib.Core
 {
     public abstract class ARLiteConfigurationFactory
     {
         public AdoConnectionString CreateConnectionString()
         {
-            ARLiteConnectionStringBuilder sqliteConnectionStringBuilder =
+            ARLiteConnectionStringBuilder connectionStringBuilder =
                 new ARLiteConnectionStringBuilder();
 
-            Configure(sqliteConnectionStringBuilder);
+            Configure(connectionStringBuilder);
 
             return sqliteConnectionStringBuilder.Build();
         }
 
-        protected abstract void Configure(ARLiteConnectionStringBuilder sqliteConnectionStringBuilder);
+        protected abstract void Configure(ARLiteConnectionStringBuilder connectionStringBuilder);
     }
 }
