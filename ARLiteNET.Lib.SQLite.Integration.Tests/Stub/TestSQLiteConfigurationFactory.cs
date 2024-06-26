@@ -9,11 +9,11 @@ namespace ARLiteNET.Lib.Integration.Tests.Stub
         const string SQL_FILE_NAME = "ARNetDb.db";
         const string FOLDER = "Data";
 
-        protected override void Configure(ARLiteConnectionStringBuilder sqliteConnectionStringBuilder)
+        protected override void Configure(ARLiteConnectionStringBuilder connectionStringBuilder)
         {
             string pathSqlite = Path.Combine(PathUtils.TryGetRootPath(), FOLDER, SQL_FILE_NAME);
 
-            sqliteConnectionStringBuilder.SQLite3(pathSqlite);
+            connectionStringBuilder.SQLite3(pathSqlite);
         }
     }
 }
