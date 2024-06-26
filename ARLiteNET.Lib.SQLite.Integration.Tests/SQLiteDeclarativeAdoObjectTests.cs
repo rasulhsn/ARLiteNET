@@ -1,4 +1,4 @@
-using ARLiteNET.Lib.SQLite.Integration.Tests.Stub;
+using ARLiteNET.Lib.Tests.Data.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {

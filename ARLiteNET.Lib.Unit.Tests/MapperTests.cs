@@ -10,7 +10,7 @@ namespace ARLiteNET.Lib.Unit.Tests
     public class MapperTests
     {
         [TestMethod]
-        public void Map_WhenValidArgumentsProvided_ShouldReturnValidMappedObject()
+        public void Map_WhenGivenValidArguments_ShouldReturnValidMappedObject()
         {
             //Assert
             const int expectedCount = 4;

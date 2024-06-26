@@ -1,15 +1,14 @@
 ﻿using ARLiteNET.Lib.Common;
 using ARLiteNET.Lib.SQLite;
-using ARLiteNET.Lib.SQLite.Integration.Tests.Stub;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ARLiteNET.Lib.Tests.Data.Stub;
+using System.Xml.Linq;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
-    [TestClass]
     public class SQLiteQueryBuilderTests
     {
-        [TestMethod]
-        public void Sample()
+        [Fact]
+        public void Build_WhenCalledSelectWithAllColumns_ShouldReturnCorrectQuery()
         {
             const string expectedQuery = $"SELECT * FROM {nameof(TestUserObjectDto)} ";
 
@@ -17,11 +16,11 @@ namespace ARLiteNET.Lib.Integration.Tests
                                 .From(nameof(TestUserObjectDto))
                                 .Build();
 
-            Assert.AreEqual(expectedQuery, generatedQuery);
+            Assert.Equal(expectedQuery, generatedQuery);
         }
 
-        [TestMethod]
-        public void Sample2()
+        [Fact]
+        public void Build_WhenCalledSelectAndWhereCondition_ShouldReturnCorrectQuery()
         {
             const string expectedQuery = $"SELECT * FROM {nameof(TestUserObjectDto)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
 
@@ -34,11 +33,11 @@ namespace ARLiteNET.Lib.Integration.Tests
                                 .GreaterThan(0)
                                 .Build();
 
-            Assert.AreEqual(expectedQuery, generatedQuery);
+            Assert.Equal(expectedQuery, generatedQuery);
         }
 
-        [TestMethod]
-        public void Sample3()
+        [Fact]
+        public void Build_WhenCalledSelectAndConditionWithSpecifiedColumns_ShouldReturnCorrectQuery()
         {
             const string expectedQuery = $"SELECT T.Id,T.Name FROM {nameof(TestUserObjectDto)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
 
@@ -51,13 +50,14 @@ namespace ARLiteNET.Lib.Integration.Tests
                                 .GreaterThan(0)
                                 .Build();
 
-            Assert.AreEqual(expectedQuery, generatedQuery);
+            Assert.Equal(expectedQuery, generatedQuery);
         }
 
-        [TestMethod]
-        public void Sample4()
+        [Fact]
+        public void Build_WhenCalledInsertWithValues_ShouldReturnCorrectQuery()
         {
-            const string nameRaw = "Rasul"; const string isActiveRaw = "1";
+            const string nameRaw = "Rasul";
+            const string isActiveRaw = "1";
             const string expectedQuery = $"INSERT INTO {nameof(TestUserObjectDto)} ({nameof(TestUserObjectDto.Name)},{nameof(TestUserObjectDto.IsActive)}) VALUES ('{nameRaw}',{isActiveRaw}), ('{nameRaw}',{isActiveRaw})";
 
             string generatedQuery = SQLiteQueryFactory.Insert(nameof(TestUserObjectDto))
@@ -67,7 +67,7 @@ namespace ARLiteNET.Lib.Integration.Tests
                                                        ,new InsertValueObject(nameof(TestUserObjectDto.IsActive), isActiveRaw, InsertDataType.INTEGER))
                                                 .Build();
 
-            Assert.AreEqual(expectedQuery, generatedQuery);
+            Assert.Equal(expectedQuery, generatedQuery);
         }
     }
 }

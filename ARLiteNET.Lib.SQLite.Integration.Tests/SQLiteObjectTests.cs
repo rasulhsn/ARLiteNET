@@ -1,4 +1,4 @@
-using ARLiteNET.Lib.SQLite.Integration.Tests.Stub;
+using ARLiteNET.Lib.Tests.Data.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
@@ -6,7 +6,7 @@ namespace ARLiteNET.Lib.Integration.Tests
     public class SQLiteObjectTests
     {
         [TestMethod]
-        public void GetAll()
+        public void GetAll_WhenCalled_ShouldReturnNonNullCollection()
         {
             TestSQLiteObject adoObject = new TestSQLiteObject();
 

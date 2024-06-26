@@ -12,18 +12,17 @@
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+    <PackageReference Include="xunit" Version="2.5.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ARLiteNET.Lib.SQLite.Tests.Data\ARLiteNET.Lib.SQLite.Tests.Data.csproj" />
     <ProjectReference Include="..\ARLiteNET.Lib.SQLite\ARLiteNET.Lib.SQLite.csproj" />
-    <ProjectReference Include="..\ARLiteNET.Lib\ARLiteNET.Lib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+    <Using Include="Xunit" />
   </ItemGroup>
 
 </Project>

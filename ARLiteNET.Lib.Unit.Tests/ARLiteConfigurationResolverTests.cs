@@ -8,13 +8,13 @@ namespace ARLiteNET.Lib.Unit.Tests
     public class ARLiteConfigurationResolverTests
     {
         [TestMethod]
-        public void GetConfigurationFactory_InvalidType_ThrowException()
+        public void GetConfigurationFactory_WhenGivenNull_ShouldThrowArgumentNullException()
         {
             Assert.ThrowsException<ArgumentNullException>(() => ARLiteConfigurationResolver.GetConfigurationFactory(null));
         }
 
         [TestMethod]
-        public void GetConfigurationFactory_UndeclaredType_ThrowException()
+        public void GetConfigurationFactory_WhenGivenInvalidType_ShouldThrowException()
         {
             Assert.ThrowsException<Exception>(() => ARLiteConfigurationResolver.GetConfigurationFactory(typeof(ARLiteConfigurationResolverTests)));
         }

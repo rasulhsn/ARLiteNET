@@ -4,10 +4,15 @@ namespace ARLiteNET.Lib.SQLite
 {
     public static class ARLiteConnectionStringBuilderExtensions
     {
-        public static void SQLite3(this ARLiteConnectionStringBuilder connectionStringBuilder, string sqliteFile)
+        public static ARLiteConnectionStringBuilder AddSQLiteProvider(this ARLiteConnectionStringBuilder connectionStringBuilder)
         {
-            connectionStringBuilder.ConnectionString($"Data Source={sqliteFile};Version=3;")
-                                          .SetProvider("System.Data.SQLite", System.Data.SQLite.SQLiteFactory.Instance);
+            return connectionStringBuilder.SetProvider("System.Data.SQLite", System.Data.SQLite.SQLiteFactory.Instance);
+        }
+
+        public static ARLiteConnectionStringBuilder SetSQLite3(this ARLiteConnectionStringBuilder connectionStringBuilder, string sqliteFile)
+        {
+            return connectionStringBuilder.AddSQLiteProvider()
+                                    .ConnectionString($"Data Source={sqliteFile};Version=3;");                     
         }
     }
 }

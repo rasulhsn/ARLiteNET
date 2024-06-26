@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 
-namespace ARLiteNET.Lib.SQLite.Integration.Tests.Stub
+namespace ARLiteNET.Lib.Tests.Data.Stub
 {
     public class TestUserObjectDto
     {
