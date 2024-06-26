@@ -10,24 +10,20 @@ namespace ARLiteNET.Lib.Unit.Tests
     public class MapperTests
     {
         [TestMethod]
-        public void Map_ValidMapped_NotNull()
+        public void Map_WhenValidArgumentsProvided_ShouldReturnValidMappedObject()
         {
-            TestUserObjectDto instance = new TestUserObjectDto() { Id = 1, Name = "Rasul", IsActive = true, BirthDate = DateTime.Now };
+            //Assert
+            const int expectedCount = 4;
+            TestUserObjectDto instance = new ()
+            { Id = 1, Name = "Rasul", IsActive = true, BirthDate = DateTime.Now };
 
+            //Act
             MapType mapTypeInstance = Mapper.Map(instance);
 
+            //Arrange
             Assert.IsNotNull(mapTypeInstance);
             Assert.IsTrue(mapTypeInstance.HasMembers);
-        }
-
-        [TestMethod]
-        public void Map_ValidMembersCount_Mapped4PropertiesAsMember()
-        {
-            TestUserObjectDto instance = new TestUserObjectDto() { Id = 1, Name = "Rasul", IsActive = true, BirthDate = DateTime.Now };
-
-            MapType mapTypeInstance = Mapper.Map(instance);
-
-            Assert.IsTrue(mapTypeInstance.Members.Count() == 4);
+            Assert.AreEqual(mapTypeInstance.Members.Count(), expectedCount);
         }
     }
 }

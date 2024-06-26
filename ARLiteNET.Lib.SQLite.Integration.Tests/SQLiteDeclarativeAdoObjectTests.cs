@@ -6,13 +6,13 @@ namespace ARLiteNET.Lib.Integration.Tests
     public class SQLiteDeclarativeAdoObjectTests
     {
         [TestMethod]
-        public void Sample()
+        public void GetAll_WhenCorrectSelectSpecified_ShouldReturnSuccessfullyMappedObject()
         {
             TestSQLiteDeclarativeAdoObject adoObject = new TestSQLiteDeclarativeAdoObject();
 
-            IEnumerable<TestUserObjectDto> objects = adoObject.GetAll();
+            IEnumerable<TestUserObjectDto> users = adoObject.GetAll();
 
-            Assert.IsNotNull(objects);
+            Assert.IsNotNull(users);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ARLiteNET.Lib.Common;
+using ARLiteNET.Lib.Core.Mappers;
 using ARLiteNET.Lib.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -43,10 +44,20 @@ namespace ARLiteNET.Lib.Core
 
         IDbCommand IDbCommandBuilder.Build()
         {
-            //if (_hasColumnQueryInfos)
-            //{
+            if (_hasColumnQueryInfos)
+            {
 
-            //}
+            }
+
+            var mapType = Mapper.Map(_instance);
+
+            if (mapType == null)
+            {
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>),
+                                            new Exception($"{typeof(T).Name} is not suitable for mapping!"));
+            }
+
+            
 
             //_insertQueryBuilder.Value()
 

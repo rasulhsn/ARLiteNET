@@ -12,14 +12,14 @@ namespace ARLiteNET.Lib.Integration.Tests
         public IEnumerable<TestUserObjectDto> GetAll()
         {
             // Declarative approach
-            var selectQuery = this.Query()
+            var selectQuery = base.Query()
                                    .Select<TestUserObjectDto>("Users");
 
             selectQuery.Column(x => x.Id).Only();
             selectQuery.Column(x => x.Name).Only();
             selectQuery.Column(x => x.IsActive).Only();
 
-            return this.RunEnumerable<TestUserObjectDto>(selectQuery);
+            return base.RunEnumerable<TestUserObjectDto>(selectQuery);
         }
 
         public IEnumerable<TestUserObjectDto> GetByName(string name)

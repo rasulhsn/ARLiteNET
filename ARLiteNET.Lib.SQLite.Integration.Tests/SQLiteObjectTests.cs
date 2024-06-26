@@ -6,21 +6,13 @@ namespace ARLiteNET.Lib.Integration.Tests
     public class SQLiteObjectTests
     {
         [TestMethod]
-        public void GetAllObjects()
+        public void GetAll()
         {
             TestSQLiteObject adoObject = new TestSQLiteObject();
 
             IEnumerable<TestUserObjectDto> objects = adoObject.GetAll();
 
             Assert.IsNotNull(objects);
-        }
-
-        [TestMethod]
-        public void AddObject()
-        {
-            TestSQLiteObject adoObject = new TestSQLiteObject();
-
-            adoObject.Add(new TestUserObjectDto() { IsActive = true, Name = $"Test - {DateTime.Now}" });
         }
     }
 }

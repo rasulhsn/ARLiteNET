@@ -26,7 +26,7 @@ namespace ARLiteNET.Lib.Core.Mappers
             }
 
             Type instanceType = typeof(T);
-            var properties = instanceType.GetProperties();
+            var properties = instanceType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             List<MapMember> members = new List<MapMember>();
 
