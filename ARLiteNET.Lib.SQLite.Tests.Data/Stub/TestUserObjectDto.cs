@@ -1,12 +1,10 @@
-﻿using System;
+﻿using ARLiteNET.Lib.SQLite.Tests.Data.InMemory;
+using System;
 
 namespace ARLiteNET.Lib.Tests.Data.Stub
 {
-    public class TestUserObjectDto
+    public class TestUserObjectDto : SQLiteDefaultTableObject
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public bool IsActive { get; set; }
         public DateTime? BirthDate { get; set; }
     }
 }

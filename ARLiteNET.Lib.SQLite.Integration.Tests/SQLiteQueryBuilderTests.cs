@@ -1,13 +1,13 @@
 ﻿using ARLiteNET.Lib.Common;
 using ARLiteNET.Lib.SQLite;
 using ARLiteNET.Lib.Tests.Data.Stub;
-using System.Xml.Linq;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
+    [TestClass]
     public class SQLiteQueryBuilderTests
     {
-        [Fact]
+        [TestMethod]
         public void Build_WhenCalledSelectWithAllColumns_ShouldReturnCorrectQuery()
         {
             const string expectedQuery = $"SELECT * FROM {nameof(TestUserObjectDto)} ";
@@ -16,10 +16,10 @@ namespace ARLiteNET.Lib.Integration.Tests
                                 .From(nameof(TestUserObjectDto))
                                 .Build();
 
-            Assert.Equal(expectedQuery, generatedQuery);
+            Assert.AreEqual(expectedQuery, generatedQuery);
         }
 
-        [Fact]
+        [TestMethod]
         public void Build_WhenCalledSelectAndWhereCondition_ShouldReturnCorrectQuery()
         {
             const string expectedQuery = $"SELECT * FROM {nameof(TestUserObjectDto)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
@@ -33,10 +33,10 @@ namespace ARLiteNET.Lib.Integration.Tests
                                 .GreaterThan(0)
                                 .Build();
 
-            Assert.Equal(expectedQuery, generatedQuery);
+            Assert.AreEqual(expectedQuery, generatedQuery);
         }
 
-        [Fact]
+        [TestMethod]
         public void Build_WhenCalledSelectAndConditionWithSpecifiedColumns_ShouldReturnCorrectQuery()
         {
             const string expectedQuery = $"SELECT T.Id,T.Name FROM {nameof(TestUserObjectDto)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
@@ -50,10 +50,10 @@ namespace ARLiteNET.Lib.Integration.Tests
                                 .GreaterThan(0)
                                 .Build();
 
-            Assert.Equal(expectedQuery, generatedQuery);
+            Assert.AreEqual(expectedQuery, generatedQuery);
         }
 
-        [Fact]
+        [TestMethod]
         public void Build_WhenCalledInsertWithValues_ShouldReturnCorrectQuery()
         {
             const string nameRaw = "Rasul";
@@ -67,7 +67,7 @@ namespace ARLiteNET.Lib.Integration.Tests
                                                        ,new InsertValueObject(nameof(TestUserObjectDto.IsActive), isActiveRaw, InsertDataType.INTEGER))
                                                 .Build();
 
-            Assert.Equal(expectedQuery, generatedQuery);
+            Assert.AreEqual(expectedQuery, generatedQuery);
         }
     }
 }

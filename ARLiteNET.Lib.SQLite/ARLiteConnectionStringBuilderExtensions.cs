@@ -6,7 +6,7 @@ namespace ARLiteNET.Lib.SQLite
     {
         public static ARLiteConnectionStringBuilder AddSQLiteProvider(this ARLiteConnectionStringBuilder connectionStringBuilder)
         {
-            return connectionStringBuilder.SetProvider("System.Data.SQLite", System.Data.SQLite.SQLiteFactory.Instance);
+            return connectionStringBuilder.AddProvider("System.Data.SQLite", System.Data.SQLite.SQLiteFactory.Instance);
         }
 
         public static ARLiteConnectionStringBuilder SetSQLite3(this ARLiteConnectionStringBuilder connectionStringBuilder, string sqliteFile)

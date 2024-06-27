@@ -14,14 +14,14 @@ namespace ARLiteNET.Lib.Core
             return this;
         }
 
-        public ARLiteConnectionStringBuilder SetProvider(string providerInvariantName, DbProviderFactory factory)
+        public ARLiteConnectionStringBuilder AddProvider(string providerInvariantName, DbProviderFactory factory)
         {
             DbProviderFactories.RegisterFactory(providerInvariantName, factory);
             _providerName = providerInvariantName;
             return this;
         }
 
-        public ARLiteConnectionStringBuilder SetProvider(string providerInvariantName, Type providerFactoryClass)
+        public ARLiteConnectionStringBuilder AddProvider(string providerInvariantName, Type providerFactoryClass)
         {
             DbProviderFactories.RegisterFactory(providerInvariantName, providerFactoryClass);
             _providerName = providerInvariantName;

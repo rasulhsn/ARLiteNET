@@ -11,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.Lib.SQLite", "ARL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.Lib.SQLite.Integration.Tests", "ARLiteNET.Lib.SQLite.Integration.Tests\ARLiteNET.Lib.SQLite.Integration.Tests.csproj", "{FFDB952A-BFFD-4E3E-A8F7-50F7D0E1DB46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARLiteNET.Lib.SQLite.Unit.Tests", "ARLiteNET.Lib.SQLite.Unit.Tests\ARLiteNET.Lib.SQLite.Unit.Tests.csproj", "{2B3FC368-78E4-4C28-8F6E-34564FBB0A8A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARLiteNET.Lib.SQLite.Tests.Data", "ARLiteNET.Lib.SQLite.Tests.Data\ARLiteNET.Lib.SQLite.Tests.Data.csproj", "{0E05CA06-F7CB-44EC-9CF8-CBEA42BC0AFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.Lib.SQLite.Tests.Data", "ARLiteNET.Lib.SQLite.Tests.Data\ARLiteNET.Lib.SQLite.Tests.Data.csproj", "{0E05CA06-F7CB-44EC-9CF8-CBEA42BC0AFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{FFDB952A-BFFD-4E3E-A8F7-50F7D0E1DB46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFDB952A-BFFD-4E3E-A8F7-50F7D0E1DB46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFDB952A-BFFD-4E3E-A8F7-50F7D0E1DB46}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B3FC368-78E4-4C28-8F6E-34564FBB0A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B3FC368-78E4-4C28-8F6E-34564FBB0A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B3FC368-78E4-4C28-8F6E-34564FBB0A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B3FC368-78E4-4C28-8F6E-34564FBB0A8A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E05CA06-F7CB-44EC-9CF8-CBEA42BC0AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E05CA06-F7CB-44EC-9CF8-CBEA42BC0AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E05CA06-F7CB-44EC-9CF8-CBEA42BC0AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU

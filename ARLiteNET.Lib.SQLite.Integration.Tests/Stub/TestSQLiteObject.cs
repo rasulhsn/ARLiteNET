@@ -1,4 +1,5 @@
 ﻿using ARLiteNET.Lib.Core;
+using ARLiteNET.Lib.SQLite.Tests.Data.InMemory;
 using ARLiteNET.Lib.Tests.Data.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests

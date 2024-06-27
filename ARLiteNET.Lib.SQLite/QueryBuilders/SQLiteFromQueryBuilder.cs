@@ -17,7 +17,7 @@ namespace ARLiteNET.Lib.SQLite
 
         public SQLiteFromQueryBuilder(string tableName, ChainQueryBuilder innerQueryBuilder) : base(innerQueryBuilder)
         {
-            _tableName = tableName;
+            _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
         }
 
         public IFromQueryBuilder Alias(string alias)
