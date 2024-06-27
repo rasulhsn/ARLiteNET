@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace ARLiteNET.Lib.SQLite.Tests.Data.InMemory
 {
-    public static class SQLitePreparer
+    public static class SQLiteInMemory
     {
         public static void PrepareDB()
         {

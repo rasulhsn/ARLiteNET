@@ -8,7 +8,7 @@ namespace ARLiteNET.Lib.Integration.Tests
     {
         public SQLiteDeclarativeAdoObjectTests()
         {
-            SQLitePreparer.PrepareDB();
+            SQLiteInMemory.PrepareDB();
         }
 
         [TestMethod]

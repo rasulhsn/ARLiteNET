@@ -7,8 +7,8 @@ namespace ARLiteNET.Lib.Integration.Tests
     public class SQLiteObjectTests
     {
         public SQLiteObjectTests() 
-        { 
-            SQLitePreparer.PrepareDB();
+        {
+            SQLiteInMemory.PrepareDB();
         }
 
         [TestMethod]
