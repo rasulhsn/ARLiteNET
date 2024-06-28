@@ -14,9 +14,9 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void GetAll_WhenCalled_ShouldReturnNonNullCollection()
         {
-            TestSQLiteObject adoObject = new TestSQLiteObject();
+            SQLiteObjectStub adoObject = new SQLiteObjectStub();
 
-            IEnumerable<TestUserObjectDto> objects = adoObject.GetAll();
+            IEnumerable<UserObjectDtoStub> objects = adoObject.GetAll();
 
             Assert.IsNotNull(objects);
         }

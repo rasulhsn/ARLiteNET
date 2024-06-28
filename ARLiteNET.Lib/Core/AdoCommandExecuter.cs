@@ -96,7 +96,7 @@ namespace ARLiteNET.Lib.Core
             try
             {
                 dbCommand.Connection.Open();
-                dbCommand.ExecuteNonQuery();
+                result.AffectedRows = dbCommand.ExecuteNonQuery();
                 dbCommand.Connection.Close();
             }
             catch (Exception exp)
@@ -178,7 +178,9 @@ namespace ARLiteNET.Lib.Core
                                         Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
 
                     if (propertyType.IsPrimitive
+                                || propertyType.Equals(typeof(float))
                                 || propertyType.Equals(typeof(decimal))
+                                || propertyType.Equals(typeof(double))
                                 || propertyType.Equals(typeof(string))
                                 || propertyType.Equals(typeof(DateTime))
                                 || propertyType.Equals(typeof(bool)))

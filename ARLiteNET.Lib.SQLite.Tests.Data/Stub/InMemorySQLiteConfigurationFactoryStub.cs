@@ -3,7 +3,7 @@ using ARLiteNET.Lib.SQLite;
 
 namespace ARLiteNET.Lib.Tests.Data.Stub
 {
-    public sealed class TestInMemorySQLiteConfigurationFactory : ARLiteConfigurationFactory
+    public sealed class InMemorySQLiteConfigurationFactoryStub : ARLiteConfigurationFactory
     {
         protected override void Configure(ARLiteConnectionStringBuilder connectionStringBuilder)
         {

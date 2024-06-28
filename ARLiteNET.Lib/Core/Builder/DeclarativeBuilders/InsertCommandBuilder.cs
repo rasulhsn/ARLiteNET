@@ -4,6 +4,7 @@ using ARLiteNET.Lib.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace ARLiteNET.Lib.Core
@@ -11,7 +12,7 @@ namespace ARLiteNET.Lib.Core
     public class InsertCommandBuilder<T> : IDbCommandBuilder
     {
         private bool _hasColumnQueryInfos => _columnQueryInfos.Count > 0;
-        private readonly List<InsertColumnQuery> _columnQueryInfos;
+        private readonly Dictionary<string, InsertColumnQuery> _columnQueryInfos;
 
         private readonly T _instance;
         private readonly AdoCommandBuilder _adoCommandbuilder;
@@ -24,13 +25,17 @@ namespace ARLiteNET.Lib.Core
             this._adoCommandbuilder = adoBuilder ?? throw new ArgumentNullException(nameof(adoBuilder));     
             this._insertQueryBuilder = insertQueryBuilder ?? throw new ArgumentNullException(nameof(insertQueryBuilder)); ;
 
-            _columnQueryInfos = new List<InsertColumnQuery>();
+            _columnQueryInfos = new Dictionary<string, InsertColumnQuery>();
         }
 
         public InsertColumnQuery Column(string columnName)
         {
+            if (_columnQueryInfos.ContainsKey(columnName))
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>),
+                                new Exception($"{columnName} column is already exists!"));
+
             InsertColumnQuery columnInfo = new InsertColumnQuery(columnName);
-            _columnQueryInfos.Add(columnInfo);
+            _columnQueryInfos.Add(columnName, columnInfo);
 
             return columnInfo;
         }
@@ -39,29 +44,82 @@ namespace ARLiteNET.Lib.Core
         {
             ExpressionMember expMember = ExpressionMember.Create(member);
 
-            return Column(expMember.EndPointName);
+            if (!expMember.IsFieldOrProperty)
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>),
+                                            new Exception("The class member is not property or field!"));
+
+            return Column(expMember.Name);
         }
 
         IDbCommand IDbCommandBuilder.Build()
         {
-            if (_hasColumnQueryInfos)
+            InsertDataType _getInsertDataType(Type type)
             {
+                Type memberType = Nullable.GetUnderlyingType(type) != null ?
+                                    Nullable.GetUnderlyingType(type) : type;
 
+                if (memberType.Equals(typeof(byte))
+                    || memberType.Equals(typeof(sbyte))
+                    || memberType.Equals(typeof(decimal))
+                    || memberType.Equals(typeof(double))
+                    || memberType.Equals(typeof(float)))
+                {
+                    return InsertDataType.REAL;
+                }
+                else if (memberType.Equals(typeof(int))
+                            || memberType.Equals(typeof(uint))
+                            || memberType.Equals(typeof(long))
+                            || memberType.Equals(typeof(ulong))
+                            || memberType.Equals(typeof(short))
+                            || memberType.Equals(typeof(ushort)))
+                {
+                    return InsertDataType.INTEGER;
+                }
+                else if (memberType.Equals(typeof(bool)))
+                {
+                    return InsertDataType.BOOLEAN;
+                }
+                else if (memberType.Equals(typeof(string))
+                            || memberType.Equals(typeof(DateTime)))
+                {
+                    return InsertDataType.TEXT;
+                }
+
+                return InsertDataType.NULL;
             }
 
             var mapType = Mapper.Map(_instance);
 
             if (mapType == null)
-            {
                 throw new ARLiteException(nameof(InsertCommandBuilder<T>),
-                                            new Exception($"{typeof(T).Name} is not suitable for mapping!"));
+                                                new Exception($"{typeof(T).Name} is not suitable for mapping!"));
+            if (!mapType.HasMembers)
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>),
+                                                new Exception($"{typeof(T).Name} has not any member for mapping!"));
+
+            IEnumerable<MapMember> mappedTypeMembers = mapType.Members;
+
+            if (_hasColumnQueryInfos)
+            {
+                var ignoreMembers = _columnQueryInfos.Where(x => x.Value.OperationName == nameof(InsertColumnQuery.Ignore))
+                                                     .Select(x => x.Key);
+
+                mappedTypeMembers = mappedTypeMembers.Where(x => !ignoreMembers.Contains(x.Name));
             }
 
-            
+            InsertValueObject[] insertObjects = new InsertValueObject[mappedTypeMembers.Count()];
+            int counter = 0;
 
-            //_insertQueryBuilder.Value()
+            foreach (var member in mappedTypeMembers)
+            {
+                InsertDataType dbDataType = _getInsertDataType(member.Type);
+                insertObjects[counter] = new InsertValueObject(member.Name, member.Value, dbDataType);
 
-             string queryStr = _insertQueryBuilder.Build();
+                counter++;
+            }
+
+            string queryStr = _insertQueryBuilder.Value(insertObjects)
+                                                  .Build();
             _adoCommandbuilder.SetCommand(queryStr);
 
             return ((IDbCommandBuilder)_adoCommandbuilder).Build();

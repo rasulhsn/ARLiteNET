@@ -8,12 +8,15 @@ namespace ARLiteNET.Lib.Core.Mappers
     {
         public Type RootType { get; }
         public IEnumerable<MapMember> Members { get; }
+        public int MembersCount { get; }
         public bool HasMembers => Members != null && Members.Any();
 
         public MapType(Type rootType, IEnumerable<MapMember> members)
         {
             RootType = rootType;
             Members = members;
+
+            MembersCount = members != null ? members.Count() : 0;
         }
     }
 

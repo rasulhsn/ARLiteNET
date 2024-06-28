@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +6,7 @@ namespace ARLiteNET.Lib.Core
 {
     public class AdoExecuterResult
     {
+        public int AffectedRows { get; internal set; }
         public IEnumerable<Exception> Errors { get; internal set; }
 
         public bool IsSuccess

@@ -48,7 +48,7 @@ namespace ARLiteNET.Lib
             return result.Object;
         }
 
-        protected void Run(IDbCommandBuilder commandBuilder)
+        protected int Run(IDbCommandBuilder commandBuilder)
         {
             var dbCommand = commandBuilder.Build();
 
@@ -58,6 +58,8 @@ namespace ARLiteNET.Lib
             {
                 throw new ARLiteObjectException("Occur error!", result.Errors);
             }
+
+            return result.AffectedRows;
         }
 
         protected AdoCommandBuilder Query()

@@ -61,6 +61,18 @@ namespace ARLiteNET.Lib.SQLite
                         else
                             builder.Append($"'{valueArray[j].Value}',");
                     }
+                    else if (valueArray[j].DataType == InsertDataType.BOOLEAN)
+                    {
+                        string literallStr = "NULL";
+
+                        if (bool.TryParse(valueArray[j].Value?.ToString(), out bool convertedBool))
+                            literallStr = convertedBool.ToString().Equals("True", StringComparison.OrdinalIgnoreCase) ? "1" : "0";
+
+                        if (j == valueArray.Length - 1)
+                            builder.Append($"{literallStr}");
+                        else
+                            builder.Append($"{literallStr},");
+                    }
                     else
                     {
                         if (j == valueArray.Length - 1)

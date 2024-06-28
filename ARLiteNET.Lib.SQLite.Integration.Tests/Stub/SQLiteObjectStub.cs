@@ -1,21 +1,20 @@
 ﻿using ARLiteNET.Lib.Core;
-using ARLiteNET.Lib.SQLite.Tests.Data.InMemory;
 using ARLiteNET.Lib.Tests.Data.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
-    [ARLiteConfiguration(typeof(TestInMemorySQLiteConfigurationFactory))]
-    public class TestSQLiteObject : ARLiteObject
+    [ARLiteConfiguration(typeof(InMemorySQLiteConfigurationFactoryStub))]
+    public class SQLiteObjectStub : ARLiteObject
     {
-        public IEnumerable<TestUserObjectDto> GetAll()
+        public IEnumerable<UserObjectDtoStub> GetAll()
         {
             var queryBuilder = this.Query()
                               .SetCommand("SELECT * FROM Users");
 
-            return this.RunEnumerable<TestUserObjectDto>(queryBuilder);
+            return this.RunEnumerable<UserObjectDtoStub>(queryBuilder);
         }
 
-        public void Add(TestUserObjectDto newObject)
+        public void Add(UserObjectDtoStub newObject)
         {
             var queryBuilder = this.Query()
                 .SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")

@@ -8,13 +8,12 @@ namespace ARLiteNET.Lib.Core.Mappers
     {
         public static MapType Map<T>(T instance)
         {
-            bool _IsPrimitive(PropertyInfo property)
+            bool _TypeIsPrimitive(Type propertyType)
             {
-                Type propertyType = Nullable.GetUnderlyingType(property.PropertyType) != null ?
-                                    Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
-
                 if (propertyType.IsPrimitive
+                            || propertyType.Equals(typeof(float))
                             || propertyType.Equals(typeof(decimal))
+                            || propertyType.Equals(typeof(double))
                             || propertyType.Equals(typeof(string))
                             || propertyType.Equals(typeof(DateTime))
                             || propertyType.Equals(typeof(bool)))
@@ -30,13 +29,22 @@ namespace ARLiteNET.Lib.Core.Mappers
 
             List<MapMember> members = new List<MapMember>();
 
-            foreach (var property in properties) {
-                
-                if(_IsPrimitive(property))
+            foreach (var property in properties)
+            {
+                Type propertyType = Nullable.GetUnderlyingType(property.PropertyType) != null ?
+                                    Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
+
+                if (_TypeIsPrimitive(propertyType))
                 {
-                    members.Add(new MapMember(property.PropertyType,
+                    members.Add(new MapMember(propertyType,
                                                 property.Name,
                                                 property.GetValue(instance), true));
+                }
+                else
+                {
+                    members.Add(new MapMember(propertyType,
+                                                property.Name,
+                                                property.GetValue(instance), false));
                 }
             }
 

@@ -37,8 +37,12 @@ namespace ARLiteNET.Lib.Core
         public SelectColumnQuery Column<TMember>(Expression<Func<T, TMember>> member)
         {
             ExpressionMember expMember = ExpressionMember.Create(member);
+            
+            if (!expMember.IsFieldOrProperty)
+                throw new ARLiteException(nameof(SelectCommandBuilder<T>),
+                                            new Exception("The class member is not property or field!"));
 
-            return Column(expMember.EndPointName);
+            return Column(expMember.Name);
         }
 
         IDbCommand IDbCommandBuilder.Build()

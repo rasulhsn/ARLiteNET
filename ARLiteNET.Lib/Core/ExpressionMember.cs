@@ -45,7 +45,7 @@ namespace ARLiteNET.Lib.Core
             }
         }
 
-        public string EndPointName { get; private set; }
+        public string Name { get; private set; }
         public Type Type { get; }
         public bool IsFieldOrProperty { get; private set; }
 
@@ -72,7 +72,7 @@ namespace ARLiteNET.Lib.Core
                 }
             }
 
-            EndPointName = string.IsNullOrEmpty(EndPointName) ? "" : EndPointName;
+            Name = string.IsNullOrEmpty(Name) ? "" : Name;
         }
         private bool TrySetDesriptorInfo(LambdaExpression memberExpression)
         {
@@ -80,7 +80,7 @@ namespace ARLiteNET.Lib.Core
             {
                 if (operand.NodeType != ExpressionType.Parameter)
                 {
-                    EndPointName = operand.Member.Name;
+                    Name = operand.Member.Name;
                     IsFieldOrProperty = true;
                     return true;
                 }
@@ -89,7 +89,7 @@ namespace ARLiteNET.Lib.Core
             {
                 if (callOperand.NodeType != ExpressionType.Parameter)
                 {
-                    EndPointName = callOperand.Method.Name;
+                    Name = callOperand.Method.Name;
                     IsFieldOrProperty = false;
                     return true;
                 }

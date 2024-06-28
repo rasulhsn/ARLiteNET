@@ -2,7 +2,7 @@
 
 namespace ARLiteNET.Lib.Unit.Tests.Stub
 {
-    public class TestUserObjectDto
+    public class UserDtoStub
     {
         public long Id { get; set; }
         public string Name { get; set; }
