@@ -73,6 +73,13 @@ namespace ARLiteNET.Lib.SQLite
                         else
                             builder.Append($"{literallStr},");
                     }
+                    else if (valueArray[j].DataType == InsertDataType.NULL)
+                    {
+                        if (j == valueArray.Length - 1)
+                            builder.Append($"NULL");
+                        else
+                            builder.Append($"NULL,");
+                    }
                     else
                     {
                         if (j == valueArray.Length - 1)

@@ -47,7 +47,7 @@ namespace ARLiteNET.Lib.Core
 
         IDbCommand IDbCommandBuilder.Build()
         {
-            IDbCommand BuildCommand(object instance)
+            IDbCommand _BuildCommand(object instance)
             {
                 string queryStr = ((IQueryBuilder)instance).Build();
                 _adoCommandBuilder.SetCommand(queryStr);
@@ -90,10 +90,10 @@ namespace ARLiteNET.Lib.Core
                     }
                 }
 
-                return BuildCommand(queryBuilderInstance);
+                return _BuildCommand(queryBuilderInstance);
             }
 
-            return BuildCommand(fromQueryBuilder);
+            return _BuildCommand(fromQueryBuilder);
         }
 
         private object InvokeQueryBuilder(object instance, SelectColumnQuery columnInfo)
