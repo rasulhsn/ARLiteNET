@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ARLiteNET.Lib.Common.Query;
+using System.Collections.Generic;
 
 namespace ARLiteNET.Lib.Common
 {
@@ -7,5 +8,7 @@ namespace ARLiteNET.Lib.Common
         ISelectQueryBuilder Select(params string[] columns);
         ISelectQueryBuilder Select(IEnumerable<string> columns);
         IFromQueryBuilder From(string table);
+        IJoinQueryBuilder Join(string table);
+        IOrderByQueryBuilder OrderBy(string columnName);
     }
 }

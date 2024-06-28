@@ -6,6 +6,12 @@ namespace ARLiteNET.Lib.SQLite
     public static class SQLiteAdoCommandExtensions
     {
         public static SelectCommandBuilder<T> Select<T>(this
+            AdoCommandBuilder builder)
+        {
+            return builder.Select<T>(nameof(T));
+        }
+
+        public static SelectCommandBuilder<T> Select<T>(this
             AdoCommandBuilder builder, string tableName)
         {
             var selectQueryBuilder = SQLiteQueryFactory.Select();

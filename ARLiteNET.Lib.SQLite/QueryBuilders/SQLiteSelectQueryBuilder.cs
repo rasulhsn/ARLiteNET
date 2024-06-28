@@ -1,4 +1,5 @@
 ﻿using ARLiteNET.Lib.Common;
+using ARLiteNET.Lib.Common.Query;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,6 +33,16 @@ namespace ARLiteNET.Lib.SQLite
         public IFromQueryBuilder From(string table)
         {
             return new SQLiteFromQueryBuilder(table, this);
+        }
+
+        public IJoinQueryBuilder Join(string table)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IOrderByQueryBuilder OrderBy(string columnName)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override string Build(QueryBuilderContext? context = null)
