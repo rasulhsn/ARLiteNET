@@ -42,7 +42,7 @@ namespace ARLiteNET.Lib.SQLite.Tests.Data.InMemory
                     using (SQLiteCommand insertDataCommand = new SQLiteCommand(SQLiteSettings.DefaultTableInsertScript, connection))
                         insertDataCommand.ExecuteNonQuery();
 
-                    Debug.WriteLine("Table created successfully.");
+                    Debug.WriteLine("Table created successfully with data.");
                 }
 
                 connection.Close();

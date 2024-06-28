@@ -12,7 +12,7 @@ namespace ARLiteNET.Lib.Core
         public static ExpressionMember Create<T, TMember>(Expression<Func<T, TMember>> expression)
         {
             if (expression == null)
-                throw new ARLiteException(nameof(ExpressionMember),
+                throw new ARLiteException(nameof(ExpressionMember), nameof(Create),
                                             new ArgumentNullException(nameof(expression)));
 
             ExpressionMember createExpMember() => new ExpressionMember(expression, typeof(T), typeof(TMember));
@@ -24,9 +24,9 @@ namespace ARLiteNET.Lib.Core
                                         Type parent, Type member)
         {
             _parentType = parent;
-            Type = member ?? throw new ARLiteException(nameof(ExpressionMember),
+            Type = member ?? throw new ARLiteException(nameof(ExpressionMember), string.Empty,
                                                                     new ArgumentNullException(nameof(member)));
-            _memberExpression = expression ?? throw new ARLiteException(nameof(ExpressionMember),
+            _memberExpression = expression ?? throw new ARLiteException(nameof(ExpressionMember), string.Empty,
                                                                     new ArgumentNullException(nameof(expression)));
 
             Initialize();

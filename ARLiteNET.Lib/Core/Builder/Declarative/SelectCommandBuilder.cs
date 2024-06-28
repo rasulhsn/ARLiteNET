@@ -39,7 +39,7 @@ namespace ARLiteNET.Lib.Core
             ExpressionMember expMember = ExpressionMember.Create(member);
             
             if (!expMember.IsFieldOrProperty)
-                throw new ARLiteException(nameof(SelectCommandBuilder<T>),
+                throw new ARLiteException(nameof(SelectCommandBuilder<T>), nameof(Column),
                                             new Exception("The class member is not property or field!"));
 
             return Column(expMember.Name);
@@ -144,7 +144,7 @@ namespace ARLiteNET.Lib.Core
             internal SelectColumnQuery(string columnName)
             {
                 if (columnName == null)
-                    throw new ARLiteException(nameof(SelectColumnQuery),
+                    throw new ARLiteException(nameof(SelectColumnQuery), string.Empty,
                             new ArgumentNullException(nameof(columnName)));
 
                 _columnName = columnName;

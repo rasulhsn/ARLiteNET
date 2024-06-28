@@ -5,14 +5,15 @@ namespace ARLiteNET.Lib.Exceptions
     [Serializable]
     public class ARLiteException : Exception
     {
-        public string ExceptionTypeName { get; }
-        public System.Exception InnerException { get; }
+        public string MethodName { get; }
+        public string ExceptionTypeStr { get; }
 
-        public ARLiteException(string exceptionTypeName,
-            System.Exception innerException) : base()
+        public ARLiteException(string exceptionTypeStr,
+                        string methodName,
+                        Exception innerException) : base("Occur error in ARLiteNET!", innerException)
         {
-            this.ExceptionTypeName = exceptionTypeName;
-            this.InnerException = innerException;
+            this.ExceptionTypeStr = exceptionTypeStr;
+            this.MethodName = methodName;
         }
     }
 }

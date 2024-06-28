@@ -31,7 +31,7 @@ namespace ARLiteNET.Lib.Core
         public InsertColumnQuery Column(string columnName)
         {
             if (_columnQueryInfos.ContainsKey(columnName))
-                throw new ARLiteException(nameof(InsertCommandBuilder<T>),
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(Column),
                                 new Exception($"{columnName} column is already exists!"));
 
             InsertColumnQuery columnInfo = new InsertColumnQuery(columnName);
@@ -45,7 +45,7 @@ namespace ARLiteNET.Lib.Core
             ExpressionMember expMember = ExpressionMember.Create(member);
 
             if (!expMember.IsFieldOrProperty)
-                throw new ARLiteException(nameof(InsertCommandBuilder<T>),
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(Column),
                                             new Exception("The class member is not property or field!"));
 
             return Column(expMember.Name);
@@ -91,10 +91,10 @@ namespace ARLiteNET.Lib.Core
             var mapType = Mapper.Map(_instance);
 
             if (mapType == null)
-                throw new ARLiteException(nameof(InsertCommandBuilder<T>),
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(IDbCommandBuilder.Build),
                                                 new Exception($"{typeof(T).Name} is not suitable for mapping!"));
             if (!mapType.HasMembers)
-                throw new ARLiteException(nameof(InsertCommandBuilder<T>),
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(IDbCommandBuilder.Build),
                                                 new Exception($"{typeof(T).Name} has not any member for mapping!"));
 
             IEnumerable<MapMember> mappedTypeMembers = mapType.Members;
@@ -136,7 +136,7 @@ namespace ARLiteNET.Lib.Core
             internal InsertColumnQuery(string columnName)
             {
                 if (columnName == null)
-                    throw new ARLiteException(nameof(InsertColumnQuery),
+                    throw new ARLiteException(nameof(InsertColumnQuery), string.Empty,
                             new ArgumentNullException(nameof(columnName)));
 
                 _columnName = columnName;
