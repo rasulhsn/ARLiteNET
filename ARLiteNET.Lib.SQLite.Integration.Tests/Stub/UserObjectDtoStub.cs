@@ -1,7 +1,6 @@
-﻿using ARLiteNET.Lib.SQLite.Tests.Data.InMemory;
-using System;
+﻿using ARLiteNET.Lib.Integration.Tests.Data;
 
-namespace ARLiteNET.Lib.Tests.Data.Stub
+namespace ARLiteNET.Lib.Integration.Tests.Stub
 {
     public class UserObjectDtoStub : SQLiteDefaultTableObject
     {

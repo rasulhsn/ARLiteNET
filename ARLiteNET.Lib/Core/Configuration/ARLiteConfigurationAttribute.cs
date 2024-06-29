@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ARLiteNET.Lib.Core
+namespace ARLiteNET.Lib
 {
     [AttributeUsage(AttributeTargets.Class,
         Inherited = false, AllowMultiple = false)]

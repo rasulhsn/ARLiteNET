@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ARLiteNET.Lib.Core
+namespace ARLiteNET.Lib
 {
     public class AdoExecuterResult
     {

@@ -1,8 +1,7 @@
 ﻿using System.Data.SQLite;
-using System;
 using System.Diagnostics;
 
-namespace ARLiteNET.Lib.SQLite.Tests.Data.InMemory
+namespace ARLiteNET.Lib.Integration.Tests.Data
 {
     public static class SQLiteInMemory
     {

@@ -1,4 +1,4 @@
-﻿namespace ARLiteNET.Lib.Core
+﻿namespace ARLiteNET.Lib
 {
     /// <summary>
     /// Connection string object.

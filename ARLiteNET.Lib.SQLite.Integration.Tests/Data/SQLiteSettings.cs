@@ -1,5 +1,5 @@
 ﻿
-namespace ARLiteNET.Lib.SQLite.Tests.Data.InMemory
+namespace ARLiteNET.Lib.Integration.Tests.Data
 {
     public class SQLiteSettings
     {

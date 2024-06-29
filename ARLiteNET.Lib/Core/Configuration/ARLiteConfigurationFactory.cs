@@ -1,5 +1,5 @@
 
-namespace ARLiteNET.Lib.Core
+namespace ARLiteNET.Lib
 {
     public abstract class ARLiteConfigurationFactory
     {

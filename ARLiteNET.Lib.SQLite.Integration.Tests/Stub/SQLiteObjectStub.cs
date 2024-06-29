@@ -1,5 +1,4 @@
-﻿using ARLiteNET.Lib.Core;
-using ARLiteNET.Lib.Tests.Data.Stub;
+﻿using ARLiteNET.Lib.Integration.Tests.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {

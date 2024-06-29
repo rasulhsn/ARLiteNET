@@ -34,18 +34,16 @@ namespace ARLiteNET.Lib.Core.Mappers
                 Type propertyType = Nullable.GetUnderlyingType(property.PropertyType) != null ?
                                     Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
 
+                bool isPrimitive = false;
+
                 if (_TypeIsPrimitive(propertyType))
                 {
-                    members.Add(new MapMember(propertyType,
-                                                property.Name,
-                                                property.GetValue(instance), true));
+                    isPrimitive = true;
                 }
-                else
-                {
-                    members.Add(new MapMember(propertyType,
+
+                members.Add(new MapMember(propertyType,
                                                 property.Name,
-                                                property.GetValue(instance), false));
-                }
+                                                property.GetValue(instance), isPrimitive));
             }
 
             return new MapType(instanceType, members);

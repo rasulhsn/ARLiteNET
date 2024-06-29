@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Common;
 
-namespace ARLiteNET.Lib.Core
+namespace ARLiteNET.Lib
 {
     public class ARLiteConnectionStringBuilder
     {

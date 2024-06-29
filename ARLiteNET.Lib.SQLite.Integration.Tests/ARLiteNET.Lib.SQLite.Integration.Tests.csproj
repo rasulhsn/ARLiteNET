@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ARLiteNET.Lib.SQLite.Tests.Data\ARLiteNET.Lib.SQLite.Tests.Data.csproj" />
     <ProjectReference Include="..\ARLiteNET.Lib.SQLite\ARLiteNET.Lib.SQLite.csproj" />
     <ProjectReference Include="..\ARLiteNET.Lib\ARLiteNET.Lib.csproj" />
   </ItemGroup>

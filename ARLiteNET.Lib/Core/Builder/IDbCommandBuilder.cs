@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace ARLiteNET.Lib.Core
+namespace ARLiteNET.Lib
 {
     public interface IDbCommandBuilder
     {

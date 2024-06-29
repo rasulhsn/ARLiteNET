@@ -1,12 +1,13 @@
-using ARLiteNET.Lib.SQLite.Tests.Data.InMemory;
-using ARLiteNET.Lib.Tests.Data.Stub;
+using ARLiteNET.Lib.Integration.Tests.Data;
+using ARLiteNET.Lib.Integration.Tests.Stub;
 
 namespace ARLiteNET.Lib.Integration.Tests
 {
     [TestClass]
     public class SQLiteDeclarativeAdoObjectTests
     {
-        public SQLiteDeclarativeAdoObjectTests()
+        [TestInitialize]
+        public void Initialize()
         {
             SQLiteInMemory.PrepareDB();
         }

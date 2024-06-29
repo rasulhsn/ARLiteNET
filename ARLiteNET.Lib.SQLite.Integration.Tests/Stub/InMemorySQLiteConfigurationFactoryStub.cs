@@ -1,14 +1,13 @@
-﻿using ARLiteNET.Lib.Core;
-using ARLiteNET.Lib.SQLite;
+﻿using ARLiteNET.Lib.SQLite;
 
-namespace ARLiteNET.Lib.Tests.Data.Stub
+namespace ARLiteNET.Lib.Integration.Tests.Stub
 {
     public sealed class InMemorySQLiteConfigurationFactoryStub : ARLiteConfigurationFactory
     {
         protected override void Configure(ARLiteConnectionStringBuilder connectionStringBuilder)
         {
             connectionStringBuilder.AddSQLiteProvider()
-                                    .ConnectionString(SQLite.Tests.Data.InMemory.SQLiteSettings.ConnectionStringVersion3);                                 
+                                    .ConnectionString(Data.SQLiteSettings.ConnectionStringVersion3);                                 
         }
     }
 }
