@@ -108,15 +108,15 @@ namespace ARLiteNET.Lib.Core
             {
                 DefaultInvoke();
             }
-            else if (instance is IConditionQueryBuilder)
+            else if (instance is IConditionQueryBuilder<IWhereQueryBuilder>)
             {
                 if (columnInfo.And)
                 {
-                    instance = ((IConditionQueryBuilder)instance).And(columnInfo.ColumnName);
+                    instance = ((IConditionQueryBuilder<IWhereQueryBuilder>)instance).And(columnInfo.ColumnName);
                 }
                 else
                 {
-                    instance = ((IConditionQueryBuilder)instance).Or(columnInfo.ColumnName);
+                    instance = ((IConditionQueryBuilder<IWhereQueryBuilder>)instance).Or(columnInfo.ColumnName);
                 }
 
                 DefaultInvoke();

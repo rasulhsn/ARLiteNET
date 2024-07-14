@@ -3,12 +3,13 @@
 namespace ARLiteNET.Lib.Common
 {
     public abstract class ChainQueryBuilder
-    {
-        protected readonly ChainQueryBuilder queryBuilder;
+    {    
+        protected readonly ChainQueryBuilder QueryBuilder;
+        protected bool HasNestedQueryBuilder => QueryBuilder != null;
 
         public ChainQueryBuilder(ChainQueryBuilder innerQueryBuilder)
         {
-            queryBuilder = innerQueryBuilder;
+            QueryBuilder = innerQueryBuilder;
         }
 
         protected void CombineQuery(StringBuilder builder)
@@ -18,9 +19,9 @@ namespace ARLiteNET.Lib.Common
 
         protected void CombineQuery(StringBuilder builder, QueryBuilderContext? context)
         {
-            if (queryBuilder != null)
+            if (HasNestedQueryBuilder)
             {
-                string nestedQuery = queryBuilder.Build(context);
+                string nestedQuery = QueryBuilder.Build(context);
                 builder.Append(nestedQuery);
             }
         }

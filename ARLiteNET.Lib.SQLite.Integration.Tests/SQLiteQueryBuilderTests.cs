@@ -69,5 +69,29 @@ namespace ARLiteNET.Lib.Integration.Tests
 
             Assert.AreEqual(expectedQuery, generatedQuery);
         }
+
+        [TestMethod]
+        public void Build_WhenCalledDeleteWithoutConditions_ShouldReturnCorrectQuery()
+        {
+            const string expectedQuery = $"DELETE FROM {nameof(UserObjectDtoStub)} ";
+
+            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserObjectDtoStub))
+                                                      .Build();
+
+            Assert.AreEqual(expectedQuery, generatedQuery);
+        }
+
+        [TestMethod]
+        public void Build_WhenCalledDeleteWithConditions_ShouldReturnCorrectQuery()
+        {
+            const string expectedQuery = $"DELETE FROM {nameof(UserObjectDtoStub)} WHERE Id > 5 ";
+
+            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserObjectDtoStub))
+                                                      .Where(nameof(UserObjectDtoStub.Id))
+                                                      .GreaterThan(5)
+                                                      .Build();
+
+            Assert.AreEqual(expectedQuery, generatedQuery);
+        }
     }
 }

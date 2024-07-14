@@ -8,7 +8,7 @@ namespace ARLiteNET.Lib.SQLite
 {
     public class SQLiteWhereQueryBuilder : ChainQueryBuilder,
                                             IWhereQueryBuilder,
-                                            IConditionQueryBuilder
+                                            IConditionQueryBuilder<IWhereQueryBuilder>
     {
         const string WHERE = "WHERE";
 
@@ -18,8 +18,8 @@ namespace ARLiteNET.Lib.SQLite
             {nameof(IWhereQueryBuilder.GreaterThan), ">"},
             {nameof(IWhereQueryBuilder.LessThan), "<"},
             {nameof(IWhereQueryBuilder.In), "IN"},
-            {nameof(IConditionQueryBuilder.And), "AND"},
-            {nameof(IConditionQueryBuilder.Or), "OR"},
+            {nameof(IConditionQueryBuilder<IWhereQueryBuilder>.And), "AND"},
+            {nameof(IConditionQueryBuilder<IWhereQueryBuilder>.Or), "OR"},
         };
 
         private readonly string _firstColumn;
@@ -30,27 +30,32 @@ namespace ARLiteNET.Lib.SQLite
         {
             _firstColumn = firstColumn ?? throw new ArgumentNullException(nameof(firstColumn));
             _alias = alias ?? throw new ArgumentNullException(nameof(alias));
-            _conditions = new List<string>();
-
-            _conditions.Add($"{WHERE} {GetColumnName(_firstColumn)} ");
+            
+            _conditions = new List<string>
+            {
+                $"{WHERE} {GetColumnName(_firstColumn)} "
+            };
         }
 
-        public IConditionQueryBuilder EqualTo(string value)
+        public IConditionQueryBuilder<IWhereQueryBuilder> EqualTo(string value)
         {
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.EqualTo)]} '{value}' ");
             return this;
         }
-        public IConditionQueryBuilder GreaterThan(int value)
+
+        public IConditionQueryBuilder<IWhereQueryBuilder> GreaterThan(int value)
         {
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.GreaterThan)]} {value} ");
             return this;
         }
-        public IConditionQueryBuilder GreaterThan(decimal value)
+
+        public IConditionQueryBuilder<IWhereQueryBuilder> GreaterThan(decimal value)
         {
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.GreaterThan)]} {value} ");
             return this;
         }
-        public IConditionQueryBuilder In(params string[] values)
+
+        public IConditionQueryBuilder<IWhereQueryBuilder> In(params string[] values)
         {
             IEnumerable<string> convertedStrings = values.Select(x => $"'{x}'");
             string joinedValues = string.Join(",", convertedStrings);
@@ -58,12 +63,14 @@ namespace ARLiteNET.Lib.SQLite
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.In)]} ({joinedValues}) ");
             return this;
         }
-        public IConditionQueryBuilder LessThan(int value)
+
+        public IConditionQueryBuilder<IWhereQueryBuilder> LessThan(int value)
         {
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.LessThan)]} {value} ");
             return this;
         }
-        public IConditionQueryBuilder LessThan(decimal value)
+
+        public IConditionQueryBuilder<IWhereQueryBuilder> LessThan(decimal value)
         {
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.LessThan)]} {value} ");
             return this;
@@ -76,12 +83,13 @@ namespace ARLiteNET.Lib.SQLite
 
         public IWhereQueryBuilder And(string column)
         {
-            _conditions.Add($"{Symbols[nameof(IConditionQueryBuilder.And)]} {GetColumnName(column)} ");
+            _conditions.Add($"{Symbols[nameof(IConditionQueryBuilder<IWhereQueryBuilder>.And)]} {GetColumnName(column)} ");
             return this;
         }
+
         public IWhereQueryBuilder Or(string column)
         {
-            _conditions.Add($"{Symbols[nameof(IConditionQueryBuilder.Or)]} {GetColumnName(column)} ");
+            _conditions.Add($"{Symbols[nameof(IConditionQueryBuilder<IWhereQueryBuilder>.Or)]} {GetColumnName(column)} ");
             return this;
         }
 

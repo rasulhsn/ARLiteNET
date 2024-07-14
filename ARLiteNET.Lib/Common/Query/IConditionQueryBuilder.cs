@@ -1,8 +1,8 @@
 ﻿namespace ARLiteNET.Lib.Common
 {
-    public interface IConditionQueryBuilder : IQueryBuilder
+    public interface IConditionQueryBuilder<TResultInterface> : IQueryBuilder
     {
-        IWhereQueryBuilder And(string column);
-        IWhereQueryBuilder Or(string column);
+        TResultInterface And(string column);
+        TResultInterface Or(string column);
     }
 }

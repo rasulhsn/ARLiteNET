@@ -1,4 +1,6 @@
 ﻿using ARLiteNET.Lib.Common;
+using ARLiteNET.Lib.Common.Query;
+using ARLiteNET.Lib.SQLite.QueryBuilders;
 
 namespace ARLiteNET.Lib.SQLite
 {
@@ -19,9 +21,9 @@ namespace ARLiteNET.Lib.SQLite
         //    return null;
         //}
 
-        //public static IDeleteQueryBuilder Delete()
-        //{
-        //    return null;
-        //}
+        public static IDeleteQueryBuilder Delete(string table)
+        {
+            return new SQLiteDeleteQueryBuilder(table);
+        }
     }
 }
