@@ -4,20 +4,20 @@ using ARLiteNET.Lib.Integration.Tests.Stub;
 namespace ARLiteNET.Lib.Integration.Tests
 {
     [TestClass]
-    public class SQLiteDeclarativeAdoObjectTests
+    public class SQLiteDeclarativeTests
     {
         [TestInitialize]
         public void Initialize()
         {
-            SQLiteInMemory.PrepareDB();
+            SQLiteInMemory.PrepareDBForTest();
         }
 
         [TestMethod]
         public void GetAll_WhenCorrectSelectSpecified_ShouldReturnSuccessfullyMappedObject()
         {
-            SQLiteDeclarativeAdoObjectStub adoObject = new SQLiteDeclarativeAdoObjectStub();
+            SQLiteDeclarativeStub adoObject = new SQLiteDeclarativeStub();
 
-            IEnumerable<UserObjectDtoStub> users = adoObject.GetAll();
+            IEnumerable<UserDtoStub> users = adoObject.GetAll();
 
             Assert.IsNotNull(users);
             Assert.IsTrue(users.Any());
@@ -26,13 +26,13 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void Add_WhenCorrectInsert_ShouldReturnAddedObjectCount()
         {
-            UserObjectDtoStub newUserStub = new()
+            UserDtoStub newUserStub = new()
             {
                 Name = "Test",
                 IsActive = true,
             };
             bool expectedResult = true;
-            SQLiteDeclarativeAdoObjectStub adoObject = new SQLiteDeclarativeAdoObjectStub();
+            SQLiteDeclarativeStub adoObject = new SQLiteDeclarativeStub();
 
             bool actualResult = adoObject.Add(newUserStub);
 

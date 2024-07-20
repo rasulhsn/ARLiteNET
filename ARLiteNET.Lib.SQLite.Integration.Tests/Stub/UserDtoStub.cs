@@ -2,7 +2,7 @@
 
 namespace ARLiteNET.Lib.Integration.Tests.Stub
 {
-    public class UserObjectDtoStub : SQLiteDefaultTableObject
+    public class UserDtoStub : SQLiteDefaultTableObject
     {
         public DateTime? BirthDate { get; set; }
     }

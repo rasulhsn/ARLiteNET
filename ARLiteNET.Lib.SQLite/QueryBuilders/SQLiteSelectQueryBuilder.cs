@@ -5,7 +5,8 @@ using System.Linq;
 
 namespace ARLiteNET.Lib.SQLite
 {
-    public class SQLiteSelectQueryBuilder : ChainQueryBuilder, ISelectQueryBuilder
+    public class SQLiteSelectQueryBuilder : ChainQueryBuilder,
+                                                ISelectQueryBuilder
     {
         const string SELECT = "SELECT";
         const string ALL = "*";
@@ -40,7 +41,7 @@ namespace ARLiteNET.Lib.SQLite
             throw new System.NotImplementedException();
         }
 
-        public IOrderByQueryBuilder OrderBy(string columnName)
+        public IOrderByQueryBuilder OrderBy()
         {
             throw new System.NotImplementedException();
         }

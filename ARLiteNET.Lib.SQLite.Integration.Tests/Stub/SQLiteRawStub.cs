@@ -3,17 +3,17 @@
 namespace ARLiteNET.Lib.Integration.Tests
 {
     [ARLiteConfiguration(typeof(InMemorySQLiteConfigurationFactoryStub))]
-    public class SQLiteObjectStub : ARLiteObject
+    public class SQLiteRawStub : ARLiteObject
     {
-        public IEnumerable<UserObjectDtoStub> GetAll()
+        public IEnumerable<UserDtoStub> GetAll()
         {
             var queryBuilder = this.Query()
                               .SetCommand("SELECT * FROM Users");
 
-            return this.RunEnumerable<UserObjectDtoStub>(queryBuilder);
+            return this.RunEnumerable<UserDtoStub>(queryBuilder);
         }
 
-        public void Add(UserObjectDtoStub newObject)
+        public void Add(UserDtoStub newObject)
         {
             var queryBuilder = this.Query()
                 .SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")

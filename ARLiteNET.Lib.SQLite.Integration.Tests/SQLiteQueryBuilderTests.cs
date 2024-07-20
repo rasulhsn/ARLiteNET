@@ -10,10 +10,10 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void Build_WhenCalledSelectWithAllColumns_ShouldReturnCorrectQuery()
         {
-            const string expectedQuery = $"SELECT * FROM {nameof(UserObjectDtoStub)} ";
+            const string expectedQuery = $"SELECT * FROM {nameof(UserDtoStub)} ";
 
             string generatedQuery = SQLiteQueryFactory.Select()
-                                .From(nameof(UserObjectDtoStub))
+                                .From(nameof(UserDtoStub))
                                 .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);
@@ -22,14 +22,14 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void Build_WhenCalledSelectAndWhereCondition_ShouldReturnCorrectQuery()
         {
-            const string expectedQuery = $"SELECT * FROM {nameof(UserObjectDtoStub)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
+            const string expectedQuery = $"SELECT * FROM {nameof(UserDtoStub)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
 
             string generatedQuery = SQLiteQueryFactory.Select()
-                                .From(nameof(UserObjectDtoStub))
+                                .From(nameof(UserDtoStub))
                                 .Alias("T")
-                                .Where(nameof(UserObjectDtoStub.Name))
+                                .Where(nameof(UserDtoStub.Name))
                                 .EqualTo("Test")
-                                .And(nameof(UserObjectDtoStub.Id))
+                                .And(nameof(UserDtoStub.Id))
                                 .GreaterThan(0)
                                 .Build();
 
@@ -39,14 +39,14 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void Build_WhenCalledSelectAndConditionWithSpecifiedColumns_ShouldReturnCorrectQuery()
         {
-            const string expectedQuery = $"SELECT T.Id,T.Name FROM {nameof(UserObjectDtoStub)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
+            const string expectedQuery = $"SELECT T.Id,T.Name FROM {nameof(UserDtoStub)} AS T WHERE T.Name = 'Test' AND T.Id > 0 ";
 
             string generatedQuery = SQLiteQueryFactory.Select("Id","Name")
-                                .From(nameof(UserObjectDtoStub))
+                                .From(nameof(UserDtoStub))
                                 .Alias("T")
-                                .Where(nameof(UserObjectDtoStub.Name))
+                                .Where(nameof(UserDtoStub.Name))
                                 .EqualTo("Test")
-                                .And(nameof(UserObjectDtoStub.Id))
+                                .And(nameof(UserDtoStub.Id))
                                 .GreaterThan(0)
                                 .Build();
 
@@ -58,13 +58,13 @@ namespace ARLiteNET.Lib.Integration.Tests
         {
             const string nameRaw = "Rasul";
             const string isActiveRaw = "1";
-            const string expectedQuery = $"INSERT INTO {nameof(UserObjectDtoStub)} ({nameof(UserObjectDtoStub.Name)},{nameof(UserObjectDtoStub.IsActive)}) VALUES ('{nameRaw}',{isActiveRaw}), ('{nameRaw}',{isActiveRaw})";
+            const string expectedQuery = $"INSERT INTO {nameof(UserDtoStub)} ({nameof(UserDtoStub.Name)},{nameof(UserDtoStub.IsActive)}) VALUES ('{nameRaw}',{isActiveRaw}), ('{nameRaw}',{isActiveRaw})";
 
-            string generatedQuery = SQLiteQueryFactory.Insert(nameof(UserObjectDtoStub))
-                                                .Value(new InsertValueObject(nameof(UserObjectDtoStub.Name), nameRaw, InsertDataType.TEXT)
-                                                       ,new InsertValueObject(nameof(UserObjectDtoStub.IsActive), isActiveRaw, InsertDataType.INTEGER))
-                                                .Value(new InsertValueObject(nameof(UserObjectDtoStub.Name), nameRaw, InsertDataType.TEXT)
-                                                       ,new InsertValueObject(nameof(UserObjectDtoStub.IsActive), isActiveRaw, InsertDataType.INTEGER))
+            string generatedQuery = SQLiteQueryFactory.Insert(nameof(UserDtoStub))
+                                                .Value(new InsertValueObject(nameof(UserDtoStub.Name), nameRaw, InsertDataType.TEXT)
+                                                       ,new InsertValueObject(nameof(UserDtoStub.IsActive), isActiveRaw, InsertDataType.INTEGER))
+                                                .Value(new InsertValueObject(nameof(UserDtoStub.Name), nameRaw, InsertDataType.TEXT)
+                                                       ,new InsertValueObject(nameof(UserDtoStub.IsActive), isActiveRaw, InsertDataType.INTEGER))
                                                 .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);
@@ -73,9 +73,9 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void Build_WhenCalledDeleteWithoutConditions_ShouldReturnCorrectQuery()
         {
-            const string expectedQuery = $"DELETE FROM {nameof(UserObjectDtoStub)} ";
+            const string expectedQuery = $"DELETE FROM {nameof(UserDtoStub)} ";
 
-            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserObjectDtoStub))
+            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserDtoStub))
                                                       .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);
@@ -84,10 +84,10 @@ namespace ARLiteNET.Lib.Integration.Tests
         [TestMethod]
         public void Build_WhenCalledDeleteWithConditions_ShouldReturnCorrectQuery()
         {
-            const string expectedQuery = $"DELETE FROM {nameof(UserObjectDtoStub)} WHERE Id > 5 ";
+            const string expectedQuery = $"DELETE FROM {nameof(UserDtoStub)} WHERE Id > 5 ";
 
-            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserObjectDtoStub))
-                                                      .Where(nameof(UserObjectDtoStub.Id))
+            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserDtoStub))
+                                                      .Where(nameof(UserDtoStub.Id))
                                                       .GreaterThan(5)
                                                       .Build();
 

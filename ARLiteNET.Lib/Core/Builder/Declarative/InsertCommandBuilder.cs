@@ -88,9 +88,9 @@ namespace ARLiteNET.Lib.Core
                 return InsertDataType.NULL;
             }
 
-            var mapType = Mapper.Map(_instance);
+            var mapType = Mapper.MapInstance(_instance);
 
-            if (mapType == null)
+            if (mapType is null)
                 throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(IDbCommandBuilder.Build),
                                                 new Exception($"{typeof(T).Name} is not suitable for mapping!"));
             if (!mapType.HasMembers)

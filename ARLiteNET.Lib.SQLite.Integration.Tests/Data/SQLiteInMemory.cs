@@ -5,7 +5,7 @@ namespace ARLiteNET.Lib.Integration.Tests.Data
 {
     public static class SQLiteInMemory
     {
-        public static void PrepareDB()
+        public static void PrepareDBForTest()
         {
             SQLiteConnection connection = null;
 
@@ -34,11 +34,11 @@ namespace ARLiteNET.Lib.Integration.Tests.Data
 
                 if (!checkTableExists)
                 {
-                    using (SQLiteCommand createCommand = new SQLiteCommand(SQLiteSettings.DefaultTableScript, connection))
+                    using (SQLiteCommand createCommand = new SQLiteCommand(SQLiteSettings.GetDefaultTableScript(), connection))
                         createCommand.ExecuteNonQuery();
 
                     // needs to combine with CREATE TABLE query!
-                    using (SQLiteCommand insertDataCommand = new SQLiteCommand(SQLiteSettings.DefaultTableInsertScript, connection))
+                    using (SQLiteCommand insertDataCommand = new SQLiteCommand(SQLiteSettings.GetDefaultTableInsertScript(), connection))
                         insertDataCommand.ExecuteNonQuery();
 
                     Debug.WriteLine("Table created successfully with data.");
@@ -49,7 +49,7 @@ namespace ARLiteNET.Lib.Integration.Tests.Data
             catch (Exception ex)
             {
                 Debug.WriteLine($"Occur error! {ex.Message}");
-                throw ex;
+                throw;
             }
             finally
             {

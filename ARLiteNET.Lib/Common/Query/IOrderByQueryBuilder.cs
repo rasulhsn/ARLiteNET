@@ -2,7 +2,7 @@
 {
     public interface IOrderByQueryBuilder : IQueryBuilder
     {
-        IQueryBuilder Asc();
-        IQueryBuilder Desc();
+        IOrderByQueryBuilder Asc(string column);
+        IOrderByQueryBuilder Desc(string column);
     }
 }

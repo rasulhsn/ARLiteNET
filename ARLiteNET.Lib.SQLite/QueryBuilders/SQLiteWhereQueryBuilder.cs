@@ -76,7 +76,7 @@ namespace ARLiteNET.Lib.SQLite
             return this;
         }
 
-        public IOrderByQueryBuilder OrderBy(string column)
+        public IOrderByQueryBuilder OrderBy()
         {
             throw new NotImplementedException();
         }
@@ -97,7 +97,7 @@ namespace ARLiteNET.Lib.SQLite
         {
             StringBuilder builder = new StringBuilder();
 
-            CombineQuery(builder);
+            BuildChain(builder);
 
             if (_conditions.Any())
             {

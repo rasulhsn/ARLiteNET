@@ -6,7 +6,7 @@ namespace ARLiteNET.Lib.Core.Mappers
 {
     internal static class Mapper
     {
-        public static MapType Map<T>(T instance)
+        public static MapType MapInstance<T>(T instance)
         {
             bool _TypeIsPrimitive(Type propertyType)
             {

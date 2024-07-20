@@ -4,6 +4,6 @@
     {
         IFromQueryBuilder Alias(string alias);
         IWhereQueryBuilder Where(string column);
-        IOrderByQueryBuilder OrderBy(string column);
+        IOrderByQueryBuilder OrderBy();
     }
 }

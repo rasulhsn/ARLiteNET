@@ -4,36 +4,36 @@ using ARLiteNET.Lib.SQLite;
 namespace ARLiteNET.Lib.Integration.Tests
 {
     [ARLiteConfiguration(typeof(InMemorySQLiteConfigurationFactoryStub))]
-    public class SQLiteDeclarativeAdoObjectStub : ARLiteObject
+    public class SQLiteDeclarativeStub : ARLiteObject
     {
-        public IEnumerable<UserObjectDtoStub> GetAll()
+        public IEnumerable<UserDtoStub> GetAll()
         {
             // Declarative approach
             var selectQuery = base.Query()
-                                   .Select<UserObjectDtoStub>("Users");
+                                   .Select<UserDtoStub>("Users");
 
             selectQuery.Column(x => x.Id).Only();
             selectQuery.Column(x => x.Name).Only();
             selectQuery.Column(x => x.IsActive).Only();
 
-            return base.RunEnumerable<UserObjectDtoStub>(selectQuery);
+            return base.RunEnumerable<UserDtoStub>(selectQuery);
         }
 
-        public IEnumerable<UserObjectDtoStub> GetByName(string name)
+        public IEnumerable<UserDtoStub> GetByName(string name)
         {
             // Declarative approach
             var selectQuery = this.Query()
-                                   .Select<UserObjectDtoStub>("Users");
+                                   .Select<UserDtoStub>("Users");
 
             selectQuery.Column(x => x.Id).Only();
             selectQuery.Column(x => x.Name).Only();
             selectQuery.Column(x => x.IsActive).Only();
             selectQuery.Column(x => x.Name).EqualTo(name);
 
-            return this.RunEnumerable<UserObjectDtoStub>(selectQuery);
+            return this.RunEnumerable<UserDtoStub>(selectQuery);
         }
 
-        public bool Add(UserObjectDtoStub newObject)
+        public bool Add(UserDtoStub newObject)
         {
             // Declarative approach
             var insertQuery = this.Query()
@@ -47,7 +47,7 @@ namespace ARLiteNET.Lib.Integration.Tests
             return affectedRows == 1;
         }
 
-        public void Update(UserObjectDtoStub newObject)
+        public void Update(UserDtoStub newObject)
         {
             // Declarative approach
             var updateQuery = this.Query()
@@ -64,7 +64,7 @@ namespace ARLiteNET.Lib.Integration.Tests
         {
             // Declarative approach
             var deleteQuery = this.Query()
-                                    .Delete<UserObjectDtoStub>("Users");
+                                    .Delete<UserDtoStub>("Users");
 
             //deleteQuery.Column(nameof(TestUserObject.Id)).EqualTo(id);
 

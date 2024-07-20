@@ -12,12 +12,12 @@ namespace ARLiteNET.Lib.Common
             QueryBuilder = innerQueryBuilder;
         }
 
-        protected void CombineQuery(StringBuilder builder)
+        protected void BuildChain(StringBuilder builder)
         {
-            CombineQuery(builder, null);
+            BuildChain(builder, null);
         }
 
-        protected void CombineQuery(StringBuilder builder, QueryBuilderContext? context)
+        protected void BuildChain(StringBuilder builder, QueryBuilderContext? context)
         {
             if (HasNestedQueryBuilder)
             {

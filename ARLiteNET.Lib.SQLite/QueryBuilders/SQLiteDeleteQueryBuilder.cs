@@ -111,7 +111,7 @@ namespace ARLiteNET.Lib.SQLite.QueryBuilders
 
             builder.Append($"{DELETE} FROM {_table} ");
 
-            CombineQuery(builder);
+            BuildChain(builder);
 
             if (_conditions.Any())
             {

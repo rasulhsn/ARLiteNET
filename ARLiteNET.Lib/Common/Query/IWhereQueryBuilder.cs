@@ -8,7 +8,6 @@
         IConditionQueryBuilder<IWhereQueryBuilder> GreaterThan(decimal value);
         IConditionQueryBuilder<IWhereQueryBuilder> LessThan(int value);
         IConditionQueryBuilder<IWhereQueryBuilder> LessThan(decimal value);
-
-        IOrderByQueryBuilder OrderBy(string columnName);
+        IOrderByQueryBuilder OrderBy();
     }
 }

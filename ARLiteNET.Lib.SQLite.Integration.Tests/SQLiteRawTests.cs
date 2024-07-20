@@ -4,20 +4,20 @@ using ARLiteNET.Lib.Integration.Tests.Stub;
 namespace ARLiteNET.Lib.Integration.Tests
 {
     [TestClass]
-    public class SQLiteObjectTests
+    public class SQLiteRawTests
     {
         [TestInitialize]
         public void Initialize()
         {
-            SQLiteInMemory.PrepareDB();
+            SQLiteInMemory.PrepareDBForTest();
         }
 
         [TestMethod]
         public void GetAll_WhenCalled_ShouldReturnNonNullCollection()
         {
-            SQLiteObjectStub adoObject = new SQLiteObjectStub();
+            SQLiteRawStub adoObject = new SQLiteRawStub();
 
-            IEnumerable<UserObjectDtoStub> objects = adoObject.GetAll();
+            IEnumerable<UserDtoStub> objects = adoObject.GetAll();
 
             Assert.IsNotNull(objects);
         }

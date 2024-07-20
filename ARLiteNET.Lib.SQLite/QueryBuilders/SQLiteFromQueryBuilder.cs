@@ -4,7 +4,8 @@ using System.Text;
 
 namespace ARLiteNET.Lib.SQLite
 {
-    public class SQLiteFromQueryBuilder : ChainQueryBuilder, IFromQueryBuilder
+    public class SQLiteFromQueryBuilder : ChainQueryBuilder,
+                                            IFromQueryBuilder
     {
         const string FROM = "FROM";
         const string AS = "AS";
@@ -31,7 +32,7 @@ namespace ARLiteNET.Lib.SQLite
             return new SQLiteWhereQueryBuilder(DefaultAlias, column, this);
         }
 
-        public IOrderByQueryBuilder OrderBy(string column)
+        public IOrderByQueryBuilder OrderBy()
         {
             throw new NotImplementedException();
         }
@@ -42,7 +43,7 @@ namespace ARLiteNET.Lib.SQLite
 
             context = new QueryBuilderContext(DefaultAlias);
 
-            CombineQuery(builder, context);
+            BuildChain(builder, context);
 
             if (HasAlias)
             {
