@@ -1,10 +1,23 @@
-﻿using ARLiteNET.Lib.Core;
+﻿using ARLiteNET.Lib.Common;
+using ARLiteNET.Lib.Core;
 using System;
 
 namespace ARLiteNET.Lib.SQLite
 {
     public static class SQLiteAdoCommandExtensions
     {
+        public static IDbCommandBuilder Object<T>(this
+            AdoCommandBuilder builder, Func<ISelectQueryBuilder, IQueryBuilder> setupDelegate)
+        {
+            var selectQueryBuilder = SQLiteQueryFactory.Select();
+            var setupBuilder = setupDelegate(selectQueryBuilder);
+
+            string queryStr = setupBuilder.Build();
+            builder.SetCommand(queryStr);
+
+            return builder;
+        }
+
         public static SelectCommandBuilder<T> Select<T>(this
             AdoCommandBuilder builder)
         {
