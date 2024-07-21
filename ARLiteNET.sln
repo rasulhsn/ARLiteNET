@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.Lib", "ARLiteNET.Lib\ARLiteNET.Lib.csproj", "{4A0C97C3-5D64-4B9E-A4EC-0277BD28433D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET", "ARLiteNET\ARLiteNET.csproj", "{4A0C97C3-5D64-4B9E-A4EC-0277BD28433D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.Lib.Unit.Tests", "ARLiteNET.Lib.Unit.Tests\ARLiteNET.Lib.Unit.Tests.csproj", "{84656FAF-EAA9-4024-A21C-153461A5C295}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.Unit.Tests", "ARLiteNET.Unit.Tests\ARLiteNET.Unit.Tests.csproj", "{84656FAF-EAA9-4024-A21C-153461A5C295}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.Lib.SQLite", "ARLiteNET.Lib.SQLite\ARLiteNET.Lib.SQLite.csproj", "{4079AC44-37A4-4791-A38B-55EAE4383CED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.SQLite", "ARLiteNET.SQLite\ARLiteNET.SQLite.csproj", "{4079AC44-37A4-4791-A38B-55EAE4383CED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.Lib.SQLite.Integration.Tests", "ARLiteNET.Lib.SQLite.Integration.Tests\ARLiteNET.Lib.SQLite.Integration.Tests.csproj", "{FFDB952A-BFFD-4E3E-A8F7-50F7D0E1DB46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARLiteNET.SQLite.Integration.Tests", "ARLiteNET.SQLite.Integration.Tests\ARLiteNET.SQLite.Integration.Tests.csproj", "{FFDB952A-BFFD-4E3E-A8F7-50F7D0E1DB46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
