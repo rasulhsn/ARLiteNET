@@ -1,9 +1,11 @@
 ﻿using ARLiteNET.Common;
-using ARLiteNET.Core;
 using System;
 
 namespace ARLiteNET.SQLite
 {
+    /// <summary>
+    /// Extesions of approach of declaring query for SQLite
+    /// </summary>
     public static class SQLiteAdoCommandExtensions
     {
         public static IDbCommandBuilder Object<T>(this
