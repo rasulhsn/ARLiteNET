@@ -1,25 +1,12 @@
-﻿using ARLiteNET.Common;
-using System;
+﻿using System;
 
 namespace ARLiteNET.SQLite
 {
     /// <summary>
-    /// Extesions of approach of declaring query for SQLite
+    /// Extensions of declarative approach for SQLite
     /// </summary>
-    public static class SQLiteAdoCommandExtensions
+    public static class SQLiteDeclarativeExtensions
     {
-        public static IDbCommandBuilder Object<T>(this
-            AdoCommandBuilder builder, Func<ISelectQueryBuilder, IQueryBuilder> setupDelegate)
-        {
-            var selectQueryBuilder = SQLiteQueryFactory.Select();
-            var setupBuilder = setupDelegate(selectQueryBuilder);
-
-            string queryStr = setupBuilder.Build();
-            builder.SetCommand(queryStr);
-
-            return builder;
-        }
-
         public static SelectCommandBuilder<T> Select<T>(this
             AdoCommandBuilder builder)
         {
