@@ -22,7 +22,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
             return base.RunEnumerable<UserDtoStub>(selectQuery);
         }
 
-        public void Add(UserDtoStub newObject)
+        public bool Add(UserDtoStub newObject)
         {
             var queryBuilder = this.Query()
                                      .ObjectInsert<UserDtoStub>("Users", (queryBuilder) =>
@@ -35,7 +35,10 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
                                          return queryBuilder.Value(insertValue);     
                                      });
 
-            this.Run(queryBuilder);
+
+            int affectedRows = this.Run(queryBuilder);
+
+            return affectedRows == 1;
         }
     }
 }

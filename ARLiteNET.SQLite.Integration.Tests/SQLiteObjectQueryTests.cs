@@ -1,4 +1,5 @@
-﻿using ARLiteNET.Integration.Tests.Data;
+﻿using ARLiteNET.Integration.Tests;
+using ARLiteNET.Integration.Tests.Data;
 using ARLiteNET.Integration.Tests.Stub;
 using ARLiteNET.SQLite.Integration.Tests.Stub;
 
@@ -22,6 +23,22 @@ namespace ARLiteNET.SQLite.Integration.Tests
 
             Assert.IsNotNull(users);
             Assert.IsTrue(users.Any());
+        }
+
+        [TestMethod]
+        public void Add_WhenCorrectInsert_ShouldReturnAddedObjectCount()
+        {
+            UserDtoStub newUserStub = new()
+            {
+                Name = "Test",
+                IsActive = true,
+            };
+            bool expectedResult = true;
+            SQLiteObjectQueryStub adoObject = new SQLiteObjectQueryStub();
+
+            bool actualResult = adoObject.Add(newUserStub);
+
+            Assert.AreEqual(expectedResult, actualResult);
         }
     }
 }

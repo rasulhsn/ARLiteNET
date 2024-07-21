@@ -13,7 +13,7 @@ namespace ARLiteNET.Integration.Tests
             return this.RunEnumerable<UserDtoStub>(queryBuilder);
         }
 
-        public void Add(UserDtoStub newObject)
+        public bool Add(UserDtoStub newObject)
         {
             var queryBuilder = this.Query()
                 .SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")
@@ -28,7 +28,9 @@ namespace ARLiteNET.Integration.Tests
                         param.Value = newObject.IsActive;
                     });
 
-            this.Run(queryBuilder);
+            int affectedRows = this.Run(queryBuilder);
+
+            return affectedRows == 1;
         }
     }
 }

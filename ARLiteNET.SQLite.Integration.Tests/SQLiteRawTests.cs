@@ -21,5 +21,21 @@ namespace ARLiteNET.Integration.Tests
 
             Assert.IsNotNull(objects);
         }
+
+        [TestMethod]
+        public void Add_WhenCorrectInsert_ShouldReturnAddedObjectCount()
+        {
+            UserDtoStub newUserStub = new()
+            {
+                Name = "Test",
+                IsActive = true,
+            };
+            bool expectedResult = true;
+            SQLiteRawStub adoObject = new SQLiteRawStub();
+
+            bool actualResult = adoObject.Add(newUserStub);
+
+            Assert.AreEqual(expectedResult, actualResult);
+        }
     }
 }
