@@ -22,7 +22,7 @@ namespace ARLiteNET.Integration.Tests.Data
                 {
                     var result = checkCommand.ExecuteScalar();
                     
-                    if (result == null)
+                    if (result is null)
                     {
                         checkTableExists = false;
                     }
