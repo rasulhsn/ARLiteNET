@@ -1,6 +1,5 @@
-﻿using ARLiteNET.SQLite;
-
-namespace ARLiteNET.Integration.Tests.Stub
+﻿
+namespace ARLiteNET.SQLite.Integration.Tests.Stub
 {
     public sealed class InMemorySQLiteConfigurationFactoryStub : ARLiteConfigurationFactory
     {

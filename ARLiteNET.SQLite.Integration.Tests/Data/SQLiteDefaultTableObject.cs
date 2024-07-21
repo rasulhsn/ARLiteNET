@@ -1,4 +1,4 @@
-﻿namespace ARLiteNET.Integration.Tests.Data
+﻿namespace ARLiteNET.SQLite.Integration.Tests.Data
 {
     public class SQLiteDefaultTableObject
     {

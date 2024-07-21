@@ -1,5 +1,4 @@
 ﻿using ARLiteNET.Common;
-using ARLiteNET.Integration.Tests.Stub;
 
 namespace ARLiteNET.SQLite.Integration.Tests.Stub
 {
@@ -12,11 +11,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
                                    .ObjectSelect<UserDtoStub>((queryBuilder) =>
                                    {
                                        return queryBuilder.Select()
-                                                   .From("Users")
-                                                   .Where(nameof(UserDtoStub.Name))
-                                                   .EqualTo("Rasul")
-                                                   .Or(nameof(UserDtoStub.Id))
-                                                   .GreaterThan(2);
+                                                   .From("Users");
                                    });
 
             return base.RunEnumerable<UserDtoStub>(selectQuery);

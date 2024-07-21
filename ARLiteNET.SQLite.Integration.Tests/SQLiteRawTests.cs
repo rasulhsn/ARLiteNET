@@ -1,7 +1,8 @@
-using ARLiteNET.Integration.Tests.Data;
-using ARLiteNET.Integration.Tests.Stub;
 
-namespace ARLiteNET.Integration.Tests
+using ARLiteNET.SQLite.Integration.Tests.Data;
+using ARLiteNET.SQLite.Integration.Tests.Stub;
+
+namespace ARLiteNET.SQLite.Integration.Tests
 {
     [TestClass]
     public class SQLiteRawTests

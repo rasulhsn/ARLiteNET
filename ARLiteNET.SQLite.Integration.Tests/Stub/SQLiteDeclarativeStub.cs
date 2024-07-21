@@ -1,7 +1,5 @@
-﻿using ARLiteNET.Integration.Tests.Stub;
-using ARLiteNET.SQLite;
-
-namespace ARLiteNET.Integration.Tests
+﻿
+namespace ARLiteNET.SQLite.Integration.Tests.Stub
 {
     [ARLiteConfiguration(typeof(InMemorySQLiteConfigurationFactoryStub))]
     public class SQLiteDeclarativeStub : ARLiteObject

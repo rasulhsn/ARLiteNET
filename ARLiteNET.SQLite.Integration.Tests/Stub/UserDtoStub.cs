@@ -1,7 +1,7 @@
 ﻿
-using ARLiteNET.Integration.Tests.Data;
+using ARLiteNET.SQLite.Integration.Tests.Data;
 
-namespace ARLiteNET.Integration.Tests.Stub
+namespace ARLiteNET.SQLite.Integration.Tests.Stub
 {
     public class UserDtoStub : SQLiteDefaultTableObject
     {

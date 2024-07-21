@@ -1,8 +1,8 @@
-﻿using ARLiteNET.Common;
-using ARLiteNET.Integration.Tests.Stub;
-using ARLiteNET.SQLite;
+﻿
+using ARLiteNET.Common;
+using ARLiteNET.SQLite.Integration.Tests.Stub;
 
-namespace ARLiteNET.Integration.Tests
+namespace ARLiteNET.SQLite.Integration.Tests
 {
     [TestClass]
     public class SQLiteQueryBuilderTests
