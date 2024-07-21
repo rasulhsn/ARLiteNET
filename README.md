@@ -2,7 +2,7 @@
 
 ARLiteNet is a .NET Standard library designed to access to any relational database with Micro-ORM features. Through its declarative approach, it provides maximum abstraction that simplifies access to any relational database. The main purpose of the library is to provide a simple CRUD operation through the Active Record Pattern.
 
-### Currently, it has provided SQLite!
+
 
 ### Support
 * Nested types
@@ -10,6 +10,19 @@ ARLiteNet is a .NET Standard library designed to access to any relational databa
 * Type mapping
 * Query Generation
 * Flexiable Data Retrieve
+
+### Configuration for SQLite3
+🔴 Currently, the library only provides SQLite!
+
+```csharp
+public sealed class SQLiteConfigurationFactory : ARLiteConfigurationFactory
+{
+    protected override void Configure(ARLiteConnectionStringBuilder connectionStringBuilder)
+    {
+        connectionStringBuilder.SetSQLite3(@"D:\ARDatabase.db"); // basic sample!                              
+    }
+}
+```
 
 ## Declarative Approach
 ```csharp
@@ -113,29 +126,35 @@ public class UserObject : ARLiteObject
     public string Name { get; set; }
     public bool IsActive { get; set; }
     public DateTime BirthDate { get; set; }
-    
+
     public IEnumerable<UserObject> GetAll()
     {
-        var queryBuilder = this.Query()
-                          .SetCommand("SELECT * FROM Users");
+        var selectQuery = base.Query()
+                               .ObjectSelect<UserObject>((queryBuilder) =>
+                               {
+                                   return queryBuilder.Select()
+                                               .From("Users")
+                                               .Where(nameof(UserObject.Name))
+                                               .EqualTo("Rasul")
+                                               .Or(nameof(UserObject.Id))
+                                               .GreaterThan(2);
+                               });
 
-        return this.RunEnumerable<UserObject>(queryBuilder);
+        return base.RunEnumerable<UserObject>(selectQuery);
     }
 
-    public void Add(UserObject newObject)
+    public void Add(UserDtoStub newObject)
     {
         var queryBuilder = this.Query()
-            .SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")
-                .AddParam((param) =>
-                {
-                    param.ParameterName = "@name";
-                    param.DbType = System.Data.DbType.String;
-                    param.Value = newObject.Name;
-                }).AddParam((param) => {
-                    param.ParameterName = "@isActive";
-                    //param.DbType = System.Data.DbType.Boolean;
-                    param.Value = newObject.IsActive;
-                });
+                                .ObjectInsert<UserObject>("Users", (queryBuilder) =>
+                                 {
+                                     InsertValueObject[] insertValue =
+                                     [
+                                         new(nameof(newObject.Name), newObject.Name, InsertDataType.TEXT),
+                                         new(nameof(newObject.IsActive), newObject.IsActive, InsertDataType.BOOLEAN)
+                                     ];
+                                     return queryBuilder.Value(insertValue);     
+                                 });
 
         this.Run(queryBuilder);
     }
