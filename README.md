@@ -103,7 +103,7 @@ public class UserObject : ARLiteObject
     public IEnumerable<UserObject> GetAll()
     {
         var selectQuery = base.Query()
-                               .Object<UserObject>((queryBuilder) =>
+                               .ObjectSelect<UserObject>((queryBuilder) =>
                                {
                                    return queryBuilder.Select()
                                                .From("Users")
