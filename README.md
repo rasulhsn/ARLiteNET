@@ -119,17 +119,15 @@ public class UserObject : ARLiteObject
     public void Add(UserObject newObject)
     {
         var queryBuilder = this.Query()
-            .SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")
-                .AddParam((param) =>
-                {
-                    param.ParameterName = "@name";
-                    param.DbType = System.Data.DbType.String;
-                    param.Value = newObject.Name;
-                }).AddParam((param) => {
-                    param.ParameterName = "@isActive";
-                    param.DbType = System.Data.DbType.Boolean;
-                    param.Value = newObject.IsActive;
-                });
+                               .ObjectInsert<UserObject>("Users", (queryBuilder) =>
+                                 {
+                                     InsertValueObject[] insertValue =
+                                     [
+                                         new(nameof(newObject.Name), newObject.Name, InsertDataType.TEXT),
+                                         new(nameof(newObject.IsActive), newObject.IsActive, InsertDataType.BOOLEAN)
+                                     ];
+                                     return queryBuilder.Value(insertValue);     
+                                 });
     
         this.Run(queryBuilder);
     }
