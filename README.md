@@ -2,7 +2,7 @@
 
 ARLiteNet is a .NET Standard library designed to access to any relational database with Micro-ORM features. Through its declarative approach, it provides maximum abstraction that simplifies access to any relational database. The main purpose of the library is to provide a simple CRUD operation through the Active Record Pattern.
 
-### Currently, it has provided SQLite!
+
 
 ### Support
 * Nested types
@@ -10,6 +10,19 @@ ARLiteNet is a .NET Standard library designed to access to any relational databa
 * Type mapping
 * Query Generation
 * Flexiable Data Retrieve
+
+### Configuration for SQLite3
+🔴 Currently, the library only provides SQLite!
+
+```csharp
+public sealed class SQLiteConfigurationFactory : ARLiteConfigurationFactory
+{
+    protected override void Configure(ARLiteConnectionStringBuilder connectionStringBuilder)
+    {
+        connectionStringBuilder.SetSQLite3(@"D:\ARDatabase.db"); // basic sample!                              
+    }
+}
+```
 
 ## Declarative Approach
 ```csharp
