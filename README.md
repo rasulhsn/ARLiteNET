@@ -115,6 +115,22 @@ public class UserObject : ARLiteObject
 
         return base.RunEnumerable<UserObject>(selectQuery);
     }
+
+    public void Add(UserObject newObject)
+    {
+        var queryBuilder = this.Query()
+                               .ObjectInsert<UserObject>("Users", (queryBuilder) =>
+                                 {
+                                     InsertValueObject[] insertValue =
+                                     [
+                                         new(nameof(newObject.Name), newObject.Name, InsertDataType.TEXT),
+                                         new(nameof(newObject.IsActive), newObject.IsActive, InsertDataType.BOOLEAN)
+                                     ];
+                                     return queryBuilder.Value(insertValue);     
+                                 });
+    
+        this.Run(queryBuilder);
+    }
 }
 ```
 ## Raw SQL Approach
@@ -129,33 +145,27 @@ public class UserObject : ARLiteObject
 
     public IEnumerable<UserObject> GetAll()
     {
-        var selectQuery = base.Query()
-                               .ObjectSelect<UserObject>((queryBuilder) =>
-                               {
-                                   return queryBuilder.Select()
-                                               .From("Users")
-                                               .Where(nameof(UserObject.Name))
-                                               .EqualTo("Rasul")
-                                               .Or(nameof(UserObject.Id))
-                                               .GreaterThan(2);
-                               });
-
-        return base.RunEnumerable<UserObject>(selectQuery);
+        var queryBuilder = this.Query()
+                          .SetCommand("SELECT * FROM Users");
+    
+        return this.RunEnumerable<UserObject>(queryBuilder);
     }
-
-    public void Add(UserDtoStub newObject)
+    
+    public void Add(UserObject newObject)
     {
         var queryBuilder = this.Query()
-                                .ObjectInsert<UserObject>("Users", (queryBuilder) =>
-                                 {
-                                     InsertValueObject[] insertValue =
-                                     [
-                                         new(nameof(newObject.Name), newObject.Name, InsertDataType.TEXT),
-                                         new(nameof(newObject.IsActive), newObject.IsActive, InsertDataType.BOOLEAN)
-                                     ];
-                                     return queryBuilder.Value(insertValue);     
-                                 });
-
+            .SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")
+                .AddParam((param) =>
+                {
+                    param.ParameterName = "@name";
+                    param.DbType = System.Data.DbType.String;
+                    param.Value = newObject.Name;
+                }).AddParam((param) => {
+                    param.ParameterName = "@isActive";
+                    //param.DbType = System.Data.DbType.Boolean;
+                    param.Value = newObject.IsActive;
+                });
+    
         this.Run(queryBuilder);
     }
 }
