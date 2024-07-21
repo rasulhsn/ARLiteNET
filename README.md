@@ -1,7 +1,17 @@
 # ARLiteNET
 
-ARLiteNet is a .NET Standard library designed to access to any SQLite database with Micro-ORM features. Through its declarative approach, it provides maximum abstraction that simplifies access to any SQLite database. The main purpose of the library is to provide a simple CRUD operation through the Active Record Pattern.
+ARLiteNet is a .NET Standard library designed to access to any relational database with Micro-ORM features. Through its declarative approach, it provides maximum abstraction that simplifies access to any relational database. The main purpose of the library is to provide a simple CRUD operation through the Active Record Pattern.
 
+### Currently, it has provided SQLite!
+
+### Support
+* Nested types
+* Dynamic Configuration
+* Type mapping
+* Query Generation
+* Flexiable Data Retrieve
+
+## Declarative Approach
 ```csharp
  [ARLiteConfiguration(typeof(SQLiteConfigurationFactory))]
  public class UserObject : ARLiteObject
@@ -65,6 +75,71 @@ ARLiteNet is a .NET Standard library designed to access to any SQLite database w
          this.Run(deleteQuery);
      }
  }
+```
+
+## Strict Object Query Approach
+```csharp
+[ARLiteConfiguration(typeof(SQLiteConfigurationFactory))]
+public class UserObject : ARLiteObject
+{
+    public long Id { get; set; }
+    public string Name { get; set; }
+    public bool IsActive { get; set; }
+    public DateTime BirthDate { get; set; }
+
+    public IEnumerable<UserObject> GetAll()
+    {
+        var selectQuery = base.Query()
+                               .Object<UserObject>((queryBuilder) =>
+                               {
+                                   return queryBuilder.Select()
+                                               .From("Users")
+                                               .Where(nameof(UserObject.Name))
+                                               .EqualTo("Rasul")
+                                               .Or(nameof(UserObject.Id))
+                                               .GreaterThan(2);
+                               });
+
+        return base.RunEnumerable<UserObject>(selectQuery);
+    }
+}
+```
+## Raw SQL Approach
+```csharp
+[ARLiteConfiguration(typeof(SQLiteConfigurationFactory))]
+public class UserObject : ARLiteObject
+{
+    public long Id { get; set; }
+    public string Name { get; set; }
+    public bool IsActive { get; set; }
+    public DateTime BirthDate { get; set; }
+    
+    public IEnumerable<UserObject> GetAll()
+    {
+        var queryBuilder = this.Query()
+                          .SetCommand("SELECT * FROM Users");
+
+        return this.RunEnumerable<UserObject>(queryBuilder);
+    }
+
+    public void Add(UserObject newObject)
+    {
+        var queryBuilder = this.Query()
+            .SetCommand("INSERT INTO Users (Name, IsActive) VALUES (@name, @isActive)")
+                .AddParam((param) =>
+                {
+                    param.ParameterName = "@name";
+                    param.DbType = System.Data.DbType.String;
+                    param.Value = newObject.Name;
+                }).AddParam((param) => {
+                    param.ParameterName = "@isActive";
+                    //param.DbType = System.Data.DbType.Boolean;
+                    param.Value = newObject.IsActive;
+                });
+
+        this.Run(queryBuilder);
+    }
+}
 ```
 
 ### License & Copyright
