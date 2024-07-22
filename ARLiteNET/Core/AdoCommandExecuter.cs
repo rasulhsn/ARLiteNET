@@ -169,7 +169,6 @@ namespace ARLiteNET
 
                 return dataResult;
             }
-
             private static object ConstructObject(Type resultType, IDataReader adoReader)
             {
                 bool _IsPrimitive(PropertyInfo property)

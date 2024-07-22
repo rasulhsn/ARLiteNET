@@ -14,6 +14,6 @@ namespace ARLiteNET.SQLite
         /// </summary>
         public static ARLiteConnectionStringBuilder SetSQLite3(this ARLiteConnectionStringBuilder connectionStringBuilder, string sqliteFile) 
             => connectionStringBuilder.AddSQLiteProvider()
-                                    .ConnectionString($"Data Source={sqliteFile};Version=3;");
+                                        .ConnectionString($"Data Source={sqliteFile};Version=3;");
     }
 }

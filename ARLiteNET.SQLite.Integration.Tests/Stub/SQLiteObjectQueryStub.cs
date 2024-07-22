@@ -27,7 +27,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
                                              new(nameof(newObject.Name), newObject.Name, InsertDataType.TEXT),
                                              new(nameof(newObject.IsActive), newObject.IsActive, InsertDataType.BOOLEAN)
                                          ];
-                                         return queryBuilder.Value(insertValue);     
+                                         return queryBuilder.Value(insertValue);
                                      });
 
 

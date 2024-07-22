@@ -121,6 +121,7 @@ namespace ARLiteNET
 
             string queryStr = _insertQueryBuilder.Value(insertObjects)
                                                   .Build();
+
             _adoCommandbuilder.SetCommand(queryStr);
 
             return ((IDbCommandBuilder)_adoCommandbuilder).Build();

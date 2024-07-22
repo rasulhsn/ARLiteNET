@@ -5,7 +5,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Data
 {
     public static class SQLiteInMemory
     {
-        public static void PrepareDBForTest()
+        public static void PrepareTestDB()
         {
             SQLiteConnection connection = null;
 

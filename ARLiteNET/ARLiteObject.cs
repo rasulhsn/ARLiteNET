@@ -4,8 +4,14 @@ using System.Collections.Generic;
 
 namespace ARLiteNET
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class ARLiteObject
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected IEnumerable<T> RunEnumerable<T>(IDbCommandBuilder commandBuilder) where T : new()
         {
             var dbCommand = commandBuilder.Build();
@@ -20,6 +26,9 @@ namespace ARLiteNET
             return result.Object;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected T RunScalar<T>(IDbCommandBuilder commandBuilder)
         {
             var dbCommand = commandBuilder.Build();
@@ -34,6 +43,9 @@ namespace ARLiteNET
             return (T)result.Object;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected T Run<T>(IDbCommandBuilder commandBuilder) where T : new()
         {      
             var dbCommand = commandBuilder.Build();
@@ -48,6 +60,9 @@ namespace ARLiteNET
             return result.Object;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected int Run(IDbCommandBuilder commandBuilder)
         {
             var dbCommand = commandBuilder.Build();
@@ -62,6 +77,9 @@ namespace ARLiteNET
             return result.AffectedRows;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected AdoCommandBuilder Query()
         {
             var factory = ARLiteConfigurationResolver.GetConfigurationFactory(this.GetType());
