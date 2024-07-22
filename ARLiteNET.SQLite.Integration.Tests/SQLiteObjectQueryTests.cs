@@ -8,10 +8,7 @@ namespace ARLiteNET.SQLite.Integration.Tests
     public class SQLiteObjectQueryTests
     {
         [TestInitialize]
-        public void Initialize()
-        {
-            SQLiteInMemory.PrepareDBForTest();
-        }
+        public void Initialize() => SQLiteInMemory.PrepareDBForTest();
 
         [TestMethod]
         public void GetAll_WhenCorrectSelectSpecified_ShouldReturnSuccessfullyMappedObject()

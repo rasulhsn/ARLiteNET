@@ -7,10 +7,7 @@ namespace ARLiteNET.Common
         protected readonly ChainQueryBuilder QueryBuilder;
         protected bool HasNestedQueryBuilder => QueryBuilder != null;
 
-        public ChainQueryBuilder(ChainQueryBuilder innerQueryBuilder)
-        {
-            QueryBuilder = innerQueryBuilder;
-        }
+        public ChainQueryBuilder(ChainQueryBuilder innerQueryBuilder) => QueryBuilder = innerQueryBuilder;
 
         protected void BuildChain(StringBuilder builder)
         {

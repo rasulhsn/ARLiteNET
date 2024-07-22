@@ -13,10 +13,7 @@ namespace ARLiteNET.SQLite
         private IEnumerable<string> _columns;
         private bool HasColumns => _columns != null && _columns.Any();
 
-        public SQLiteSelectQueryBuilder(params string[] columns) : base(null)
-        {
-            _columns = columns;
-        }
+        public SQLiteSelectQueryBuilder(params string[] columns) : base(null) => _columns = columns;
 
         public ISelectQueryBuilder Select(params string[] columns)
         {
@@ -30,10 +27,7 @@ namespace ARLiteNET.SQLite
             return this;
         }
 
-        public IFromQueryBuilder From(string table)
-        {
-            return new SQLiteFromQueryBuilder(table, this);
-        }
+        public IFromQueryBuilder From(string table) => new SQLiteFromQueryBuilder(table, this);
 
         public IJoinQueryBuilder Join(string table)
         {
@@ -67,9 +61,6 @@ namespace ARLiteNET.SQLite
             return $"{SELECT} {ALL} ";
         }
 
-        public string Build()
-        {
-            return Build(null);
-        }
+        public string Build() => Build(null);
     }
 }

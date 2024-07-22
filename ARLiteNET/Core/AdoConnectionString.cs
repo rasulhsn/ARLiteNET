@@ -6,10 +6,7 @@
     public sealed class AdoConnectionString
     {
         internal AdoConnectionString(string connectionString)
-            : this(connectionString, string.Empty)
-        {
-            ConnectionString = connectionString;
-        }
+            : this(connectionString, string.Empty) => ConnectionString = connectionString;
 
         internal AdoConnectionString(string connectionString, string providerName)
         {
@@ -29,10 +26,7 @@
 
         public bool HasProviderName => !string.IsNullOrEmpty(ProviderName);
 
-        public override string ToString()
-        {
-            return ConnectionString;
-        }
+        public override string ToString() => ConnectionString;
 
         public override bool Equals(object obj)
         {
@@ -43,10 +37,8 @@
                     other.ProviderName.Equals(this.ProviderName);
         }
 
-        public override int GetHashCode()
-        {
-            return string.Concat(this.ConnectionString,
+        public override int GetHashCode() =>
+            string.Concat(this.ConnectionString,
                                     this.ProviderName).GetHashCode();
-        }
     }
 }

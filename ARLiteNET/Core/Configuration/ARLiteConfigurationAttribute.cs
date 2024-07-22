@@ -16,9 +16,6 @@ namespace ARLiteNET
             _configurationFactory = configurationFactory;
         }
 
-        public ARLiteConfigurationFactory Factory
-        {
-            get { return Activator.CreateInstance(_configurationFactory) as ARLiteConfigurationFactory; }
-        }
+        public ARLiteConfigurationFactory Factory => Activator.CreateInstance(_configurationFactory) as ARLiteConfigurationFactory;
     }
 }

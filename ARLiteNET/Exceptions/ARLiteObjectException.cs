@@ -9,9 +9,6 @@ namespace ARLiteNET.Exceptions
         public IEnumerable<Exception> InnerExceptions { get; }
 
         public ARLiteObjectException(string message,
-            IEnumerable<Exception> innerExceptions) : base(message)
-        {
-            this.InnerExceptions = innerExceptions;
-        }
+            IEnumerable<Exception> innerExceptions) : base(message) => this.InnerExceptions = innerExceptions;
     }
 }

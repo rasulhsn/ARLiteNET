@@ -16,10 +16,8 @@ namespace ARLiteNET.SQLite
         private bool HasAlias => !string.IsNullOrWhiteSpace(_alias);
         private string DefaultAlias => HasAlias ? _alias : _tableName;
 
-        public SQLiteFromQueryBuilder(string tableName, ChainQueryBuilder innerQueryBuilder) : base(innerQueryBuilder)
-        {
-            _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
-        }
+        public SQLiteFromQueryBuilder(string tableName, ChainQueryBuilder innerQueryBuilder) : base(innerQueryBuilder) 
+            => _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
 
         public IFromQueryBuilder Alias(string alias)
         {
@@ -27,10 +25,7 @@ namespace ARLiteNET.SQLite
             return this;
         }
 
-        public IWhereQueryBuilder Where(string column)
-        {
-            return new SQLiteWhereQueryBuilder(DefaultAlias, column, this);
-        }
+        public IWhereQueryBuilder Where(string column) => new SQLiteWhereQueryBuilder(DefaultAlias, column, this);
 
         public IOrderByQueryBuilder OrderBy()
         {
@@ -57,9 +52,6 @@ namespace ARLiteNET.SQLite
             return builder.ToString();
         }
 
-        public string Build()
-        {
-            return Build(null);
-        }
+        public string Build() => Build(null);
     }
 }

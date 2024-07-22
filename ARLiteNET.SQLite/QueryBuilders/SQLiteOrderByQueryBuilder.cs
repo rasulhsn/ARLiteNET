@@ -9,10 +9,8 @@ namespace ARLiteNET.SQLite.QueryBuilders
         private readonly string _alias;
         private bool _hasAlias => !string.IsNullOrEmpty(_alias);
 
-        public SQLiteOrderByQueryBuilder(string alias, ChainQueryBuilder innerQueryBuilder) : base(innerQueryBuilder)
-        {
-            _alias = alias;
-        }
+        public SQLiteOrderByQueryBuilder(string alias, ChainQueryBuilder innerQueryBuilder) : base(innerQueryBuilder) 
+            => _alias = alias;
 
         public IOrderByQueryBuilder Asc(string column)
         {

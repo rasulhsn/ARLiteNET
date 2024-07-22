@@ -8,10 +8,7 @@ namespace ARLiteNET.SQLite
     public static class SQLiteDeclarativeExtensions
     {
         public static SelectCommandBuilder<T> Select<T>(this
-            AdoCommandBuilder builder)
-        {
-            return builder.Select<T>(nameof(T));
-        }
+            AdoCommandBuilder builder) => builder.Select<T>(nameof(T));
 
         public static SelectCommandBuilder<T> Select<T>(this
             AdoCommandBuilder builder, string tableName)

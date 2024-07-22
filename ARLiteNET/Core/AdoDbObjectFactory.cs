@@ -6,20 +6,14 @@ namespace ARLiteNET
 {
     public static class AdoDbObjectFactory
     {
-        public static IDbCommand CreateCommand(AdoConnectionString connectionString)
-        {
-            return GetProvider(connectionString).CreateCommand();
-        }
+        public static IDbCommand CreateCommand(AdoConnectionString connectionString) 
+            => GetProvider(connectionString).CreateCommand();
 
-        public static IDbDataAdapter CreateDataAdapter(AdoConnectionString connectionString)
-        {
-            return GetProvider(connectionString).CreateDataAdapter();
-        }
+        public static IDbDataAdapter CreateDataAdapter(AdoConnectionString connectionString) 
+            => GetProvider(connectionString).CreateDataAdapter();
 
         public static IDbDataParameter CreateParameter(AdoConnectionString connectionString)
-        {
-            return GetProvider(connectionString).CreateParameter();
-        }
+            => GetProvider(connectionString).CreateParameter();
 
         public static IDbConnection CreateConnection(AdoConnectionString connectionString)
         {
