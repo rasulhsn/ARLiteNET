@@ -110,10 +110,7 @@ namespace ARLiteNET.SQLite
             return builder.ToString();
         }
 
-        string IQueryBuilder.Build()
-        {
-            return Build(null);
-        }
+        string IQueryBuilder.Build() => Build(null);
 
         private string GetColumnName(string column)
             => $"{_alias}.{column}";

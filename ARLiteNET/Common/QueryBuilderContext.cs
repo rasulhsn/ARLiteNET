@@ -6,9 +6,6 @@
 
         public bool HasAlias => !string.IsNullOrWhiteSpace(Alias);
 
-        public QueryBuilderContext(string alias)
-        {
-            Alias = alias;
-        }
+        public QueryBuilderContext(string alias) => Alias = alias;
     }
 }

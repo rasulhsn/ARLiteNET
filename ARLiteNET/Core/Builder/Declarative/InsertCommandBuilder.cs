@@ -143,10 +143,7 @@ namespace ARLiteNET
                 _columnName = columnName;
             }
 
-            public void Ignore()
-            {
-                _operationName = nameof(Ignore);
-            }
+            public void Ignore() => _operationName = nameof(Ignore);
         }
     }
 }
