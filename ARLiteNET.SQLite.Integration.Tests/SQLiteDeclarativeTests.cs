@@ -36,5 +36,16 @@ namespace ARLiteNET.SQLite.Integration.Tests
 
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void GetByName_WhenCorrectWhereClauseWithCondition_ShouldReturnSuccessfullyMappedObject()
+        {
+            const string name = "Test";
+            SQLiteDeclarativeStub adoObject = new SQLiteDeclarativeStub();
+
+            IEnumerable<UserDtoStub> users = adoObject.GetByName(name);
+
+            Assert.IsNotNull(users);
+        }
     }
 }
