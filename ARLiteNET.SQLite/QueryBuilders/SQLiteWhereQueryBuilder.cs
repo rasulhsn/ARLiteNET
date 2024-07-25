@@ -15,6 +15,7 @@ namespace ARLiteNET.SQLite
         readonly Dictionary<string, string> Symbols = new Dictionary<string, string>()
         {
             {nameof(IWhereQueryBuilder.EqualTo), "="},
+            {nameof(IWhereQueryBuilder.NotEqualTo), "!="},
             {nameof(IWhereQueryBuilder.GreaterThan), ">"},
             {nameof(IWhereQueryBuilder.LessThan), "<"},
             {nameof(IWhereQueryBuilder.In), "IN"},
@@ -42,16 +43,30 @@ namespace ARLiteNET.SQLite
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.EqualTo)]} '{value}' ");
             return this;
         }
-
-        public IConditionQueryBuilder<IWhereQueryBuilder> GreaterThan(int value)
+        public IConditionQueryBuilder<IWhereQueryBuilder> EqualTo(double value)
         {
-            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.GreaterThan)]} {value} ");
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.EqualTo)]} {value} ");
+            return this;
+        }
+        public IConditionQueryBuilder<IWhereQueryBuilder> EqualTo(int value)
+        {
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.EqualTo)]} {value} ");
             return this;
         }
 
-        public IConditionQueryBuilder<IWhereQueryBuilder> GreaterThan(decimal value)
+        public IConditionQueryBuilder<IWhereQueryBuilder> NotEqualTo(string value)
         {
-            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.GreaterThan)]} {value} ");
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.NotEqualTo)]} '{value}' ");
+            return this;
+        }
+        public IConditionQueryBuilder<IWhereQueryBuilder> NotEqualTo(double value)
+        {
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.NotEqualTo)]} {value} ");
+            return this;
+        }
+        public IConditionQueryBuilder<IWhereQueryBuilder> NotEqualTo(int value)
+        {
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.NotEqualTo)]} {value} ");
             return this;
         }
 
@@ -63,13 +78,37 @@ namespace ARLiteNET.SQLite
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.In)]} ({joinedValues}) ");
             return this;
         }
+        public IConditionQueryBuilder<IWhereQueryBuilder> In(params double[] values)
+        {
+            string joinedValues = string.Join(",", values);
+
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.In)]} ({joinedValues}) ");
+            return this;
+        }
+        public IConditionQueryBuilder<IWhereQueryBuilder> In(params int[] values)
+        {
+            string joinedValues = string.Join(",", values);
+
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.In)]} ({joinedValues}) ");
+            return this;
+        }
+
+        public IConditionQueryBuilder<IWhereQueryBuilder> GreaterThan(int value)
+        {
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.GreaterThan)]} {value} ");
+            return this;
+        }
+        public IConditionQueryBuilder<IWhereQueryBuilder> GreaterThan(double value)
+        {
+            _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.GreaterThan)]} {value} ");
+            return this;
+        }
 
         public IConditionQueryBuilder<IWhereQueryBuilder> LessThan(int value)
         {
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.LessThan)]} {value} ");
             return this;
         }
-
         public IConditionQueryBuilder<IWhereQueryBuilder> LessThan(decimal value)
         {
             _conditions.Add($"{Symbols[nameof(IWhereQueryBuilder.LessThan)]} {value} ");

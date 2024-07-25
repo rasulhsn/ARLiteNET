@@ -101,7 +101,7 @@ namespace ARLiteNET
         {
             void DefaultInvoke()
             {
-                var methodInfo = instance.GetType().GetMethod(columnInfo.OperationName);
+                var methodInfo = instance.GetType().GetMethod(columnInfo.OperationName, new Type[] { columnInfo.Type });
                 instance = methodInfo.Invoke(instance, new object[] { columnInfo.Value });
             }
 
@@ -136,7 +136,9 @@ namespace ARLiteNET
             private object _value;
             private string _operationName;
             private bool _and;
+            private Type _type;
 
+            internal Type Type => _type;
             internal string ColumnName => _columnName;
             internal string OperationName => _operationName;
             internal object Value => _value;
@@ -153,6 +155,23 @@ namespace ARLiteNET
 
             public void EqualTo(string value, bool and = true)
             {
+                _type = typeof(string);
+                _operationName = nameof(EqualTo);
+                _value = value;
+                _and = and;
+            }
+
+            public void EqualTo(decimal value, bool and = true)
+            {
+                _type = typeof(decimal);
+                _operationName = nameof(EqualTo);
+                _value = value;
+                _and = and;
+            }
+
+            public void EqualTo(int value, bool and = true)
+            {
+                _type = typeof(int);
                 _operationName = nameof(EqualTo);
                 _value = value;
                 _and = and;

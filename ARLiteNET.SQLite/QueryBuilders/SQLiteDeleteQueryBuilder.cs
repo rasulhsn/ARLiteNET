@@ -17,6 +17,7 @@ namespace ARLiteNET.SQLite.QueryBuilders
         readonly Dictionary<string, string> Symbols = new Dictionary<string, string>()
         {
             {nameof(IConditionalFunctionQueryBuilder.EqualTo), "="},
+            {nameof(IConditionalFunctionQueryBuilder.NotEqualTo), "!="},
             {nameof(IConditionalFunctionQueryBuilder.GreaterThan), ">"},
             {nameof(IConditionalFunctionQueryBuilder.LessThan), "<"},
             {nameof(IConditionalFunctionQueryBuilder.In), "IN"},
@@ -38,16 +39,30 @@ namespace ARLiteNET.SQLite.QueryBuilders
             _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.EqualTo)]} '{value}' ");
             return this;
         }
-
-        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> GreaterThan(int value)
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> EqualTo(double value)
         {
-            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.GreaterThan)]} {value} ");
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.EqualTo)]} {value} ");
+            return this;
+        }
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> EqualTo(int value)
+        {
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.EqualTo)]} {value} ");
             return this;
         }
 
-        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> GreaterThan(decimal value)
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> NotEqualTo(string value)
         {
-            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.GreaterThan)]} {value} ");
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.NotEqualTo)]} '{value}' ");
+            return this;
+        }
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> NotEqualTo(double value)
+        {
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.NotEqualTo)]} {value} ");
+            return this;
+        }
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> NotEqualTo(int value)
+        {
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.NotEqualTo)]} {value} ");
             return this;
         }
 
@@ -59,13 +74,37 @@ namespace ARLiteNET.SQLite.QueryBuilders
             _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.In)]} ({joinedValues}) ");
             return this;
         }
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> In(params double[] values)
+        {
+            string joinedValues = string.Join(",", values);
+
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.In)]} ({joinedValues}) ");
+            return this;
+        }
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> In(params int[] values)
+        {
+            string joinedValues = string.Join(",", values);
+
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.In)]} ({joinedValues}) ");
+            return this;
+        }
+
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> GreaterThan(int value)
+        {
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.GreaterThan)]} {value} ");
+            return this;
+        }
+        public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> GreaterThan(double value)
+        {
+            _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.GreaterThan)]} {value} ");
+            return this;
+        }
 
         public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> LessThan(int value)
         {
             _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.LessThan)]} {value} ");
             return this;
         }
-
         public IConditionQueryBuilder<IConditionalFunctionQueryBuilder> LessThan(decimal value)
         {
             _conditions.Add($"{Symbols[nameof(IConditionalFunctionQueryBuilder.LessThan)]} {value} ");
@@ -128,5 +167,6 @@ namespace ARLiteNET.SQLite.QueryBuilders
 
         private string GetColumnName(string column)
             => $"{column}";
+
     }
 }

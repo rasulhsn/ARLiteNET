@@ -82,13 +82,39 @@ namespace ARLiteNET.SQLite.Integration.Tests
         }
 
         [TestMethod]
-        public void Build_WhenCalledDeleteWithConditions_ShouldReturnCorrectQuery()
+        public void Build_WhenCalledDeleteWithGreaterThanCondition_ShouldReturnCorrectQuery()
         {
             const string expectedQuery = $"DELETE FROM {nameof(UserDtoStub)} WHERE Id > 5 ";
 
             string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserDtoStub))
                                                       .Where(nameof(UserDtoStub.Id))
                                                       .GreaterThan(5)
+                                                      .Build();
+
+            Assert.AreEqual(expectedQuery, generatedQuery);
+        }
+
+        [TestMethod]
+        public void Build_WhenCalledDeleteWithEqualToCondition_ShouldReturnCorrectQuery()
+        {
+            const string expectedQuery = $"DELETE FROM {nameof(UserDtoStub)} WHERE Id = 5 ";
+
+            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserDtoStub))
+                                                      .Where(nameof(UserDtoStub.Id))
+                                                      .EqualTo(5)
+                                                      .Build();
+
+            Assert.AreEqual(expectedQuery, generatedQuery);
+        }
+
+        [TestMethod]
+        public void Build_WhenCalledDeleteWithNotEqualToCondition_ShouldReturnCorrectQuery()
+        {
+            const string expectedQuery = $"DELETE FROM {nameof(UserDtoStub)} WHERE Id != 5 ";
+
+            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserDtoStub))
+                                                      .Where(nameof(UserDtoStub.Id))
+                                                      .NotEqualTo(5)
                                                       .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);
