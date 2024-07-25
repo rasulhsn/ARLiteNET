@@ -89,50 +89,6 @@ public sealed class SQLiteConfigurationFactory : ARLiteConfigurationFactory
      }
  }
 ```
-
-## Strict Object Query Approach
-```csharp
-[ARLiteConfiguration(typeof(SQLiteConfigurationFactory))]
-public class UserObject : ARLiteObject
-{
-    public long Id { get; set; }
-    public string Name { get; set; }
-    public bool IsActive { get; set; }
-    public DateTime BirthDate { get; set; }
-
-    public IEnumerable<UserObject> GetAll()
-    {
-        var selectQuery = base.Query()
-                               .ObjectSelect<UserObject>((queryBuilder) =>
-                               {
-                                   return queryBuilder.Select()
-                                               .From("Users")
-                                               .Where(nameof(UserObject.Name))
-                                               .EqualTo("Rasul")
-                                               .Or(nameof(UserObject.Id))
-                                               .GreaterThan(2);
-                               });
-
-        return base.RunEnumerable<UserObject>(selectQuery);
-    }
-
-    public void Add(UserObject newObject)
-    {
-        var queryBuilder = this.Query()
-                               .ObjectInsert<UserObject>("Users", (queryBuilder) =>
-                                 {
-                                     InsertValueObject[] insertValue =
-                                     [
-                                         new(nameof(newObject.Name), newObject.Name, InsertDataType.TEXT),
-                                         new(nameof(newObject.IsActive), newObject.IsActive, InsertDataType.BOOLEAN)
-                                     ];
-                                     return queryBuilder.Value(insertValue);     
-                                 });
-    
-        this.Run(queryBuilder);
-    }
-}
-```
 ## Raw SQL Approach
 ```csharp
 [ARLiteConfiguration(typeof(SQLiteConfigurationFactory))]
