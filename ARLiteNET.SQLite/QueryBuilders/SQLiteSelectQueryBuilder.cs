@@ -27,14 +27,10 @@ namespace ARLiteNET.SQLite
             return this;
         }
 
-        public IFromQueryBuilder From(string table) => new SQLiteFromQueryBuilder(table, this);
+        public IFromQueryBuilder From(string table) 
+            => new SQLiteFromQueryBuilder(table, this);
 
         public IJoinQueryBuilder Join(string table)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IOrderByQueryBuilder OrderBy()
         {
             throw new System.NotImplementedException();
         }

@@ -8,6 +8,5 @@ namespace ARLiteNET.Common
         ISelectQueryBuilder Select(IEnumerable<string> columns);
         IFromQueryBuilder From(string table);
         IJoinQueryBuilder Join(string table);
-        IOrderByQueryBuilder OrderBy();
     }
 }
