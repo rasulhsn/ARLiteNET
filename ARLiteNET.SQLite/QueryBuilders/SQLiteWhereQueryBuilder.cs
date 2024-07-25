@@ -1,4 +1,5 @@
 ﻿using ARLiteNET.Common;
+using ARLiteNET.SQLite.QueryBuilders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,9 +117,7 @@ namespace ARLiteNET.SQLite
         }
 
         public IOrderByQueryBuilder OrderBy()
-        {
-            throw new NotImplementedException();
-        }
+          => new SQLiteOrderByQueryBuilder(this);
 
         public IWhereQueryBuilder And(string column)
         {
@@ -136,7 +135,7 @@ namespace ARLiteNET.SQLite
         {
             StringBuilder builder = new StringBuilder();
 
-            BuildChain(builder);
+            BuildChain(builder, context);
 
             if (_conditions.Any())
             {

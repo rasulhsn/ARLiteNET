@@ -108,14 +108,29 @@ namespace ARLiteNET.SQLite.Integration.Tests
         }
 
         [TestMethod]
-        public void Build_WhenCalledDeleteWithNotEqualToCondition_ShouldReturnCorrectQuery()
+        public void Build_WhenCalledOrderByWithAscendingOrder_ShouldReturnCorrectQuery()
         {
-            const string expectedQuery = $"DELETE FROM {nameof(UserDtoStub)} WHERE Id != 5 ";
+            const string expectedQuery = $"SELECT * FROM {nameof(UserDtoStub)} ORDER BY {nameof(UserDtoStub.Id)} ASC ";
 
-            string generatedQuery = SQLiteQueryFactory.Delete(nameof(UserDtoStub))
-                                                      .Where(nameof(UserDtoStub.Id))
-                                                      .NotEqualTo(5)
-                                                      .Build();
+            string generatedQuery = SQLiteQueryFactory.Select()
+                                                       .From(nameof(UserDtoStub))
+                                                       .OrderBy()
+                                                       .Asc(nameof(UserDtoStub.Id))
+                                                       .Build();
+
+            Assert.AreEqual(expectedQuery, generatedQuery);
+        }
+
+        [TestMethod]
+        public void Build_WhenCalledOrderByWithDescendingOrder_ShouldReturnCorrectQuery()
+        {
+            const string expectedQuery = $"SELECT * FROM {nameof(UserDtoStub)} ORDER BY {nameof(UserDtoStub.Id)} DESC ";
+
+            string generatedQuery = SQLiteQueryFactory.Select()
+                                                       .From(nameof(UserDtoStub))
+                                                       .OrderBy()
+                                                       .Desc(nameof(UserDtoStub.Id))
+                                                       .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);
         }

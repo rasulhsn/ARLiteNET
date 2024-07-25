@@ -1,4 +1,5 @@
 ﻿using ARLiteNET.Common;
+using ARLiteNET.SQLite.QueryBuilders;
 using System;
 using System.Text;
 
@@ -28,9 +29,7 @@ namespace ARLiteNET.SQLite
         public IWhereQueryBuilder Where(string column) => new SQLiteWhereQueryBuilder(DefaultAlias, column, this);
 
         public IOrderByQueryBuilder OrderBy()
-        {
-            throw new NotImplementedException();
-        }
+         => new SQLiteOrderByQueryBuilder(this);
 
         protected override string Build(QueryBuilderContext? context = null)
         {
