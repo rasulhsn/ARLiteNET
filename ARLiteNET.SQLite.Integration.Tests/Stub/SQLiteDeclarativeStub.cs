@@ -4,11 +4,13 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
     [ARLiteConfiguration(typeof(InMemorySQLiteConfigurationFactoryStub))]
     public class SQLiteDeclarativeStub : ARLiteObject
     {
+        const string TABLE_NAME = "Users";
+
         public IEnumerable<UserDtoStub> GetAll()
         {
             // Declarative approach
             var selectQuery = base.Query()
-                                   .Select<UserDtoStub>("Users");
+                                   .Select<UserDtoStub>(TABLE_NAME);
 
             selectQuery.Column(x => x.Id).Only();
             selectQuery.Column(x => x.Name).Only();
@@ -21,7 +23,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
         {
             // Declarative approach
             var selectQuery = this.Query()
-                                   .Select<UserDtoStub>("Users");
+                                   .Select<UserDtoStub>(TABLE_NAME);
 
             selectQuery.Column(x => x.Id).Only();
             selectQuery.Column(x => x.Name).Only();
@@ -35,7 +37,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
         {
             // Declarative approach
             var insertQuery = this.Query()
-                                    .Insert("Users", newObject);
+                                    .Insert(TABLE_NAME, newObject);
 
             insertQuery.Column(x => x.Id).Ignore();
             insertQuery.Column(x => x.BirthDate).Ignore();
@@ -49,7 +51,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
         {
             // Declarative approach
             var updateQuery = this.Query()
-                                    .Update("Users", newObject);
+                                    .Update(TABLE_NAME, newObject);
 
             //updateQuery.Column(nameof(TestUserObject.Id)).EqualTo(newObject.Id);
             //updateQuery.Column(nameof(TestUserObject.Name)).Only();
@@ -62,7 +64,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
         {
             // Declarative approach
             var deleteQuery = this.Query()
-                                    .Delete<UserDtoStub>("Users");
+                                    .Delete<UserDtoStub>(TABLE_NAME);
 
             //deleteQuery.Column(nameof(TestUserObject.Id)).EqualTo(id);
 
