@@ -13,8 +13,8 @@ namespace ARLiteNET.SQLite.Integration.Tests
             const string expectedQuery = $"SELECT * FROM {nameof(UserDtoStub)} ";
 
             string generatedQuery = SQLiteQueryFactory.Select()
-                                .From(nameof(UserDtoStub))
-                                .Build();
+                                                      .From(nameof(UserDtoStub))
+                                                      .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);
         }

@@ -6,11 +6,6 @@ namespace ARLiteNET.Core.Mappers
 {
     internal static class Mapper
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="instance"></param>
         public static MapType MapInstance<T>(T instance)
         {
             bool _TypeIsPrimitive(Type propertyType)
