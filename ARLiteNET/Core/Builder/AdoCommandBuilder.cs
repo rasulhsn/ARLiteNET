@@ -8,8 +8,8 @@ namespace ARLiteNET
     public partial class AdoCommandBuilder : IDbCommandBuilder
     {
         private readonly AdoConnectionString _connectionString;
+        private readonly List<IDbDataParameter> _parameters;
 
-        private List<IDbDataParameter> _parameters;
         private string _commandText;
         private CommandType _commandType;
 

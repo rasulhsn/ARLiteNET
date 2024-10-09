@@ -31,6 +31,10 @@ namespace ARLiteNET
 
         public InsertColumnQuery Column(string columnName)
         {
+            if (string.IsNullOrEmpty(columnName))
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(Column),
+                                new Exception($"{columnName} column can not be null!"));
+
             if (_columnQueryInfos.ContainsKey(columnName))
                 throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(Column),
                                 new Exception($"{columnName} column is already exists!"));
@@ -43,6 +47,10 @@ namespace ARLiteNET
 
         public InsertColumnQuery Column<TMember>(Expression<Func<T, TMember>> member)
         {
+            if (member is null)
+                throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(Column),
+                                new Exception($"Selected member can not be null!"));
+
             ExpressionMember expMember = ExpressionMember.Create(member);
 
             if (!expMember.IsFieldOrProperty)
@@ -109,21 +117,20 @@ namespace ARLiteNET
             }
 
             InsertValueObject[] insertObjects = new InsertValueObject[mappedTypeMembers.Count()];
-            int counter = 0;
-
+            
+            int indexCounter = 0;
             foreach (var member in mappedTypeMembers)
             {
                 InsertDataType dbDataType = _getInsertDataType(member.Type);
-                insertObjects[counter] = new InsertValueObject(member.Name, member.Value, dbDataType);
+                insertObjects[indexCounter] = new InsertValueObject(member.Name, member.Value, dbDataType);
 
-                counter++;
+                indexCounter++;
             }
 
             string queryStr = _insertQueryBuilder.Value(insertObjects)
                                                   .Build();
 
             _adoCommandbuilder.SetCommand(queryStr);
-
             return ((IDbCommandBuilder)_adoCommandbuilder).Build();
         }
 

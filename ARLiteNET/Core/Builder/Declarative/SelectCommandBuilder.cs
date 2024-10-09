@@ -29,6 +29,10 @@ namespace ARLiteNET
 
         public SelectColumnQuery Column(string columnName)
         {
+            if (string.IsNullOrEmpty(columnName))
+                throw new ARLiteException(nameof(SelectCommandBuilder<T>), nameof(Column),
+                                new Exception($"{columnName} column can not be null!"));
+
             SelectColumnQuery columnInfo = new SelectColumnQuery(columnName);
             _columnQueryInfos.Add(columnInfo);
 
@@ -37,6 +41,10 @@ namespace ARLiteNET
 
         public SelectColumnQuery Column<TMember>(Expression<Func<T, TMember>> member)
         {
+            if (member is null)
+                throw new ARLiteException(nameof(SelectCommandBuilder<T>), nameof(Column),
+                                new Exception($"Selected member can not be null!"));
+
             ExpressionMember expMember = ExpressionMember.Create(member);
             
             if (!expMember.IsFieldOrProperty)
