@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -34,12 +34,7 @@ namespace ARLiteNET.Core.Mappers
                 Type propertyType = Nullable.GetUnderlyingType(property.PropertyType) != null ?
                                     Nullable.GetUnderlyingType(property.PropertyType) : property.PropertyType;
 
-                bool isPrimitive = false;
-
-                if (_TypeIsPrimitive(propertyType))
-                {
-                    isPrimitive = true;
-                }
+                bool isPrimitive = _TypeIsPrimitive(propertyType);
 
                 members.Add(new MapMember(propertyType,
                                                 property.Name,
