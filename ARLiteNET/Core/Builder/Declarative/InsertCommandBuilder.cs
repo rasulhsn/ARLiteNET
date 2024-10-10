@@ -33,7 +33,7 @@ namespace ARLiteNET
         {
             if (string.IsNullOrEmpty(columnName))
                 throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(Column),
-                                new Exception($"{columnName} column can not be null!"));
+                                new ArgumentNullException($"{columnName} column can not be null!"));
 
             if (_columnQueryInfos.ContainsKey(columnName))
                 throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(Column),
@@ -49,7 +49,7 @@ namespace ARLiteNET
         {
             if (member is null)
                 throw new ARLiteException(nameof(InsertCommandBuilder<T>), nameof(Column),
-                                new Exception($"Selected member can not be null!"));
+                                new ArgumentNullException($"Selected member can not be null!"));
 
             ExpressionMember expMember = ExpressionMember.Create(member);
 
