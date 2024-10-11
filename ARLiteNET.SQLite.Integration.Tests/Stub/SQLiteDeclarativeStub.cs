@@ -60,15 +60,28 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
             this.Run(updateQuery);
         }
 
-        public void Delete(int id)
+        public bool DeleteAll()
         {
             // Declarative approach
             var deleteQuery = this.Query()
                                     .Delete<UserDtoStub>(TABLE_NAME);
 
-            //deleteQuery.Column(nameof(TestUserObject.Id)).EqualTo(id);
+            int affectedRows = this.Run(deleteQuery);
 
-            this.Run(deleteQuery);
+            return affectedRows >= 1;
+        }
+
+        public bool DeleteByName(string name)
+        {
+            // Declarative approach
+            var deleteQuery = this.Query()
+                                    .Delete<UserDtoStub>(TABLE_NAME);
+
+            deleteQuery.Column(x => x.Name).EqualTo(name);
+
+            int affectedRows = this.Run(deleteQuery);
+
+            return affectedRows == 1;
         }
     }
 }

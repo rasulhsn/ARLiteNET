@@ -14,6 +14,14 @@ namespace ARLiteNET.SQLite
         //    return null;
         //}
 
-        public static IDeleteQueryBuilder Delete(string table) => new SQLiteDeleteQueryBuilder(table);
+        public static IDeleteQueryBuilder Delete(string table = null) {
+            
+            if (string.IsNullOrEmpty(table))
+            {
+                return new SQLiteDeleteQueryBuilder();
+            }
+
+            return new SQLiteDeleteQueryBuilder(table);
+        }
     }
 }

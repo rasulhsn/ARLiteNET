@@ -13,7 +13,10 @@ namespace ARLiteNET.SQLite.QueryBuilders
     {
         const string DELETE = "DELETE";
         const string WHERE = "WHERE";
+        
+        private string _table;
 
+        private readonly List<string> _conditions;
         readonly Dictionary<string, string> Symbols = new Dictionary<string, string>()
         {
             {nameof(IConditionalFunctionQueryBuilder.EqualTo), "="},
@@ -25,12 +28,11 @@ namespace ARLiteNET.SQLite.QueryBuilders
             {nameof(IConditionQueryBuilder<IConditionalFunctionQueryBuilder>.Or), "OR"},
         };
 
-        private readonly string _table;
-        private readonly List<string> _conditions;
+        public SQLiteDeleteQueryBuilder(): this(null) { }
 
         public SQLiteDeleteQueryBuilder(string table) : base(null)
         {
-            _table = table ?? throw new ArgumentNullException(nameof(table));
+            _table = table;
             _conditions = new List<string>();
         }
 
@@ -138,6 +140,15 @@ namespace ARLiteNET.SQLite.QueryBuilders
             return this;
         }
 
+        public IDeleteQueryBuilder SetTable(string tableName)
+        {
+            if (string.IsNullOrWhiteSpace(tableName))
+                throw new ArgumentNullException($"Table name can not be null or empty!");
+
+            _table = tableName;
+            return this;
+        }
+
         public IOrderByQueryBuilder OrderBy(string column)
         {
             throw new NotImplementedException();
@@ -147,9 +158,12 @@ namespace ARLiteNET.SQLite.QueryBuilders
         {
             StringBuilder builder = new StringBuilder();
 
+            if (string.IsNullOrWhiteSpace(_table))
+                throw new ArgumentNullException($"Table name can not be null or empty!");
+
             builder.Append($"{DELETE} FROM {_table} ");
 
-            BuildChain(builder);
+            BuildChain(builder, context);
 
             if (_conditions.Any())
             {
@@ -167,6 +181,5 @@ namespace ARLiteNET.SQLite.QueryBuilders
 
         private string GetColumnName(string column)
             => $"{column}";
-
     }
 }
