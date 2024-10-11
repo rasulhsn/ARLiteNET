@@ -79,8 +79,7 @@ namespace ARLiteNET
                 fromQueryBuilder = _selectQueryBuilder.From(_tableName);
             }
 
-            var conditionColumns = _columnQueryInfos.Where(x => x.OperationName == nameof(SelectColumnQuery.EqualTo)
-                                                          || x.OperationName == nameof(SelectColumnQuery.Len));
+            var conditionColumns = _columnQueryInfos.Where(x => x.OperationName == nameof(SelectColumnQuery.EqualTo));
 
             if (conditionColumns != null && conditionColumns.Any())
             {
@@ -181,13 +180,6 @@ namespace ARLiteNET
             {
                 _type = typeof(int);
                 _operationName = nameof(EqualTo);
-                _value = value;
-                _and = and;
-            }
-
-            public void Len(int value, bool and = true)
-            {
-                _operationName = nameof(Len);
                 _value = value;
                 _and = and;
             }
