@@ -11,16 +11,13 @@ namespace ARLiteNET
 {
     public class DeleteCommandBuilder<T> : IDbCommandBuilder
     {
-        private readonly string _tableName;
         private readonly AdoCommandBuilder _adoCommandBuilder;
         private readonly IDeleteQueryBuilder _deleteQueryBuilder;
         private readonly List<DeleteColumnQuery> _columnQueryInfos;
 
-        public DeleteCommandBuilder(string tableName,
-                            AdoCommandBuilder adoCommandBuilder,
-                            IDeleteQueryBuilder deleteQueryBuilder)
+        public DeleteCommandBuilder(AdoCommandBuilder adoCommandBuilder,
+                                    IDeleteQueryBuilder deleteQueryBuilder)
         {
-            _tableName = tableName ?? throw new ArgumentNullException(nameof(tableName));
             _adoCommandBuilder = adoCommandBuilder ?? throw new ArgumentNullException(nameof(adoCommandBuilder));
             _deleteQueryBuilder = deleteQueryBuilder ?? throw new ArgumentNullException(nameof(deleteQueryBuilder));
 
@@ -64,8 +61,6 @@ namespace ARLiteNET
                 return ((IDbCommandBuilder)_adoCommandBuilder).Build();
             }
 
-            IDeleteQueryBuilder deleteQueryBuilder = _deleteQueryBuilder.SetTable(_tableName);
-
             var conditionColumns = _columnQueryInfos.Where(x => x.OperationName == nameof(DeleteColumnQuery.EqualTo));
 
             if (conditionColumns != null && conditionColumns.Any())
@@ -76,7 +71,7 @@ namespace ARLiteNET
                 {
                     if (queryBuilderInstance is null)
                     {
-                        queryBuilderInstance = deleteQueryBuilder.Where(columnInfo.ColumnName);
+                        queryBuilderInstance = _deleteQueryBuilder.Where(columnInfo.ColumnName);
                         queryBuilderInstance = InvokeQueryBuilder(queryBuilderInstance, columnInfo);
                     }
                     else
@@ -88,7 +83,7 @@ namespace ARLiteNET
                 return _BuildCommand(queryBuilderInstance);
             }
 
-            return _BuildCommand(deleteQueryBuilder);
+            return _BuildCommand(_deleteQueryBuilder);
         }
 
         private object InvokeQueryBuilder(object instance, DeleteColumnQuery columnInfo)
