@@ -13,8 +13,9 @@ namespace ARLiteNET.SQLite.QueryBuilders
     {
         const string DELETE = "DELETE";
         const string WHERE = "WHERE";
+        const string FROM = "FROM";
         
-        private string _table;
+        private readonly string _tableName;
 
         private readonly List<string> _conditions;
         readonly Dictionary<string, string> Symbols = new Dictionary<string, string>()
@@ -28,11 +29,9 @@ namespace ARLiteNET.SQLite.QueryBuilders
             {nameof(IConditionQueryBuilder<IConditionalFunctionQueryBuilder>.Or), "OR"},
         };
 
-        public SQLiteDeleteQueryBuilder(): this(null) { }
-
-        public SQLiteDeleteQueryBuilder(string table) : base(null)
+        public SQLiteDeleteQueryBuilder(string tableName) : base(null)
         {
-            _table = table;
+            _tableName = tableName ?? throw new ArgumentNullException($"Table can not be null or empty!");
             _conditions = new List<string>();
         }
 
@@ -140,15 +139,6 @@ namespace ARLiteNET.SQLite.QueryBuilders
             return this;
         }
 
-        public IDeleteQueryBuilder SetTable(string tableName)
-        {
-            if (string.IsNullOrWhiteSpace(tableName))
-                throw new ArgumentNullException($"Table name can not be null or empty!");
-
-            _table = tableName;
-            return this;
-        }
-
         public IOrderByQueryBuilder OrderBy(string column)
         {
             throw new NotImplementedException();
@@ -158,10 +148,7 @@ namespace ARLiteNET.SQLite.QueryBuilders
         {
             StringBuilder builder = new StringBuilder();
 
-            if (string.IsNullOrWhiteSpace(_table))
-                throw new ArgumentNullException($"Table name can not be null or empty!");
-
-            builder.Append($"{DELETE} FROM {_table} ");
+            builder.Append($"{DELETE} {FROM} {_tableName} ");
 
             BuildChain(builder, context);
 

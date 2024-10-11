@@ -33,8 +33,8 @@ namespace ARLiteNET.SQLite
         public static DeleteCommandBuilder<T> Delete<T>(this
            AdoCommandBuilder builder, string tableName)
         {
-            var deleteQueryBuilder = SQLiteQueryFactory.Delete();
-            return new DeleteCommandBuilder<T>(tableName, builder, deleteQueryBuilder);
+            var deleteQueryBuilder = SQLiteQueryFactory.Delete(tableName);
+            return new DeleteCommandBuilder<T>(builder, deleteQueryBuilder);
         }
     }
 }

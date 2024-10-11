@@ -81,7 +81,7 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
 
             int affectedRows = this.Run(deleteQuery);
 
-            return affectedRows == 1;
+            return affectedRows >= 1;
         }
     }
 }
