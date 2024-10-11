@@ -28,7 +28,7 @@ namespace ARLiteNET.SQLite.QueryBuilders
             {nameof(IConditionQueryBuilder<IConditionalFunctionQueryBuilder>.Or), "OR"},
         };
 
-        public SQLiteDeleteQueryBuilder(): this(null) { }
+        public SQLiteDeleteQueryBuilder(): this(string.Empty) { }
 
         public SQLiteDeleteQueryBuilder(string table) : base(null)
         {
