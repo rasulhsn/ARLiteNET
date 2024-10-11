@@ -83,7 +83,7 @@ public sealed class SQLiteConfigurationFactory : ARLiteConfigurationFactory
          var deleteQuery = this.Query()
                                  .Delete<UserObject>("Users");
 
-         deleteQuery.Column(nameof(UserObject.Id)).EqualTo(id);
+         deleteQuery.Column(x => x.Id).EqualTo(id);
 
          this.Run(deleteQuery);
      }
