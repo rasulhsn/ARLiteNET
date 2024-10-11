@@ -148,10 +148,7 @@ namespace ARLiteNET.SQLite.QueryBuilders
         {
             StringBuilder builder = new StringBuilder();
 
-            if (string.IsNullOrWhiteSpace(_table))
-                throw new ArgumentNullException($"Table name can not be null or empty!");
-
-            builder.Append($"{DELETE} FROM {_table} ");
+            builder.Append($"{DELETE} {FROM} {_tableName} ");
 
             BuildChain(builder, context);
 
