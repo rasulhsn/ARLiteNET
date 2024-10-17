@@ -62,7 +62,7 @@ namespace ARLiteNET
 
         IDbCommand IDbCommandBuilder.Build()
         {
-            InsertDataType _getInsertDataType(Type type)
+            DataType _getInsertDataType(Type type)
             {
                 Type memberType = Nullable.GetUnderlyingType(type) != null ?
                                     Nullable.GetUnderlyingType(type) : type;
@@ -73,7 +73,7 @@ namespace ARLiteNET
                     || memberType.Equals(typeof(double))
                     || memberType.Equals(typeof(float)))
                 {
-                    return InsertDataType.REAL;
+                    return DataType.REAL;
                 }
                 else if (memberType.Equals(typeof(int))
                             || memberType.Equals(typeof(uint))
@@ -82,19 +82,19 @@ namespace ARLiteNET
                             || memberType.Equals(typeof(short))
                             || memberType.Equals(typeof(ushort)))
                 {
-                    return InsertDataType.INTEGER;
+                    return DataType.INTEGER;
                 }
                 else if (memberType.Equals(typeof(bool)))
                 {
-                    return InsertDataType.BOOLEAN;
+                    return DataType.BOOLEAN;
                 }
                 else if (memberType.Equals(typeof(string))
                             || memberType.Equals(typeof(DateTime)))
                 {
-                    return InsertDataType.TEXT;
+                    return DataType.TEXT;
                 }
 
-                return InsertDataType.NULL;
+                return DataType.NULL;
             }
 
             var mapType = Mapper.MapInstance(_instance);
@@ -116,13 +116,13 @@ namespace ARLiteNET
                 mappedTypeMembers = mappedTypeMembers.Where(x => !ignoreMembers.Contains(x.Name));
             }
 
-            InsertValueObject[] insertObjects = new InsertValueObject[mappedTypeMembers.Count()];
+            ColumnValueObject[] insertObjects = new ColumnValueObject[mappedTypeMembers.Count()];
             
             int indexCounter = 0;
             foreach (var member in mappedTypeMembers)
             {
-                InsertDataType dbDataType = _getInsertDataType(member.Type);
-                insertObjects[indexCounter] = new InsertValueObject(member.Name, member.Value, dbDataType);
+                DataType dbDataType = _getInsertDataType(member.Type);
+                insertObjects[indexCounter] = new ColumnValueObject(member.Name, member.Value, dbDataType);
 
                 indexCounter++;
             }

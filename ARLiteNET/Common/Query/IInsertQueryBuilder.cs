@@ -2,6 +2,6 @@
 {
     public interface IInsertQueryBuilder : IQueryBuilder
     {
-        IInsertQueryBuilder Value(params InsertValueObject[] valuesInfo);
+        IInsertQueryBuilder Value(params ColumnValueObject[] valuesInfo);
     }
 }

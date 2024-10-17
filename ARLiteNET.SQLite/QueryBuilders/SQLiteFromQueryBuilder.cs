@@ -26,7 +26,8 @@ namespace ARLiteNET.SQLite
             return this;
         }
 
-        public IWhereQueryBuilder Where(string column) => new SQLiteWhereQueryBuilder(DefaultAlias, column, this);
+        public IWhereQueryBuilder Where(string column) 
+            => new SQLiteWhereQueryBuilder(DefaultAlias, column, this);
 
         public IOrderByQueryBuilder OrderBy()
          => new SQLiteOrderByQueryBuilder(this);

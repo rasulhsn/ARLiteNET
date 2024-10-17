@@ -47,17 +47,19 @@ namespace ARLiteNET.SQLite.Integration.Tests.Stub
             return affectedRows == 1;
         }
 
-        public void Update(UserDtoStub newObject)
+        public bool Update(UserDtoStub newObject)
         {
             // Declarative approach
             var updateQuery = this.Query()
                                     .Update(TABLE_NAME, newObject);
 
-            //updateQuery.Column(nameof(TestUserObject.Id)).EqualTo(newObject.Id);
-            //updateQuery.Column(nameof(TestUserObject.Name)).Only();
-            //updateQuery.Column(nameof(TestUserObject.IsActive)).Only();
+            updateQuery.Column(x => x.BirthDate).Ignore();
+            updateQuery.Column(x => x.Id).Ignore();
+            updateQuery.Column(x => x.Id).EqualTo(newObject.Id);
 
-            this.Run(updateQuery);
+            int affectedRows = this.Run(updateQuery);
+
+            return affectedRows >= 1;
         }
 
         public bool DeleteAll()

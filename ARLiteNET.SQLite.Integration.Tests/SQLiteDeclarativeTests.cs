@@ -29,18 +29,6 @@ namespace ARLiteNET.SQLite.Integration.Tests
 
         [TestMethod]
         [Priority(2)]
-        public void GetAll_WhenCorrectSelectSpecified_ShouldReturnSuccessfullyMappedObject()
-        {
-            SQLiteDeclarativeStub adoObject = new SQLiteDeclarativeStub();
-
-            IEnumerable<UserDtoStub> users = adoObject.GetAll();
-
-            Assert.IsNotNull(users);
-            Assert.IsTrue(users.Any());
-        }
-
-        [TestMethod]
-        [Priority(3)]
         public void GetByName_WhenCorrectWhereClauseWithCondition_ShouldReturnSuccessfullyMappedObject()
         {
             const string name = "Test";
@@ -53,7 +41,36 @@ namespace ARLiteNET.SQLite.Integration.Tests
         }
 
         [TestMethod]
+        [Priority(3)]
+        public void GetAll_WhenCorrectSelectSpecified_ShouldReturnSuccessfullyMappedObject()
+        {
+            SQLiteDeclarativeStub adoObject = new SQLiteDeclarativeStub();
+
+            IEnumerable<UserDtoStub> users = adoObject.GetAll();
+
+            Assert.IsNotNull(users);
+            Assert.IsTrue(users.Any());
+        }
+
+        [TestMethod]
         [Priority(4)]
+        public void Update_WhenCorrectUpdate_ShouldReturnSuccessOfUpdatedObject()
+        {
+            UserDtoStub updateUserStub = new()
+            {
+                Id = 1,
+                Name = "Test1",
+                IsActive = true,
+            };
+            SQLiteDeclarativeStub adoObject = new SQLiteDeclarativeStub();
+
+            bool actualResult = adoObject.Update(updateUserStub);
+
+            Assert.IsTrue(actualResult);
+        }
+
+        [TestMethod]
+        [Priority(5)]
         public void DeleteByName_WhenCorrectDelete_ShouldReturnSuccessOfDeletedObject()
         {
             const string name = "Test";
