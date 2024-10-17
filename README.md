@@ -34,59 +34,85 @@ public sealed class SQLiteConfigurationFactory : ARLiteConfigurationFactory
      public bool IsActive { get; set; }
      public DateTime BirthDate { get; set; }
      
-     public IEnumerable<UserObject> GetAll()
-     {
-         // Declarative approach
-         var selectQuery = this.Query()
-                                .Select<UserObject>("Users");
-
-         return this.RunEnumerable<UserObject>(selectQuery);
-     }
-
-     public IEnumerable<UserObject> GetByName(string name)
-     {
-         // Declarative approach
-         var selectQuery = this.Query()
-                                .Select<UserObject>("Users");
-
-         selectQuery.Column(x => x.Name).EqualTo(name);
-
-         return this.RunEnumerable<UserObject>(selectQuery);
-     }
-
-     public void Add(UserObject newObject)
-     {
-         // Declarative approach
-         var insertQuery = this.Query()
-                                 .Insert("Users", newObject);
-
-         insertQuery.Column(x => x.IsActive).Ignore();
-
-         this.Run(insertQuery);
-     }
-
-     public void Update(UserObject newObject)
-     {
-         // Declarative approach
-         var updateQuery = this.Query()
-                                 .Update("Users", newObject);
-
-         updateQuery.Column(nameof(UserObject.Id)).EqualTo(newObject.Id);
-         updateQuery.Column(nameof(UserObject.IsActive)).Ignore(); // updateQuery.Column(x => x.IsActive).Ignore();
-         
-         this.Run(updateQuery);
-     }
-
-     public void Delete(int id)
-     {
-         // Declarative approach
-         var deleteQuery = this.Query()
-                                 .Delete<UserObject>("Users");
-
-         deleteQuery.Column(x => x.Id).EqualTo(id);
-
-         this.Run(deleteQuery);
-     }
+    public IEnumerable<UserObject> GetAll()
+    {
+        // Declarative approach
+        var selectQuery = base.Query()
+                               .Select<UserObject>("Users");
+    
+        selectQuery.Column(x => x.Id).Only();
+        selectQuery.Column(x => x.Name).Only();
+        selectQuery.Column(x => x.IsActive).Only();
+    
+        return base.RunEnumerable<UserObject>(selectQuery);
+    }
+    
+    public IEnumerable<UserObject> GetByName(string name)
+    {
+        // Declarative approach
+        var selectQuery = this.Query()
+                               .Select<UserObject>("Users");
+    
+        selectQuery.Column(x => x.Id).Only();
+        selectQuery.Column(x => x.Name).Only();
+        selectQuery.Column(x => x.IsActive).Only();
+        selectQuery.Column(x => x.Name).EqualTo(name);
+    
+        return this.RunEnumerable<UserObject>(selectQuery);
+    }
+    
+    public bool Add(UserObject newObject)
+    {
+        // Declarative approach
+        var insertQuery = this.Query()
+                                .Insert("Users", newObject);
+    
+        insertQuery.Column(x => x.Id).Ignore();
+        insertQuery.Column(x => x.BirthDate).Ignore();
+    
+        int affectedRows = this.Run(insertQuery);
+    
+        return affectedRows == 1;
+    }
+    
+    public bool Update(UserObject updateObject)
+    {
+        // Declarative approach
+        var updateQuery = this.Query()
+                                .Update("Users", updateObject);
+    
+        updateQuery.Column(x => x.BirthDate).Ignore();
+        updateQuery.Column(x => x.Id).Ignore();
+        updateQuery.Column(x => x.Id).EqualTo(updateObject.Id);
+    
+        int affectedRows = this.Run(updateQuery);
+    
+        return affectedRows >= 1;
+    }
+    
+    public bool DeleteAll()
+    {
+        // Declarative approach
+        var deleteQuery = this.Query()
+                                .Delete<UserObject>("Users");
+    
+        int affectedRows = this.Run(deleteQuery);
+    
+        return affectedRows >= 1;
+    }
+    
+    public bool DeleteByName(string name)
+    {
+        // Declarative approach
+        var deleteQuery = this.Query()
+                                .Delete<UserObject>("Users");
+    
+        deleteQuery.Column(x => x.Name).EqualTo(name);
+    
+        int affectedRows = this.Run(deleteQuery);
+    
+        return affectedRows >= 1;
+    }
  }
 ```
 ## Raw SQL Approach
