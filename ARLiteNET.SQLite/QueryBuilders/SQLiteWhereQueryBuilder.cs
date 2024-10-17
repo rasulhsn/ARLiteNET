@@ -25,14 +25,14 @@ namespace ARLiteNET.SQLite
         };
 
         private readonly string _firstColumn;
-        private readonly string _alias;
+        private readonly string _tableNameOrAlias;
         private readonly List<string> _conditions;
 
-        public SQLiteWhereQueryBuilder(string alias, string firstColumn, ChainQueryBuilder innerQueryBuilder) : base(innerQueryBuilder)
+        public SQLiteWhereQueryBuilder(string tableNameOrAlias, string firstColumn, ChainQueryBuilder innerQueryBuilder) : base(innerQueryBuilder)
         {
+            _tableNameOrAlias = tableNameOrAlias ?? throw new ArgumentNullException(nameof(tableNameOrAlias));
             _firstColumn = firstColumn ?? throw new ArgumentNullException(nameof(firstColumn));
-            _alias = alias ?? throw new ArgumentNullException(nameof(alias));
-            
+                  
             _conditions = new List<string>
             {
                 $"{WHERE} {GetColumnName(_firstColumn)} "
@@ -116,9 +116,6 @@ namespace ARLiteNET.SQLite
             return this;
         }
 
-        public IOrderByQueryBuilder OrderBy()
-          => new SQLiteOrderByQueryBuilder(this);
-
         public IWhereQueryBuilder And(string column)
         {
             _conditions.Add($"{Symbols[nameof(IConditionQueryBuilder<IWhereQueryBuilder>.And)]} {GetColumnName(column)} ");
@@ -130,6 +127,8 @@ namespace ARLiteNET.SQLite
             _conditions.Add($"{Symbols[nameof(IConditionQueryBuilder<IWhereQueryBuilder>.Or)]} {GetColumnName(column)} ");
             return this;
         }
+        public IOrderByQueryBuilder OrderBy()
+          => new SQLiteOrderByQueryBuilder(this);
 
         protected override string Build(QueryBuilderContext? context = null)
         {
@@ -151,6 +150,6 @@ namespace ARLiteNET.SQLite
         string IQueryBuilder.Build() => Build(null);
 
         private string GetColumnName(string column)
-            => $"{_alias}.{column}";
+            => $"{_tableNameOrAlias}.{column}";
     }
 }

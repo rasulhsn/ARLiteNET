@@ -12,15 +12,15 @@ namespace ARLiteNET.SQLite
         const string VALUES = "VALUES";
 
         private readonly string _tableName;
-        private readonly List<InsertValueObject[]> _values;
+        private readonly List<ColumnValueObject[]> _values;
 
         public SQLiteInsertQueryBuilder(string table)
         {
             _tableName = table ?? throw new ArgumentNullException(nameof(table));
-            _values = new List<InsertValueObject[]>();
+            _values = new List<ColumnValueObject[]>();
         }
 
-        public IInsertQueryBuilder Value(params InsertValueObject[] valuesInfo)
+        public IInsertQueryBuilder Value(params ColumnValueObject[] valuesInfo)
         {
             if (valuesInfo == null)
                 throw new ArgumentNullException("Insert value can't be null or empty!");
@@ -37,8 +37,8 @@ namespace ARLiteNET.SQLite
             builder.Append($"{INSERT} {_tableName} (");
 
             var columns = _values.SelectMany(x => x)
-                                    .Select(x => x.Column)
-                                    .Distinct();
+                                 .Select(x => x.Column)
+                                 .Distinct();
 
             builder.AppendJoin(',', columns);
 
@@ -54,14 +54,14 @@ namespace ARLiteNET.SQLite
 
                 for (int j = 0; j < valueArray.Length; j++)
                 {
-                    if (valueArray[j].DataType == InsertDataType.TEXT)
+                    if (valueArray[j].DataType == DataType.TEXT)
                     {
                         if (j == valueArray.Length - 1)
                             builder.Append($"'{valueArray[j].Value}'");
                         else
                             builder.Append($"'{valueArray[j].Value}',");
                     }
-                    else if (valueArray[j].DataType == InsertDataType.BOOLEAN)
+                    else if (valueArray[j].DataType == DataType.BOOLEAN)
                     {
                         string literallStr = "NULL";
 
@@ -73,7 +73,7 @@ namespace ARLiteNET.SQLite
                         else
                             builder.Append($"{literallStr},");
                     }
-                    else if (valueArray[j].DataType == InsertDataType.NULL)
+                    else if (valueArray[j].DataType == DataType.NULL)
                     {
                         if (j == valueArray.Length - 1)
                             builder.Append($"NULL");

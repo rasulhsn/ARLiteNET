@@ -10,6 +10,9 @@ namespace ARLiteNET.SQLite
 
         public static IInsertQueryBuilder Insert(string table) 
             => new SQLiteInsertQueryBuilder(table);
+        
+        public static IUpdateQueryBuilder Update(string table)
+           => new SQLiteUpdateQueryBuilder(table);
 
         public static IDeleteQueryBuilder Delete(string table) 
             => new SQLiteDeleteQueryBuilder(table);

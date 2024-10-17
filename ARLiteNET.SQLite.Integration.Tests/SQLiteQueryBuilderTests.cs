@@ -61,10 +61,10 @@ namespace ARLiteNET.SQLite.Integration.Tests
             const string expectedQuery = $"INSERT INTO {nameof(UserDtoStub)} ({nameof(UserDtoStub.Name)},{nameof(UserDtoStub.IsActive)}) VALUES ('{nameRaw}',{isActiveRaw}), ('{nameRaw}',{isActiveRaw})";
 
             string generatedQuery = SQLiteQueryFactory.Insert(nameof(UserDtoStub))
-                                                .Value(new InsertValueObject(nameof(UserDtoStub.Name), nameRaw, InsertDataType.TEXT)
-                                                       ,new InsertValueObject(nameof(UserDtoStub.IsActive), isActiveRaw, InsertDataType.INTEGER))
-                                                .Value(new InsertValueObject(nameof(UserDtoStub.Name), nameRaw, InsertDataType.TEXT)
-                                                       ,new InsertValueObject(nameof(UserDtoStub.IsActive), isActiveRaw, InsertDataType.INTEGER))
+                                                .Value(new ColumnValueObject(nameof(UserDtoStub.Name), nameRaw, DataType.TEXT)
+                                                       ,new ColumnValueObject(nameof(UserDtoStub.IsActive), isActiveRaw, DataType.INTEGER))
+                                                .Value(new ColumnValueObject(nameof(UserDtoStub.Name), nameRaw, DataType.TEXT)
+                                                       ,new ColumnValueObject(nameof(UserDtoStub.IsActive), isActiveRaw, DataType.INTEGER))
                                                 .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);
@@ -131,6 +131,38 @@ namespace ARLiteNET.SQLite.Integration.Tests
                                                        .OrderBy()
                                                        .Desc(nameof(UserDtoStub.Id))
                                                        .Build();
+
+            Assert.AreEqual(expectedQuery, generatedQuery);
+        }
+
+        [TestMethod]
+        public void Build_WhenCalledUpdateWithoutConditions_ShouldReturnCorrectQuery()
+        {
+            const string isActiveRaw = "0";
+            const string nameRaw = "rasul";
+            const string expectedQuery = $"UPDATE {nameof(UserDtoStub)} SET {nameof(UserDtoStub.IsActive)} = {isActiveRaw},{nameof(UserDtoStub.Name)} = '{nameRaw}' ";
+
+            string generatedQuery = SQLiteQueryFactory.Update(nameof(UserDtoStub))
+                                                      .Set(new ColumnValueObject(nameof(UserDtoStub.IsActive), isActiveRaw, DataType.INTEGER))
+                                                      .Set(new ColumnValueObject(nameof(UserDtoStub.Name), nameRaw, DataType.TEXT))
+                                                      .Build();
+
+            Assert.AreEqual(expectedQuery, generatedQuery);
+        }
+
+        [TestMethod]
+        public void Build_WhenCalledUpdateWithEqualToCondition_ShouldReturnCorrectQuery()
+        {
+            const string isActiveRaw = "0";
+            const string nameRaw = "rasul";
+            const string expectedQuery = $"UPDATE {nameof(UserDtoStub)} SET {nameof(UserDtoStub.IsActive)} = {isActiveRaw},{nameof(UserDtoStub.Name)} = '{nameRaw}' WHERE Id = 5 ";
+
+            string generatedQuery = SQLiteQueryFactory.Update(nameof(UserDtoStub))
+                                                      .Set(new ColumnValueObject(nameof(UserDtoStub.IsActive), isActiveRaw, DataType.INTEGER))
+                                                      .Set(new ColumnValueObject(nameof(UserDtoStub.Name), nameRaw, DataType.TEXT))
+                                                      .Where(nameof(UserDtoStub.Id))
+                                                      .EqualTo(5)
+                                                      .Build();
 
             Assert.AreEqual(expectedQuery, generatedQuery);
         }

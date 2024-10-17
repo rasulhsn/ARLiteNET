@@ -27,7 +27,8 @@ namespace ARLiteNET.SQLite
         public static UpdateCommandBuilder<T> Update<T>(this
            AdoCommandBuilder builder, string tableName, T instance)
         {
-            throw new NotImplementedException();
+            var updateQueryBuilder = SQLiteQueryFactory.Update(tableName);
+            return new UpdateCommandBuilder<T>(instance, builder, updateQueryBuilder);
         }
 
         public static DeleteCommandBuilder<T> Delete<T>(this

@@ -45,7 +45,7 @@ namespace ARLiteNET
             ExpressionMember expMember = ExpressionMember.Create(member);
 
             if (!expMember.IsFieldOrProperty)
-                throw new ARLiteException(nameof(SelectCommandBuilder<T>), nameof(Column),
+                throw new ARLiteException(nameof(DeleteCommandBuilder<T>), nameof(Column),
                                             new Exception("The class member is not property or field!"));
 
             return Column(expMember.Name);
@@ -53,15 +53,16 @@ namespace ARLiteNET
 
         IDbCommand IDbCommandBuilder.Build()
         {
-            IDbCommand _BuildCommand(object instance)
+            IDbCommand _BuildCommand(IQueryBuilder queryBuilderInstance)
             {
-                string queryStr = ((IQueryBuilder)instance).Build();
+                string queryStr = queryBuilderInstance.Build();
+                
                 _adoCommandBuilder.SetCommand(queryStr);
-
                 return ((IDbCommandBuilder)_adoCommandBuilder).Build();
             }
 
-            var conditionColumns = _columnQueryInfos.Where(x => x.OperationName == nameof(DeleteColumnQuery.EqualTo));
+            var conditionColumns = _columnQueryInfos.Where(x => x.OperationName == nameof(DeleteColumnQuery.EqualTo)
+                                                            || x.OperationName == nameof(DeleteColumnQuery.NotEqualTo));
 
             if (conditionColumns != null && conditionColumns.Any())
             {
@@ -80,7 +81,7 @@ namespace ARLiteNET
                     }
                 }
 
-                return _BuildCommand(queryBuilderInstance);
+                return _BuildCommand(queryBuilderInstance as IQueryBuilder);
             }
 
             return _BuildCommand(_deleteQueryBuilder);
@@ -162,6 +163,30 @@ namespace ARLiteNET
             {
                 _type = typeof(int);
                 _operationName = nameof(EqualTo);
+                _value = value;
+                _and = and;
+            }
+
+            public void NotEqualTo(string value, bool and = true)
+            {
+                _type = typeof(string);
+                _operationName = nameof(NotEqualTo);
+                _value = value;
+                _and = and;
+            }
+
+            public void NotEqualTo(decimal value, bool and = true)
+            {
+                _type = typeof(decimal);
+                _operationName = nameof(NotEqualTo);
+                _value = value;
+                _and = and;
+            }
+
+            public void NotEqualTo(int value, bool and = true)
+            {
+                _type = typeof(int);
+                _operationName = nameof(NotEqualTo);
                 _value = value;
                 _and = and;
             }
