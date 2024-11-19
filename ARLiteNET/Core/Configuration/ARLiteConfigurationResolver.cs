@@ -6,29 +6,45 @@ namespace ARLiteNET.Core
 {
     internal static class ARLiteConfigurationResolver
     {
-        private static ConcurrentDictionary<Type, ARLiteConfigurationFactory> ConfigurationFactories;
+        private static ConcurrentDictionary<Type, ARLiteConfigurationFactory> _configurationFactories;
 
         static ARLiteConfigurationResolver()
         {
-            ConfigurationFactories = new ConcurrentDictionary<Type, ARLiteConfigurationFactory>();
+            _configurationFactories = new ConcurrentDictionary<Type, ARLiteConfigurationFactory>();
         }
 
-        public static ARLiteConfigurationFactory GetConfigurationFactory(Type type)
+        public static ARLiteConfigurationFactory ResolveConfigurationFactory(Type type)
         {
             if (type is null)
                 throw new ArgumentNullException(nameof(type));
 
-            if (ConfigurationFactories.TryGetValue(type, out ARLiteConfigurationFactory value))
+            if (_configurationFactories.TryGetValue(type, out ARLiteConfigurationFactory value))
                 return value;
 
             var resolvedAttribute = type.GetCustomAttribute<ARLiteConfigurationAttribute>();
 
             if (resolvedAttribute is null)
-                throw new Exception($"{nameof(ARLiteConfigurationAttribute)} does't exists!");
+                throw new Exception($"{nameof(ARLiteConfigurationAttribute)} does not exists!");
 
-            ConfigurationFactories.TryAdd(type, resolvedAttribute.Factory);
+            _configurationFactories.TryAdd(type, resolvedAttribute.Factory);
 
             return resolvedAttribute.Factory;
+        }
+
+        public static bool TryResolveConfigurationFactory(Type type, out ARLiteConfigurationFactory resolvedFactory)
+        {
+            try
+            {
+                var factory = ResolveConfigurationFactory(type);
+                resolvedFactory = factory;
+
+                return true;
+            }
+            catch
+            {
+                resolvedFactory = null;
+                return false;
+            }
         }
     }
 }

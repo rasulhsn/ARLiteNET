@@ -67,8 +67,8 @@ namespace ARLiteNET
 
         protected AdoCommandBuilder Query()
         {
-            var factory = ARLiteConfigurationResolver.GetConfigurationFactory(this.GetType());
-            var adoConnectionString = factory.CreateConnectionString();
+            var resolvedFactory = ARLiteConfigurationResolver.ResolveConfigurationFactory(this.GetType());
+            var adoConnectionString = resolvedFactory.CreateConnectionString();
 
             var commandBuilder = new AdoCommandBuilder(adoConnectionString);
 
