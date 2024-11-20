@@ -6,7 +6,7 @@ namespace ARLiteNET.Core
 {
     internal static class ARLiteConfigurationResolver
     {
-        private static ConcurrentDictionary<Type, ARLiteConfigurationFactory> _configurationFactories;
+        private static readonly ConcurrentDictionary<Type, ARLiteConfigurationFactory> _configurationFactories;
 
         static ARLiteConfigurationResolver()
         {
