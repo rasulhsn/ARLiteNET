@@ -25,7 +25,8 @@ namespace ARLiteNET
 
         private static DbProviderFactory GetProvider(AdoConnectionString connectionString)
         {
-            if (!connectionString.HasProviderName) throw new Exception($"The provider name is empty!");
+            if (!connectionString.HasProviderName) 
+                throw new Exception($"The provider name is empty!");
 
             return DbProviderFactories.GetFactory(connectionString.ProviderName);
         }

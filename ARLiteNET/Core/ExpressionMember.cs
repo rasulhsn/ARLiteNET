@@ -36,9 +36,7 @@ namespace ARLiteNET.Core
         {
             get
             {
-                if (Type == typeof(string))
-                    return true;
-                else if (Type.IsClass)
+                if (Type == typeof(string) || Type.IsClass)
                     return true;
                 else
                     return Nullable.GetUnderlyingType(Type) != null;
