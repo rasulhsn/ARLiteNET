@@ -8,11 +8,11 @@ namespace ARLiteNET.Lib.Unit.Tests
     public class ARLiteConfigurationResolverTests
     {
         [TestMethod]
-        public void GetConfigurationFactory_WhenGivenNull_ShouldThrowArgumentNullException() 
-            => Assert.ThrowsException<ArgumentNullException>(() => ARLiteConfigurationResolver.GetConfigurationFactory(null));
+        public void ResolveConfigurationFactory_WhenGivenNull_ShouldThrowArgumentNullException() 
+            => Assert.ThrowsException<ArgumentNullException>(() => ARLiteConfigurationResolver.ResolveConfigurationFactory(null));
 
         [TestMethod]
-        public void GetConfigurationFactory_WhenGivenInvalidType_ShouldThrowException() 
-            => Assert.ThrowsException<Exception>(() => ARLiteConfigurationResolver.GetConfigurationFactory(typeof(ARLiteConfigurationResolverTests)));
+        public void ResolveConfigurationFactory_WhenGivenInvalidType_ShouldThrowException() 
+            => Assert.ThrowsException<Exception>(() => ARLiteConfigurationResolver.ResolveConfigurationFactory(typeof(ARLiteConfigurationResolverTests)));
     }
 }
